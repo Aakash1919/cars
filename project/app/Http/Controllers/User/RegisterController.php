@@ -54,7 +54,7 @@ class RegisterController extends Controller
 	        $input['password'] = bcrypt($request['password']);
 	        $token = md5(time().$request->name.$request->email);
 	        $input['verification_link'] = $token;
-			    $user = User::create($input);
+			$user = User::create($input);
 	        $to = $request->email;
 	        $subject = 'Verify your email address.';
 	        $msg = "Dear Customer,<br> We noticed that you need to verify your email address. <a href=".url('register/verify/'.$token).">Simply click here to verify. </a>";
