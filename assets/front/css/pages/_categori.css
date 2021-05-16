@@ -1,0 +1,58 @@
+/*-------------------------------
+ Serch Area CSS Start
+--------------------------------*/
+.serch-area {
+  padding: 242px 0px 370px;
+  background: url(../images/herobg.jpg);
+  background-position: center bottom;
+  background-size: cover;
+  background-repeat: no-repeat;
+  position: relative; }
+  .serch-area .content .heading-area {
+    margin-bottom: 30px;
+    text-align: center; }
+    .serch-area .content .heading-area .title {
+      font-size: 50px;
+      font-weight: 600; }
+    .serch-area .content .heading-area .sub-title {
+      font-size: 22px; }
+  .serch-area .content .select-list {
+    display: -webkit-box;
+    display: -ms-flexbox;
+    display: flex; }
+    .serch-area .content .select-list li {
+      -webkit-box-flex: 1;
+      -ms-flex: 1;
+      flex: 1;
+      padding: 0px 10px;
+      display: inline-block; }
+      .serch-area .content .select-list li .js-example-basic-single {
+        width: 100%;
+        height: 50px !important; }
+        .serch-area .content .select-list li .js-example-basic-single:focus {
+          outline: none; }
+      .serch-area .content .select-list li .select2-container .select2-selection--single {
+        height: 50px;
+        line-height: 50px;
+        border-radius: 50px;
+        padding: 0px 15px;
+        border: 1px solid rgba(0, 0, 0, 0.15); }
+        .serch-area .content .select-list li .select2-container .select2-selection--single:focus {
+          outline: 0px; }
+      .serch-area .content .select-list li .select2-container--default .select2-selection--single .select2-selection__rendered {
+        line-height: 50px; }
+      .serch-area .content .select-list li .select2-container--default .select2-selection--single .select2-selection__arrow {
+        line-height: 50px;
+        height: 50px; }
+      .serch-area .content .select-list li .select2-container--default .select2-selection--single {
+        background: rgba(255, 255, 255, 0.5); }
+  .serch-area .content .mybtn1 {
+    margin: 0 auto;
+    display: block;
+    width: 170px;
+    text-align: center;
+    margin-top: 30px; }
+
+/*-------------------------------
+ Serch Area CSS Start
+--------------------------------*/
