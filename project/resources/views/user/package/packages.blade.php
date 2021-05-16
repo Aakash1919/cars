@@ -21,95 +21,55 @@
         <div class="row px-5">
             <div class="col-lg-12">
                 @if (empty(Auth::user()->current_plan))
-                <div class="alert alert-warning" role="alert">
-                    <p class="mb-0">You haven't bought any package yet. <strong>To publish your ad</strong> please buy a package from below options.</p>
-                </div>
+                    <div class="alert alert-warning" role="alert">
+                        <p class="mb-0">You haven't bought any package yet. <strong>To publish your ad</strong> please buy a package from below options.</p>
+                    </div>
                 @else
-                <div class="alert alert-warning" role="alert">
-                    <p class="mb-0">{{$langg->lang145}} <strong>{{ $boughtPlan->title }}</strong>.
-                        @if (!empty($boughtPlan->days))
-                        {{$langg->lang146}} <strong>{{ date('jS M, o', strtotime(Auth::user()->expired_date)) }}</strong>.
-                        @else
-                        The validity of this package is <strong>Lifetime</strong>.
-                        @endif
-                    </p>
-                </div>
-                @endif
-            </div><!--
-          </div>-->
-
-            <div class="row px-5 pt-4">
-                <!--        @if (count($plans) == 0)
-                          <div class="col-lg-12">
-                            <h4 class="text-center">NO PACKAGE FOUND</h4>
-                          </div>
-                        @else-->
-                <!--@foreach ($plans as $key => $plan)-->
-<!--                <div class="col-lg-4">
-                    <div class="elegant-pricing-tables style-2 text-center px-4 pb-5">
-                        <div class="pricing-head">
-                            <h3>Seller</h3>
-                            <span class="price">
-                                <sup>$ </sup>
-                                <span class="price-digit">0</span><br>
-                                <span class="price-month">/ week</span>
-                            </span>
-                        </div>
-                        <div class="pricing-detail">
-                            <ul class="list">
-                                <li>Basic Vehicle Information <i class="fa fa-check"></i></li>
-                                <li>List Car $4.95 / per car</li>
-                                <li>Full Vehicle Information <i class="fa fa-fa-close"></i></li>
-                                <li>Bid On Vehicles <i class="fa fa-fa-close"></i></li>
-                                <li></li>
-                            </ul>
-                            <span>{{ $plan->details }}</span>
-                        </div>
-                        <a href="#" class="btn btn-default mb-0">Get Started</a>
+                    <div class="alert alert-warning" role="alert">
+                        <p class="mb-0">{{$langg->lang145}} <strong>{{ $boughtPlan->title }}</strong>.
+                            @if (!empty($boughtPlan->days))
+                                {{$langg->lang146}} <strong>{{ date('jS M, o', strtotime(Auth::user()->expired_date)) }}</strong>.
+                            @else
+                                The validity of this package is <strong>Lifetime</strong>.
+                            @endif
+                        </p>
                     </div>
-                </div>
-                @endforeach
-                <div class="col-12">
-                    <p class="mb-0 mt-4 text-center text-danger"><strong>{{$langg->lang150}}: {{$langg->lang151}}.</strong></p>
-                </div>
                 @endif
-            </div>-->
+            </div>
 
-        </div>
-    </div>
-    <div class="add-product-content py-5">
-        <div class="row px-5">
-            @if (count($plans) == 0)
-                <div class="col-lg-12">
-                    <h4 class="text-center">NO PACKAGE FOUND</h4>
-                </div>
-            @else
-                @foreach ($plans as $key => $plan)
-                <div class="col-lg-4">
-                    <div class="elegant-pricing-tables style-2 text-center px-4 pb-5 custom-pricing">
-                        <div class="pricing-head">
-                            <h3>{{$plan->title ?? 'Lorem'}}</h3>
-                            <span class="price">
-                                <sup>$ </sup>
-                                <span class="price-digit">{{ number_format($plan->price,0) ?? 0}}</span><br>
-                                <span class="price-month">/ week</span>
-                            </span>
-                        </div>
-                        <div class="pricing-detail">
-                            {!!  $plan->details ?? 'No Detail Dound' !!}
-                        </div>
-                        @if ($plan->id == Auth::user()->current_plan)
-                            <a href="{{ route('user-select-payment', $plan->id) }}" class="btn btn-default mb-0">{{$langg->lang149}}</a>
-                        @else
-                            <a href="{{ route('user-select-payment', $plan->id) }}" class="btn btn-default mb-0">{{$langg->lang148}}</a>
-                        @endif
+            <div class="row px-5">
+                @if (count($plans) == 0)
+                    <div class="col-lg-12">
+                        <h4 class="text-center">NO PACKAGE FOUND</h4>
                     </div>
-                </div>
-                @endforeach
-                <div class="col-12">
-                    <p class="mb-0 mt-4 text-center text-danger"><strong>{{$langg->lang150}}: {{$langg->lang151}}.</strong></p>
-                </div>
-            @endif
+                @else
+                    @foreach ($plans as $key => $plan)
+                    <div class="col-lg-4">
+                        <div class="elegant-pricing-tables style-2 text-center px-4 pb-5 custom-pricing">
+                            <div class="pricing-head">
+                                <h3>{{$plan->title ?? 'Lorem'}}</h3>
+                                <span class="price">
+                                    <sup>$ </sup>
+                                    <span class="price-digit">{{ number_format($plan->price,0) ?? 0}}</span><br>
+                                    <span class="price-month">/ week</span>
+                                </span>
+                            </div>
+                            <div class="pricing-detail">
+                                {!!  $plan->details ?? 'No Detail Dound' !!}
+                            </div>
+                            @if ($plan->id == Auth::user()->current_plan)
+                                <a href="{{ route('user-select-payment', $plan->id) }}" class="btn btn-default mb-0">{{$langg->lang149}}</a>
+                            @else
+                                <a href="{{ route('user-select-payment', $plan->id) }}" class="btn btn-default mb-0">{{$langg->lang148}}</a>
+                            @endif
+                        </div>
+                    </div>
+                    @endforeach
+                    <div class="col-12">
+                        <p class="mb-0 mt-4 text-center text-danger"><strong>{{$langg->lang150}}: {{$langg->lang151}}.</strong></p>
+                    </div>
+                @endif
+            </div>
         </div>
     </div>
     @endsection
