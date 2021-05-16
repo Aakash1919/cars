@@ -555,9 +555,10 @@
 /*----------------------------------
 Breadcrumb Area Start
 ------------------------------------*/
+
 .breadcrumb-area {
-    padding: 190px 0px 95px;
-    background: url(../images/breadcrumb.jpg);
+    padding: 100px 0px 60px;
+    background: url(../images/inner-bg.jpg);
     background-repeat: no-repeat !important;
     background-position: center bottom !important;
     background-size: cover !important;
@@ -567,6 +568,7 @@ Breadcrumb Area Start
     font-weight: 600;
     font-size: 40px;
     line-height: 50px;
+    color: #fff;
 }
 .breadcrumb-area .pages li {
     display: inline-block; }
@@ -928,6 +930,8 @@ color: #fff;}
     -webkit-transition: all 0.3s ease-in;
     -o-transition: all 0.3s ease-in;
     transition: all 0.3s ease-in;
+    border-radius: 10px;
+    overflow: hidden;
     display: block; }
 .car-info-box .img-area img {
     width: 100%; }
@@ -3808,6 +3812,13 @@ footer.footer .row > .col-lg-4:first-child{
     border-radius: 5px;
     background: transparent;
 }
+.main-filter .card-header{
+    padding: 0;
+}
+.main-filter .card-header> span{
+    padding: 15px;
+    display: block;
+}
 .main-filter .card-body{
     padding: 0 15px 10px;
 }
@@ -3839,6 +3850,36 @@ footer.footer .row > .col-lg-4:first-child{
 .filter-list-count li:last-child{
     border-bottom: none;
 }
-
+.custom-filter{
+    border-bottom: 1px solid #ddd;
+    padding-bottom: 30px;
+    margin-bottom: 30px;
+}
+.custom-filter h5{
+    font-size: 18px;
+    color: #01ae4f;
+    margin-bottom: 20px;
+    font-weight: 600;
+}
+.custom-filter .form-check input{
+    margin-right: 10px;
+}
+.custom-filter .form-check {
+    margin-bottom: 5px;
+}
+.custom-filter .form-check:last-child, .custom-filter .form-check:last-child label {
+    margin-bottom: 0;
+}
+.year-filter .form-control{
+    border: 1px solid #ddd;
+    background: transparent;
+}
+.btn-custom{
+    background: #01ae4f;
+    color: #fff;
+}
+.pages a{
+    color: #fff;
+}
 
 /*SWE added css end*/

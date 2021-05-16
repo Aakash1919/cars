@@ -36,60 +36,119 @@
                         <div class="left-area">
                             <h4>Search Filters</h4>
                             <div class="main-filter">
-                                <div id="accordion">
-                                    <div class="card">
-                                        <div class="card-header" id="make"> 
-                                            <span data-toggle="collapse" data-target="#collapseOne" aria-expanded="true" aria-controls="collapseOne">
-                                                <p class="mb-0">
-                                                    Make
-                                                </p>
-                                            </span>
-                                        </div>
+                                <div class="custom-filter">
+                                    
+                                    <div id="accordion">
+                                        <div class="card">
+                                            <div class="card-header" id="make"> 
+                                                <span data-toggle="collapse" data-target="#collapseOne" aria-expanded="true" aria-controls="collapseOne">
+                                                    <p class="mb-0">
+                                                        Make
+                                                    </p>
+                                                </span>
+                                            </div>
 
-                                        <div id="collapseOne" class="collapse" aria-labelledby="make" data-parent="#accordion">
-                                            <div class="card-body">
-                                                <ul class="filter-list-count">
-                                                    <li><a href="#"><span>BMW</span> <span>(2)</span></a></li>
-                                                    <li><a href="#"><span>Mercedes Benz</span> <span>(2)</span></a></li>
-                                                    <li><a href="#"><span>Mazda</span> <span>(2)</span></a></li>
-                                                    <li><a href="#"><span>Volvo</span> <span>(2)</span></a></li>
-                                                    <li><a href="#"><span>Honda</span> <span>(2)</span></a></li>
-                                                    <li><a href="#"><span>Toyota</span> <span>(2)</span></a></li>
-                                                    <li><a href="#"><span>Ford</span> <span>(2)</span></a></li>
-                                                </ul>
+                                            <div id="collapseOne" class="collapse" aria-labelledby="make" data-parent="#accordion">
+                                                <div class="card-body">
+                                                    <ul class="filter-list-count">
+                                                        <li><a href="#"><span>BMW</span> <span>(2)</span></a></li>
+                                                        <li><a href="#"><span>Mercedes Benz</span> <span>(2)</span></a></li>
+                                                        <li><a href="#"><span>Mazda</span> <span>(2)</span></a></li>
+                                                        <li><a href="#"><span>Volvo</span> <span>(2)</span></a></li>
+                                                        <li><a href="#"><span>Honda</span> <span>(2)</span></a></li>
+                                                        <li><a href="#"><span>Toyota</span> <span>(2)</span></a></li>
+                                                        <li><a href="#"><span>Ford</span> <span>(2)</span></a></li>
+                                                    </ul>
+                                                </div>
+                                            </div>
+                                        </div>                          
+                                    </div>
+                                </div>
+
+                                <div class="custom-filter">
+                                    <h5>Model</h5>
+                                    <div class="form-check">
+                                        <label>
+                                            <input class="form-check-input position-static" type="checkbox" id="blankCheckbox" value="option1" aria-label="..."> M3 Coupe (2)
+                                        </label>
+                                    </div>                                
+                                    <div class="form-check">
+                                        <label>
+                                            <input class="form-check-input position-static" type="checkbox" id="blankCheckbox" value="option1" aria-label="..."> M3 (5)
+                                        </label>
+                                    </div>                                
+                                    <div class="form-check">
+                                        <label>
+                                            <input class="form-check-input position-static" type="checkbox" id="blankCheckbox" value="option1" aria-label="..."> i300 (1)
+                                        </label>
+                                    </div>                                
+                                    <div class="form-check">
+                                        <label>
+                                            <input class="form-check-input position-static" type="checkbox" id="blankCheckbox" value="option1" aria-label="..."> i720 (25)
+                                        </label>
+                                    </div>                                
+                                    <div class="form-check">
+                                        <label>
+                                            <input class="form-check-input position-static" type="checkbox" id="blankCheckbox" value="option1" aria-label="..."> i8 (15)
+                                        </label>
+                                    </div>                                
+                                    <div class="form-check">
+                                        <label>
+                                            <input class="form-check-input position-static" type="checkbox" id="blankCheckbox" value="option1" aria-label="..."> Sedan i220 (9)
+                                        </label>
+                                    </div>                                
+                                </div>
+                                <div class="year-filter custom-filter">
+                                    <h5>Year</h5>
+                                    <form>
+                                        <div class="row">
+                                            <div class="col">
+                                                <div class="form-group">
+                                                    <label>From</label>
+                                                    <input type="number" class="form-control" value="2015">
+                                                </div>
+                                            </div>
+                                            <div class="col">
+                                                <div class="form-group">
+                                                    <label>To</label>
+                                                    <input type="number" class="form-control" value="2021">
+                                                </div>
                                             </div>
                                         </div>
-                                    </div>                                 
-                                  <div class="card">
-                                      <div class="card-header" id="headingTwo">
-                                              <button class="btn btn-link collapsed" data-toggle="collapse" data-target="#collapseTwo" aria-expanded="false" aria-controls="collapseTwo">
-                                          <h5 class="mb-0">
-                                                  Collapsible Group Item #2
-                                          </h5>
-                                              </button>
-                                      </div>
-                                      <div id="collapseTwo" class="collapse" aria-labelledby="headingTwo" data-parent="#accordion">
-                                          <div class="card-body">
-                                              Anim pariatur cliche reprehenderit, enim eiusmod high life accusamus terry richardson ad squid. 3 wolf moon officia aute, non cupidatat skateboard dolor brunch. Food truck quinoa nesciunt laborum eiusmod. Brunch 3 wolf moon tempor, sunt aliqua put a bird on it squid single-origin coffee nulla assumenda shoreditch et. Nihil anim keffiyeh helvetica, craft beer labore wes anderson cred nesciunt sapiente ea proident. Ad vegan excepteur butcher vice lomo. Leggings occaecat craft beer farm-to-table, raw denim aesthetic synth nesciunt you probably haven't heard of them accusamus labore sustainable VHS.
-                                          </div>
-                                      </div>
-                                  </div>
-                                  <div class="card">
-                                      <div class="card-header" id="headingThree">
-                                              <button class="btn btn-link collapsed" data-toggle="collapse" data-target="#collapseThree" aria-expanded="false" aria-controls="collapseThree">
-                                          <h5 class="mb-0">
-                                                  Collapsible Group Item #3
-                                          </h5>
-                                              </button>
-                                      </div>
-                                      <div id="collapseThree" class="collapse" aria-labelledby="headingThree" data-parent="#accordion">
-                                          <div class="card-body">
-                                              Anim pariatur cliche reprehenderit, enim eiusmod high life accusamus terry richardson ad squid. 3 wolf moon officia aute, non cupidatat skateboard dolor brunch. Food truck quinoa nesciunt laborum eiusmod. Brunch 3 wolf moon tempor, sunt aliqua put a bird on it squid single-origin coffee nulla assumenda shoreditch et. Nihil anim keffiyeh helvetica, craft beer labore wes anderson cred nesciunt sapiente ea proident. Ad vegan excepteur butcher vice lomo. Leggings occaecat craft beer farm-to-table, raw denim aesthetic synth nesciunt you probably haven't heard of them accusamus labore sustainable VHS.
-                                          </div>
-                                      </div>
-                                  </div>                            
+                                        <button class="btn btn-md btn-custom">Apply</button>
+                                    </form>               
                                 </div>
-                                                               
+                                <div class="custom-filter">
+                                    <h5>Transmission</h5>
+                                    <div class="form-check">
+                                        <label>
+                                            <input class="form-check-input position-static" type="checkbox" id="blankCheckbox" value="option1" aria-label="..."> Automatic (35)
+                                        </label>
+                                    </div>                                
+                                    <div class="form-check">
+                                        <label>
+                                            <input class="form-check-input position-static" type="checkbox" id="blankCheckbox" value="option1" aria-label="..."> Manual (20)
+                                        </label>
+                                    </div>                    
+                                </div>
+                                <div class="custom-filter">
+                                    <h5>Engine Capacity</h5>
+                                    <div class="form-check">
+                                        <label>
+                                            <input class="form-check-input position-static" type="checkbox" id="blankCheckbox" value="option1" aria-label="..."> 1.2L (35)
+                                        </label>
+                                    </div>                                
+                                    <div class="form-check">
+                                        <label>
+                                            <input class="form-check-input position-static" type="checkbox" id="blankCheckbox" value="option1" aria-label="..."> 1.6L (20)
+                                        </label>
+                                    </div>                    
+                                    <div class="form-check">
+                                        <label>
+                                            <input class="form-check-input position-static" type="checkbox" id="blankCheckbox" value="option1" aria-label="..."> 1.8L (20)
+                                        </label>
+                                    </div>                    
+                                </div>
                             </div>
 <!--                            <div class="filter-result-area">
                                 <div class="header-area">
@@ -141,7 +200,7 @@
                                     </div>
                                 </div>
                             </div>-->
-                            <div class="design-area">
+<!--                            <div class="design-area">
                                 <div class="header-area">
                                     <h4 class="title">
                                         {{ $langg->lang36 }}
@@ -174,8 +233,8 @@
                                         </div>
                                     </ul>
                                 </div>
-                            </div>
-                            <div class="categori-select-area">
+                            </div>-->
+<!--                            <div class="categori-select-area">
                                 <div class="header-area">
                                     <h4 class="title">
                                         {{ $langg->lang40 }}
@@ -185,12 +244,13 @@
                                     <select name="fuel_type_id" id="selFuel">
                                         <option selected disabled value="">{{ $langg->lang41 }}</option>
                                         @foreach ($ftypes as $key => $ftype)
+                                        
                                         <option value="{{ $ftype->id }}" {{ request()->input('fuel_type_id') == $ftype->id ? 'selected' : '' }}>{{ $ftype->name }}</option>
                                         @endforeach
                                     </select>
                                 </div>
-                            </div>
-                            <div class="categori-select-area">
+                            </div>-->
+<!--                            <div class="categori-select-area">
                                 <div class="header-area">
                                     <h4 class="title">
                                         {{ $langg->lang42 }}
@@ -204,8 +264,8 @@
                                         @endforeach
                                     </select>
                                 </div>
-                            </div>
-                            <div class="categori-select-area">
+                            </div>-->
+<!--                            <div class="categori-select-area">
                                 <div class="header-area">
                                     <h4 class="title">
                                         {{ $langg->lang44 }}
@@ -219,7 +279,7 @@
                                         @endforeach
                                     </select>
                                 </div>
-                            </div>
+                            </div>-->
                         </div>
                     </div>
                     <div class="col-lg-9 order-first order-lg-last">
