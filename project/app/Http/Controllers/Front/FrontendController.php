@@ -106,11 +106,11 @@ class FrontendController extends Controller
 		public function cars(Request $request) {
 
 			$data['brands'] = Brand::where('status', 1)->get();
-      $data['cats'] = Category::where('status', 1)->get();
-      $data['conditions'] = Condtion::where('status', 1)->get();
-      $data['btypes'] = BodyType::where('status', 1)->get();
-      $data['ftypes'] = FuelType::where('status', 1)->get();
-      $data['ttypes'] = TransmissionType::where('status', 1)->get();
+			$data['cats'] = Category::where('status', 1)->get();
+			$data['conditions'] = Condtion::where('status', 1)->get();
+			$data['btypes'] = BodyType::where('status', 1)->get();
+			$data['ftypes'] = FuelType::where('status', 1)->get();
+			$data['ttypes'] = TransmissionType::where('status', 1)->get();
 
 			$data['minprice'] = Car::min('regular_price');
 			$data['maxprice'] = Car::max('regular_price');
@@ -129,41 +129,41 @@ class FrontendController extends Controller
 			$data['cars'] = Car::when($category, function ($query, $category) {
 					                    return $query->where('category_id', $category);
 					                })
-													->when($minprice, function($query, $minprice) {
-														return $query->where('search_price', '>=', $minprice);
-													})
-													->when($maxprice, function($query, $maxprice) {
-														return $query->where('search_price', '<=', $maxprice);
-													})
-													->when($brands, function($query, $brands) {
-														return $query->whereIn('brand_id', $brands);
-													})
-													->when($ftype, function ($query, $ftype) {
-															return $query->where('fuel_type_id', $ftype);
-													})
-													->when($ttype, function ($query, $ttype) {
-															return $query->where('transmission_type_id', $ttype);
-													})
-													->when($condition, function ($query, $condition) {
-															return $query->where('condtion_id', $condition);
-													})
-													->when($sort, function ($query, $sort) {
-															if ($sort == 'desc') {
-																return $query->orderBy('id', 'DESC');
-															} elseif ($sort == 'asc') {
-																return $query->orderBy('id', 'ASC');
-															} elseif ($sort == 'price_desc') {
-																return $query->orderBy('search_price', 'DESC');
-															} elseif ($sort == 'price_asc') {
-																return $query->orderBy('search_price', 'ASC');
-															}
-													})
-													->when($type, function ($query, $type) {
-														if ($type == 'featured') {
-															return $query->where('featured', 1);
-														}
-													})
-													->where('status', 1)->where('admin_status', 1)->paginate($view);
+									->when($minprice, function($query, $minprice) {
+										return $query->where('search_price', '>=', $minprice);
+									})
+									->when($maxprice, function($query, $maxprice) {
+										return $query->where('search_price', '<=', $maxprice);
+									})
+									->when($brands, function($query, $brands) {
+										return $query->whereIn('brand_id', $brands);
+									})
+									->when($ftype, function ($query, $ftype) {
+											return $query->where('fuel_type_id', $ftype);
+									})
+									->when($ttype, function ($query, $ttype) {
+											return $query->where('transmission_type_id', $ttype);
+									})
+									->when($condition, function ($query, $condition) {
+											return $query->where('condtion_id', $condition);
+									})
+									->when($sort, function ($query, $sort) {
+											if ($sort == 'desc') {
+												return $query->orderBy('id', 'DESC');
+											} elseif ($sort == 'asc') {
+												return $query->orderBy('id', 'ASC');
+											} elseif ($sort == 'price_desc') {
+												return $query->orderBy('search_price', 'DESC');
+											} elseif ($sort == 'price_asc') {
+												return $query->orderBy('search_price', 'ASC');
+											}
+									})
+									->when($type, function ($query, $type) {
+										if ($type == 'featured') {
+											return $query->where('featured', 1);
+										}
+									})
+									->where('status', 1)->where('admin_status', 1)->paginate($view);
 
 			return view('front.cars', $data);
 		}

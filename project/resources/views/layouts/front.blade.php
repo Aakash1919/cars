@@ -39,12 +39,12 @@ gtag('js', new Date());
 gtag('config', '{{ $seo->google_analytics }}');
         </script>
     </head>
-
     <body>
-
         @if($gs->is_loader == 1)
         <div class="preloader" id="preloader" style="background: url({{asset('assets/front/images/loader.gif')}}) no-repeat scroll center center #FFF;"></div>
         @endif
+<body>
+		
 
 
         <!--Main-Menu Area Start-->
@@ -99,7 +99,6 @@ gtag('config', '{{ $seo->google_analytics }}');
 <!--                                    <li class="nav-item">
                                         <a class="nav-link @if(request()->path() == 'blog') active @endif" href="{{ route('front.blog') }}">{{ $langg->lang5 }}</a>
                                     </li>-->
-
                                     @if ($ps->is_contact == 1)
                                     <li class="nav-item">
                                         <a class="nav-link @if(request()->path() == 'contact') active @endif" href="{{ route('front.contact') }}">{{ $langg->lang6 }} </a>
@@ -121,7 +120,7 @@ gtag('config', '{{ $seo->google_analytics }}');
             </div>
         </div>
         <!--Main-Menu Area Start-->
-
+        @include('includes.form-success')
         @yield('content')
 
         <!-- Footer Area Start -->
@@ -140,7 +139,6 @@ gtag('config', '{{ $seo->google_analytics }}');
                                     {{ $gs->footer }}
                                 </p>
                             </div>
-
                         </div>
                     </div>
                     <div class="col-md-6 col-lg-4">
@@ -220,7 +218,6 @@ gtag('config', '{{ $seo->google_analytics }}');
                                     </ul>
                                 </div>
                             </div>
-
                         </div>
                     </div>
                 </div>
@@ -260,11 +257,10 @@ gtag('config', '{{ $seo->google_analytics }}');
         <!-- main -->
         <script src="{{asset('assets/front/js/main.js')}}"></script>
         <script>
-var gs = @php echo json_encode($gs) @endphp;
+        var gs = @php echo json_encode($gs) @endphp;
         </script>
         <!-- custom -->
         <script src="{{asset('assets/front/js/custom.js')}}"></script>
-
         @yield('scripts')
     </body>
 
