@@ -13,7 +13,7 @@ class PackageController extends Controller
 {
     public function package()
     {
-        $data['plans'] = Plan::where('status', 1)->orderBy('id', 'DESC')->get();
+        $data['plans'] = Plan::where('status', 1)->orderBy('id', 'ASC')->get();
         $data['boughtPlan'] = '';
         if (!empty(Auth::user()->current_plan)) {
           $data['boughtPlan'] = Plan::find(Auth::user()->current_plan);
@@ -23,10 +23,10 @@ class PackageController extends Controller
 
     public function selectPayment($id)
     {
-        if (empty(Auth::user()->category_id)) {
-          Session::flash('error', 'Please fill up your inforamtions first!');
-          return back();
-        }
+        // if (empty(Auth::user()->category_id)) {
+        //   Session::flash('error', 'Please fill up your inforamtions first!');
+        //   return back();
+        // }
         $plan = Plan::findOrFail($id);
         $user = Auth::user();
         return view('user.package.payment',compact('user','plan'));

@@ -79,69 +79,37 @@
     </div>
     <div class="add-product-content py-5">
         <div class="row px-5">
-            <div class="col-lg-4">
-                <div class="elegant-pricing-tables style-2 text-center px-4 pb-5 custom-pricing">
-                    <div class="pricing-head">
-                        <h3>Seller</h3>
-                        <span class="price">
-                            <sup>$ </sup>
-                            <span class="price-digit">0</span><br>
-                            <span class="price-month">/ week</span>
-                        </span>
-                    </div>
-                    <div class="pricing-detail">
-                        <ul class="list">
-                            <li>Basic Vehicle Information <i class="fa fa-check"></i></li>
-                            <li>List Car Price <span class="badge custom-badge">$9.95 / per listing</span></li>
-                            <li>Full Vehicle Information <i class="fa fa-times"></i></li>
-                            <li>Bid On Vehicles <i class="fa fa-times"></i></li>
-                        </ul>
-                    </div>
-                    <a href="#" class="btn btn-default mb-0">Get Started</a>
+            @if (count($plans) == 0)
+                <div class="col-lg-12">
+                    <h4 class="text-center">NO PACKAGE FOUND</h4>
                 </div>
-            </div>
-            <div class="col-lg-4">
-                <div class="elegant-pricing-tables style-2 text-center px-4 pb-5 custom-pricing">
-                    <div class="pricing-head">
-                        <h3>Buyer/Seller</h3>
-                        <span class="price">
-                            <sup>$ </sup>
-                            <span class="price-digit">60</span><br>
-                            <span class="price-month">/ week</span>
-                        </span>
+            @else
+                @foreach ($plans as $key => $plan)
+                <div class="col-lg-4">
+                    <div class="elegant-pricing-tables style-2 text-center px-4 pb-5 custom-pricing">
+                        <div class="pricing-head">
+                            <h3>{{$plan->title ?? 'Lorem'}}</h3>
+                            <span class="price">
+                                <sup>$ </sup>
+                                <span class="price-digit">{{ number_format($plan->price,0) ?? 0}}</span><br>
+                                <span class="price-month">/ week</span>
+                            </span>
+                        </div>
+                        <div class="pricing-detail">
+                            {!!  $plan->details ?? 'No Detail Dound' !!}
+                        </div>
+                        @if ($plan->id == Auth::user()->current_plan)
+                            <a href="{{ route('user-select-payment', $plan->id) }}" class="btn btn-default mb-0">{{$langg->lang149}}</a>
+                        @else
+                            <a href="{{ route('user-select-payment', $plan->id) }}" class="btn btn-default mb-0">{{$langg->lang148}}</a>
+                        @endif
                     </div>
-                    <div class="pricing-detail">
-                        <ul class="list">
-                            <li>Advanced Vehicle Information <i class="fa fa-check"></i></li>
-                            <li>List Car price <span class="badge custom-badge">$4.95 / per listing</span></li>
-                            <li>Full Vehicle Information <i class="fa fa-check"></i></li>
-                            <li>Bid On Vehicles <i class="fa fa-check"></i></li>
-                        </ul>
-                    </div>
-                    <a href="#" class="btn btn-default mb-0">Get Started</a> 
                 </div>
-            </div>
-            <div class="col-lg-4">
-                <div class="elegant-pricing-tables style-2 text-center px-4 pb-5 custom-pricing">
-                    <div class="pricing-head">
-                        <h3>Wholesaler</h3>
-                        <span class="price">
-                            <sup>$ </sup>
-                            <span class="price-digit">99</span><br>
-                            <span class="price-month">/ week</span>
-                        </span>
-                    </div>
-                    <div class="pricing-detail">
-                        <ul class="list">
-                            <li>Advanced  Vehicle Information <i class="fa fa-check"></i></li>
-                            <li>Unlimited <span class="badge custom-badge">Free Listing</span></li>
-                            <li>Full Vehicle Information <i class="fa fa-check"></i></li>
-                            <li>Bid On Vehicles <i class="fa fa-check"></i></li>
-                        </ul>
-                    </div>
-                    <a href="#" class="btn btn-default mb-0">Get Started</a>
+                @endforeach
+                <div class="col-12">
+                    <p class="mb-0 mt-4 text-center text-danger"><strong>{{$langg->lang150}}: {{$langg->lang151}}.</strong></p>
                 </div>
-            </div>
+            @endif
         </div>
     </div>
     @endsection
