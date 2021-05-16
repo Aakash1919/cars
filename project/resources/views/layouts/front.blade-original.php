@@ -65,17 +65,8 @@ gtag('config', '{{ $seo->google_analytics }}');
                                     <li class="nav-item">
                                         <a class="nav-link @if(request()->path() == '/') active @endif" href="{{ route('front.index') }}">{{ $langg->lang1 }}</a>
                                     </li>
-<!--                                    <li class="nav-item">
-                                        <a class="nav-link">Auctions</a>
-                                    </li>-->
                                     <li class="nav-item">
                                         <a class="nav-link @if(request()->path() == 'cars') active @endif" href="{{ route('front.cars') }}">{{ $langg->lang2 }}</a>
-                                    </li>
-                                    <li class="nav-item">
-                                        <a class="nav-link">Buy</a>
-                                    </li>
-                                    <li class="nav-item">
-                                        <a class="nav-link">Sell</a>
                                     </li>
                                     @if (!empty($menus))
                                     <li class="nav-item dropdown">
@@ -90,15 +81,15 @@ gtag('config', '{{ $seo->google_analytics }}');
                                         </div>
                                     </li>
                                     @endif
-<!--                                    @if ($gs->is_faq == 1)
+                                    @if ($gs->is_faq == 1)
                                     <li class="nav-item">
                                         <a class="nav-link @if(request()->path() == 'faq') active @endif" href="{{ route('front.faq') }}">{{ $langg->lang4 }}</a>
                                     </li>
-                                    @endif-->
+                                    @endif
 
-<!--                                    <li class="nav-item">
+                                    <li class="nav-item">
                                         <a class="nav-link @if(request()->path() == 'blog') active @endif" href="{{ route('front.blog') }}">{{ $langg->lang5 }}</a>
-                                    </li>-->
+                                    </li>
 
                                     @if ($ps->is_contact == 1)
                                     <li class="nav-item">
@@ -146,29 +137,46 @@ gtag('config', '{{ $seo->google_analytics }}');
                     <div class="col-md-6 col-lg-4">
                         <div class="footer-widget address-widget">
                             <h4 class="title">
-                                Navigation
+                                {{ $langg->lang18 }}
                             </h4>
-                            <ul class="foot-list">
-                                <li><a href="#"><i class="fas fa-angle-right"></i> How It Works</a></li>
-                                <li><a href="#"><i class="fas fa-angle-right"></i> Rev Checks</a></li>
-                                <li><a href="#"><i class="fas fa-angle-right"></i> Sign In </a></li>
-                                <li><a href="#"><i class="fas fa-angle-right"></i> Regiter</a></li>
-                                <li><a href="#"><i class="fas fa-angle-right"></i> Support</a></li>
-                                <li><a href="#"><i class="fas fa-angle-right"></i> Terms & Conditions</a></li>
-                                <li><a href="#"><i class="fas fa-angle-right"></i> Privacy Policy</a></li>
+                            <ul class="about-info">
+                                <li>
+                                    <p>
+                                        <i class="fas fa-globe"></i>
+                                        {{ $gs->footer_address }}
+                                    </p>
+                                </li>
+                                <li>
+                                    <p>
+                                        <i class="fas fa-phone"></i>
+                                        {{ $gs->footer_phone }}
+                                    </p>
+                                </li>
+                                <li>
+                                    <p>
+                                        <i class="far fa-envelope"></i>
+                                        {{ $gs->footer_email }}
+                                    </p>
+                                </li>
                             </ul>
                         </div>
                     </div>
                     <div class="col-md-6 col-lg-4">
                         <div class="footer-widget  footer-newsletter-widget">
                             <h4 class="title">
-                               Support
+                                {{ $langg->lang19 }}
                             </h4>
-                            <ul class="foot-list">
-                                <li><a href="#"><i class="fas fa-phone"></i> 123456789</a></li>
-                                <li><a href="#"><i class="fas fa-envelope"></i> support@carsalvagesales.com</a></li>
-                            </ul>
-                          
+                            @include('includes.admin.form-both')
+                            <div class="gocover" style="background: url({{ asset('assets/front/images/loader.gif') }}) no-repeat scroll center center rgba(45, 45, 45, 0.5);"></div>
+                            <div class="newsletter-form-area">
+                                <form id="geniusform" action="{{ route('front.subscribe') }}" method="post">
+                                    {{ csrf_field() }}
+                                    <input type="email" name="email" placeholder="Your email address..." required>
+                                    <button type="submit">
+                                        <i class="far fa-paper-plane"></i>
+                                    </button>
+                                </form>
+                            </div>
                             <div class="social-links">
                                 <h4 class="title">
                                     {{ $langg->lang20 }} :
@@ -231,8 +239,7 @@ gtag('config', '{{ $seo->google_analytics }}');
                         <div class="col-lg-12">
                             <div class="content">
                                 <div class="content">
-<!--                                    <p>{{$gs->copyright }}</p>-->
-                                    <p>&copy; Copyright 2021. All Rights Reserved. Car Salvage Sales</p>
+                                    <p>{{$gs->copyright }}</p>
                                 </div>
                             </div>
                         </div>
