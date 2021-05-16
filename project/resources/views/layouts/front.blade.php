@@ -39,7 +39,7 @@
 </head>
 
 <body>
-
+		
 	@if($gs->is_loader == 1)
 		<div class="preloader" id="preloader" style="background: url({{asset('assets/front/images/loader.gif')}}) no-repeat scroll center center #FFF;"></div>
 	@endif
@@ -110,7 +110,7 @@
 		</div>
 	</div>
 	<!--Main-Menu Area Start-->
-
+		@include('includes.form-success')
 		@yield('content')
 
 	<!-- Footer Area Start -->
@@ -182,47 +182,47 @@
 								<div class="fotter-social-links">
 									<ul>
 										@if ($gs->f_status == 1)
-	                  <li>
-	                     <a href="{{$gs->facebook}}" target="_blank">
-	                     <i class="fab fa-facebook-f"></i>
-	                     </a>
-	                  </li>
-	                  @endif
-	                  @if ($gs->t_status == 1)
-	                  <li>
-	                     <a href="{{$gs->twitter}}" target="_blank">
-	                     <i class="fab fa-twitter"></i>
-	                     </a>
-	                  </li>
-	                  @endif
-	                  @if ($gs->i_status == 1)
-	                  <li>
-	                     <a href="{{$gs->instagram}}" target="_blank">
-	                     <i class="fab fa-instagram"></i>
-	                     </a>
-	                  </li>
-	                  @endif
-	                  @if ($gs->g_status == 1)
-	                  <li>
-	                     <a href="{{$gs->gplus}}" target="_blank">
-	                     <i class="fab fa-google-plus-g"></i>
-	                     </a>
-	                  </li>
-	                  @endif
-	                  @if ($gs->l_status == 1)
-	                  <li>
-	                     <a href="{{$gs->linkedin}}" target="_blank">
-	                     <i class="fab fa-linkedin-in"></i>
-	                     </a>
-	                  </li>
-	                  @endif
-	                  @if ($gs->d_status == 1)
-	                  <li>
-	                     <a href="{{$gs->dribble}}" target="_blank">
-	                     <i class="fas fa-basketball-ball"></i>
-	                     </a>
-	                  </li>
-	                  @endif
+										<li>
+											<a href="{{$gs->facebook}}" target="_blank">
+											<i class="fab fa-facebook-f"></i>
+											</a>
+										</li>
+										@endif
+										@if ($gs->t_status == 1)
+										<li>
+											<a href="{{$gs->twitter}}" target="_blank">
+											<i class="fab fa-twitter"></i>
+											</a>
+										</li>
+										@endif
+										@if ($gs->i_status == 1)
+										<li>
+											<a href="{{$gs->instagram}}" target="_blank">
+											<i class="fab fa-instagram"></i>
+											</a>
+										</li>
+										@endif
+										@if ($gs->g_status == 1)
+										<li>
+											<a href="{{$gs->gplus}}" target="_blank">
+											<i class="fab fa-google-plus-g"></i>
+											</a>
+										</li>
+										@endif
+										@if ($gs->l_status == 1)
+										<li>
+											<a href="{{$gs->linkedin}}" target="_blank">
+											<i class="fab fa-linkedin-in"></i>
+											</a>
+										</li>
+										@endif
+										@if ($gs->d_status == 1)
+										<li>
+											<a href="{{$gs->dribble}}" target="_blank">
+											<i class="fas fa-basketball-ball"></i>
+											</a>
+										</li>
+										@endif
 									</ul>
 								</div>
 							</div>

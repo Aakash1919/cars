@@ -356,8 +356,8 @@ Route::group(['middleware' => 'auth'], function() {
 
   //------------ USER CAR MANAGEMENT SECTION ------------
   Route::get('/car/datatables', 'User\CarController@datatables')->name('user.car.datatables'); //JSON REQUEST
-  Route::get('/car/index/{type?}', 'User\CarController@index')->name('user.car.index');
-  Route::get('/car/create', 'User\CarController@create')->name('user.car.create');
+  Route::get('/car/index/{type?}', 'User\CarController@index')->middleware('IsPaid')->name('user.car.index');
+  Route::get('/car/create', 'User\CarController@create')->middleware('IsPaid')->name('user.car.create');
   Route::get('/car/{brandid}/models', 'User\CarController@getmodels')->name('user.car.getmodels');
   Route::post('/car/upload', 'User\CarController@upload')->name('user.car.upload');
   Route::post('/car/store', 'User\CarController@store')->name('user.car.store');
@@ -404,7 +404,7 @@ Route::group(['middleware' => 'auth'], function() {
 
 
   //------------ USER SOCIAL SETTINGS SECTION ------------
-  Route::get('/social', 'User\SocialSettingController@index')->name('user-social-index');
+  Route::get('/social', 'User\SocialSettingController@index')->middleware('IsPaid')->name('user-social-index');
   Route::post('/social/update', 'User\SocialSettingController@socialupdate')->name('user-social-update');
   //------------ USER SOCIAL SETTINGS SECTION ENDS------------
 
@@ -438,7 +438,7 @@ Route::group(['middleware' => 'guest'], function() {
 Route::get('/', 'Front\FrontendController@home')->name('front.index');
 Route::get('/prices/{id}', 'Front\FrontendController@prices')->name('front.prices');
 Route::get('/cars', 'Front\FrontendController@cars')->name('front.cars');
-Route::get('/details/{car}', 'Front\FrontendController@details')->name('front.details');
+Route::get('/details/{car}', 'Front\FrontendController@details')->middleware('IsPaid')->name('front.details');
 Route::post('/model/sendmail', 'Front\FrontendController@modelsendmail')->name('front.model.sendmail');
 Route::get('/contact', 'Front\FrontendController@contact')->name('front.contact');
 Route::post('/sendmail', 'Front\FrontendController@sendmail')->name('front.sendmail');

@@ -59,5 +59,6 @@ class Kernel extends HttpKernel
         'throttle' => \Illuminate\Routing\Middleware\ThrottleRequests::class,
         'demo' => \App\Http\Middleware\Demo::class,
         'demouser' => \App\Http\Middleware\DemoUser::class,
+        'IsPaid' =>  \App\Http\Middleware\IsPaid::class,
     ];
 }

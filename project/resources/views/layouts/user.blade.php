@@ -87,11 +87,12 @@
 							<li>
 								<a href="{{ route('user-dashboard') }}" class="wave-effect active"><i class="fa fa-home mr-2"></i>{{ $langg->lang68 }}</a>
 							</li>
-
-							<li><a href="{{ route('user.car.create') }}"><i class="fas fa-plus"></i> {{ $langg->lang69 }}</a></li>
-							<li><a href="{{ route('user.car.index') }}"><i class="fas fa-table"></i> {{ $langg->lang70 }}</a></li>
-							<li><a href="{{ route('user.car.index', 'featured') }}"><i class="fas fa-table"></i> {{ $langg->lang71 }}</a></li>
-							<li><a href="{{route('user-social-index')}}"><i class="fas fa-link"></i>{{ $langg->lang72 }}</a></li>
+							@if (isset(Auth::user()->current_plan))
+								<li><a href="{{ route('user.car.create') }}"><i class="fas fa-plus"></i> {{ $langg->lang69 }}</a></li>
+								<li><a href="{{ route('user.car.index') }}"><i class="fas fa-table"></i> {{ $langg->lang70 }}</a></li>
+								<li><a href="{{ route('user.car.index', 'featured') }}"><i class="fas fa-table"></i> {{ $langg->lang71 }}</a></li>
+								<li><a href="{{route('user-social-index')}}"><i class="fas fa-link"></i>{{ $langg->lang72 }}</a></li>
+							@endif
 							<li><a href="{{route('user-package')}}"><i class="fas fa-box-open"></i>{{ $langg->lang73 }}</a></li>
 							<li><a href="{{route('user-logout')}}"><i class="fas fa-sign-out-alt"></i>{{ $langg->lang74 }}</a></li>
 
