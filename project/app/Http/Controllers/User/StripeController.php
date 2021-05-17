@@ -75,37 +75,65 @@ class StripeController extends Controller {
         if ($validator->passes()) {
             $input = array_except($input, array('_token'));
             $stripe = Stripe::make($gs->ss);
-            // try {
+            try {
                 $token = $stripe->tokens()->create(['card' => ['number' => $request->card_no, 'exp_month' => $request->ccExpiryMonth, 'exp_year' => $request->ccExpiryYear, 'cvc' => $request->cvvNumber ] ]);
 
                 if (!isset($token['id'])) {
                     return redirect()->back();
                 }
+                $customerId = $this->createCustomer($token);
+                $subscription = $this->createSubscription($customerId, $plan->stripe_plan_id );
+                if ($subscription['status'] == 'active') {
+                    $this->storetodb($request);
+                    Session::flash('success', "Thanks! Your subscription is active");
+                    return redirect()->back();
+                } else {
+                    Session::flash('error', 'Money not add in wallet!!');
+                    return redirect()->back();
+                }
+            }
+            catch(Exception $e) {
+                Session::flash('error', $e->getMessage());
+                return redirect()->back();
+            }
+            catch(\Cartalyst\Stripe\Exception\CardErrorException $e) {
+                Session::flash('error', $e->getMessage());
+                return redirect()->back();
+            }
+            catch(\Cartalyst\Stripe\Exception\MissingParameterException $e) {
+                Session::flash('error', $e->getMessage());
+                return redirect()->back();
+            }
+        }
+    }
 
+    public function createCustomer($token = null) {
+        if(isset($token)) {
+            if(isset(Auth::user()->stripe_customer_id)) {
+                $customerId = Auth::user()->stripe_customer_id;
+            }else {
                 $customer = $stripe->customers()->create([
                     'email' => Auth::user()->email,
                     'source' => $token['id']
                 ]);
-                $subscription = $stripe->subscriptions()->create($customer['id'], [
-                              'items' => [
-                                            ['price' => $plan->stripe_plan_id],
-                                        ],
-                            ]);
-                print_r($subscription);
-                die;
-            // }
-            // catch(Exception $e) {
-            //     Session::flash('error', $e->getMessage());
-            //     return redirect()->back();
-            // }
-            // catch(\Cartalyst\Stripe\Exception\CardErrorException $e) {
-            //     Session::flash('error', $e->getMessage());
-            //     return redirect()->back();
-            // }
-            // catch(\Cartalyst\Stripe\Exception\MissingParameterException $e) {
-            //     Session::flash('error', $e->getMessage());
-            //     return redirect()->back();
-            // }
+                $user = Auth::user();
+                $user->stripe_customer_id = $customer['id'] ?? null;
+                $user->save();
+                $customerId = $customer['id'];
+            }
+        }
+        return $customerId ?? null
+    }
+
+    public function createSubscription($customerId = null, $planId = null) {
+        if(isset($customerid) && isset($planId)) {
+            $subscription = $stripe->subscriptions()->create($customerId, ['items' => [['price' => $planId]]]);
+            $user = Auth::user();
+            $user->stripe_subscription_id = $subscription['id'] ?? null;
+            $user->save();
+            return $subscription;
+        }else {
+            return null;
         }
     }
 

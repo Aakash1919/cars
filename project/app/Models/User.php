@@ -6,7 +6,7 @@ use Illuminate\Foundation\Auth\User as Authenticatable;
 
 class User extends Authenticatable
 {
-    protected $fillable = ['category_id', 'gender', 'username', 'first_name', 'last_name', 'email', 'phone', 'about', 'address', 'latitude', 'longitude', 'password', 'verification_link', 'email_verified'];
+    protected $fillable = ['category_id', 'gender', 'username', 'first_name', 'last_name', 'email', 'phone', 'about', 'address', 'latitude', 'longitude', 'password', 'stripe_customer_id', 'stripe_subscription_id', 'verification_link', 'email_verified'];
 
     public function cars() {
       return $this->hasMany('App\Models\Car');
