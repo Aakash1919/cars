@@ -65,6 +65,59 @@ class StripeController extends Controller {
         }
     }
 
+    public function createSubscription(Request $request) {
+        $gs = GS::first();
+        $plan = Plan::find($request->plan_id);
+        $validator = Validator::make($request->all(), ['card_no' => 'required', 'ccExpiryMonth' => 'required', 'ccExpiryYear' => 'required', 'cvvNumber' => 'required'
+        ]);
+
+        $input = $request->all();
+        if ($validator->passes()) {
+            $input = array_except($input, array('_token'));
+            $stripe = Stripe::make($gs->ss);
+            try {
+                $token = $stripe->tokens()->create(['card' => ['number' => $request->card_no, 'exp_month' => $request->ccExpiryMonth, 'exp_year' => $request->ccExpiryYear, 'cvc' => $request->cvvNumber ] ]);
+
+                if (!isset($token['id'])) {
+                    return redirect()->back();
+                }
+
+                $customer = $stripe->customers->create([
+                    'email' => Auth::user()->email,
+                    'source' => $token
+                ]);
+                echo "<pre>";
+                print_r($customer);
+                $subscription = $stripe->subscriptions->create([
+                    'customer' => 'cus_JVB6BtcCLua6b1',
+                    'items' => [
+                        ['price' => 'price_1IsAkTL6w1tkyhiBmUvbCX4G'],
+                    ],
+                  ]);
+                print_r($subscription);
+                die;
+            }
+            catch(Exception $e) {
+                Session::flash('error', $e->getMessage());
+                return redirect()->back();
+            }
+            catch(\Cartalyst\Stripe\Exception\CardErrorException $e) {
+                Session::flash('error', $e->getMessage());
+                return redirect()->back();
+            }
+            catch(\Cartalyst\Stripe\Exception\MissingParameterException $e) {
+                Session::flash('error', $e->getMessage());
+                return redirect()->back();
+            }
+        }
+    }
+
+    public function createStripeCustomer() {
+        $user->createStripeCustomer([
+            'email' => $user->email,
+        ]);
+    }
+
     public function storetodb(Request $request)
     {
         $plan = Plan::find($request->plan_id);

@@ -75,7 +75,7 @@
                 <input type="hidden" name="plan_id" value="{{ $plan->id }}">
 
                   <select class="form-control" name="" onchange="meThods(this)">
-                    <option value="" disabled>Select a payment method</option>
+                    <option value="">Select a payment method</option>
                     {{-- <option value="Paypal">Paypal</option> --}}
                     <option value="Stripe">Stripe</option>
                   </select>
@@ -133,7 +133,7 @@
 @if($plan->price != 0)
 <script type="text/javascript">
         function meThods(val) {
-            var action2 = "{{route('stripe.submit')}}";
+            var action2 = "{{route('stripe.subscribe')}}";
 
              if (val.value == "Paypal") {
                 $("#subscribe_form").attr("action", "");
@@ -158,7 +158,7 @@
         }
 </script>
 
-<script src="https://www.paypal.com/sdk/js?client-id={{ $gs->pb }}"></script>
+{{-- <script src="https://www.paypal.com/sdk/js?client-id={{ $gs->pb }}"></script>
 <script>
 paypal.Buttons({
   createOrder: function(data, actions) {
@@ -197,7 +197,7 @@ paypal.Buttons({
   }
 }).render('.paypal-modal');
 
-</script>
+</script> --}}
 @endif
 
 @endsection
