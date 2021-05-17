@@ -18,11 +18,16 @@ use Stripe\Error\Card;
 use Cartalyst\Stripe\Stripe;
 
 class StripeController extends Controller {
+    
+    protected $stripe;
+    protected $generalSettings;
+    
+    public function __construct() {
+        $this->generalSettings = GS::first();
+        $this->stripe = Stripe::make($this->generalSettings->ss);
+    }
 
     public function payWithStripe(Request $request) {
-      // return 1;
-        $gs = GS::first();
-
         $plan = Plan::find($request->plan_id);
         $validator = Validator::make($request->all(), ['card_no' => 'required', 'ccExpiryMonth' => 'required', 'ccExpiryYear' => 'required', 'cvvNumber' => 'required',
         //'amount' => 'required',
@@ -31,16 +36,15 @@ class StripeController extends Controller {
         $input = $request->all();
         if ($validator->passes()) {
             $input = array_except($input, array('_token'));
-            $stripe = Stripe::make($gs->ss);
             try {
-                $token = $stripe->tokens()->create(['card' => ['number' => $request->card_no, 'exp_month' => $request->ccExpiryMonth, 'exp_year' => $request->ccExpiryYear, 'cvc' => $request->cvvNumber ] ]);
+                $token = $this->stripe->tokens()->create(['card' => ['number' => $request->card_no, 'exp_month' => $request->ccExpiryMonth, 'exp_year' => $request->ccExpiryYear, 'cvc' => $request->cvvNumber ] ]);
 
                 if (!isset($token['id'])) {
                     return redirect()->back();
                 }
 
 
-                $charge = $stripe->charges()->create(['card' => $token['id'], 'currency' => 'USD', 'amount' => $plan->price, 'description' => 'Add in wallet', ]);
+                $charge = $this->stripe->charges()->create(['card' => $token['id'], 'currency' => 'USD', 'amount' => $plan->price, 'description' => 'Add in wallet', ]);
                 if ($charge['status'] == 'succeeded') {
                     $this->storetodb($request);
                     Session::flash('success', "Your have bought the package successfully!");
@@ -66,7 +70,6 @@ class StripeController extends Controller {
     }
 
     public function createSubscription(Request $request) {
-        $gs = GS::first();
         $plan = Plan::find($request->plan_id);
         $validator = Validator::make($request->all(), ['card_no' => 'required', 'ccExpiryMonth' => 'required', 'ccExpiryYear' => 'required', 'cvvNumber' => 'required'
         ]);
@@ -74,15 +77,14 @@ class StripeController extends Controller {
         $input = $request->all();
         if ($validator->passes()) {
             $input = array_except($input, array('_token'));
-            $stripe = Stripe::make($gs->ss);
             try {
-                $token = $stripe->tokens()->create(['card' => ['number' => $request->card_no, 'exp_month' => $request->ccExpiryMonth, 'exp_year' => $request->ccExpiryYear, 'cvc' => $request->cvvNumber ] ]);
+                $token = $this->stripe->tokens()->create(['card' => ['number' => $request->card_no, 'exp_month' => $request->ccExpiryMonth, 'exp_year' => $request->ccExpiryYear, 'cvc' => $request->cvvNumber ] ]);
 
                 if (!isset($token['id'])) {
                     return redirect()->back();
                 }
                 $customerId = $this->createCustomer($token);
-                $subscription = $this->createSubscription($customerId, $plan->stripe_plan_id );
+                $subscription = $this->createStripeSubscription($customerId, $plan->stripe_plan_id );
                 if ($subscription['status'] == 'active') {
                     $this->storetodb($request);
                     Session::flash('success', "Thanks! Your subscription is active");
@@ -112,7 +114,7 @@ class StripeController extends Controller {
             if(isset(Auth::user()->stripe_customer_id)) {
                 $customerId = Auth::user()->stripe_customer_id;
             }else {
-                $customer = $stripe->customers()->create([
+                $customer = $this->stripe->customers()->create([
                     'email' => Auth::user()->email,
                     'source' => $token['id']
                 ]);
@@ -122,12 +124,12 @@ class StripeController extends Controller {
                 $customerId = $customer['id'];
             }
         }
-        return $customerId ?? null
+        return $customerId ?? null;
     }
 
-    public function createSubscription($customerId = null, $planId = null) {
-        if(isset($customerid) && isset($planId)) {
-            $subscription = $stripe->subscriptions()->create($customerId, ['items' => [['price' => $planId]]]);
+    public function createStripeSubscription($customerId = null, $planId = null) {
+        if(isset($customerId) && isset($planId)) {
+            $subscription = $this->stripe->subscriptions()->create($customerId, ['items' => [['price' => $planId]]]);
             $user = Auth::user();
             $user->stripe_subscription_id = $subscription['id'] ?? null;
             $user->save();
