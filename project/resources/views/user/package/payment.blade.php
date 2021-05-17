@@ -76,7 +76,7 @@
 
                   <select class="form-control" name="" onchange="meThods(this)">
                     <option value="" disabled>Select a payment method</option>
-                    <option value="Paypal">Paypal</option>
+                    {{-- <option value="Paypal">Paypal</option> --}}
                     <option value="Stripe">Stripe</option>
                   </select>
 
