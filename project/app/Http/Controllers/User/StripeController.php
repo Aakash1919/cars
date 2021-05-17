@@ -75,7 +75,7 @@ class StripeController extends Controller {
         if ($validator->passes()) {
             $input = array_except($input, array('_token'));
             $stripe = Stripe::make($gs->ss);
-            try {
+            // try {
                 $token = $stripe->tokens()->create(['card' => ['number' => $request->card_no, 'exp_month' => $request->ccExpiryMonth, 'exp_year' => $request->ccExpiryYear, 'cvc' => $request->cvvNumber ] ]);
 
                 if (!isset($token['id'])) {
@@ -84,31 +84,28 @@ class StripeController extends Controller {
 
                 $customer = $stripe->customers()->create([
                     'email' => Auth::user()->email,
-                    'source' => $$token['id']
+                    'source' => $token['id']
                 ]);
-                echo "<pre>";
-                print_r($customer);
-                $subscription = $stripe->subscriptions()->create([
-                    'customer' => 'cus_JVB6BtcCLua6b1',
-                    'items' => [
-                        ['price' => 'price_1IsAkTL6w1tkyhiBmUvbCX4G'],
-                    ],
-                  ]);
+                $subscription = $stripe->subscriptions()->create($customer['id'], [
+                              'items' => [
+                                            ['price' => $plan->stripe_plan_id],
+                                        ],
+                            ]);
                 print_r($subscription);
                 die;
-            }
-            catch(Exception $e) {
-                Session::flash('error', $e->getMessage());
-                return redirect()->back();
-            }
-            catch(\Cartalyst\Stripe\Exception\CardErrorException $e) {
-                Session::flash('error', $e->getMessage());
-                return redirect()->back();
-            }
-            catch(\Cartalyst\Stripe\Exception\MissingParameterException $e) {
-                Session::flash('error', $e->getMessage());
-                return redirect()->back();
-            }
+            // }
+            // catch(Exception $e) {
+            //     Session::flash('error', $e->getMessage());
+            //     return redirect()->back();
+            // }
+            // catch(\Cartalyst\Stripe\Exception\CardErrorException $e) {
+            //     Session::flash('error', $e->getMessage());
+            //     return redirect()->back();
+            // }
+            // catch(\Cartalyst\Stripe\Exception\MissingParameterException $e) {
+            //     Session::flash('error', $e->getMessage());
+            //     return redirect()->back();
+            // }
         }
     }
 
