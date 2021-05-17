@@ -84,7 +84,7 @@ class StripeController extends Controller {
 
                 $customer = $stripe->customers()->create([
                     'email' => Auth::user()->email,
-                    'source' => $token
+                    'source' => $$token['id']
                 ]);
                 echo "<pre>";
                 print_r($customer);
