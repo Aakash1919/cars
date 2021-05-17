@@ -82,13 +82,13 @@ class StripeController extends Controller {
                     return redirect()->back();
                 }
 
-                $customer = $stripe->customers->create([
+                $customer = $stripe->customers()->create([
                     'email' => Auth::user()->email,
                     'source' => $token
                 ]);
                 echo "<pre>";
                 print_r($customer);
-                $subscription = $stripe->subscriptions->create([
+                $subscription = $stripe->subscriptions()->create([
                     'customer' => 'cus_JVB6BtcCLua6b1',
                     'items' => [
                         ['price' => 'price_1IsAkTL6w1tkyhiBmUvbCX4G'],
@@ -110,12 +110,6 @@ class StripeController extends Controller {
                 return redirect()->back();
             }
         }
-    }
-
-    public function createStripeCustomer() {
-        $user->createStripeCustomer([
-            'email' => $user->email,
-        ]);
     }
 
     public function storetodb(Request $request)
