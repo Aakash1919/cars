@@ -133,7 +133,7 @@
 @if($plan->price != 0)
 <script type="text/javascript">
         function meThods(val) {
-            var action2 = "{{route('stripe.subscribe')}}";
+            var action2 = "{{ isset($plan->stripe_plan_id) ? route('stripe.subscribe') : route('stripe.submit')}}";
 
              if (val.value == "Paypal") {
                 $("#subscribe_form").attr("action", "");

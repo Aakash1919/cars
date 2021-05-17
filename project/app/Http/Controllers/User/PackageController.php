@@ -44,12 +44,6 @@ class PackageController extends Controller
           $newVal = $today->addDays($plan->days);
         }
         $user->expired_date = $newVal;
-        if ($plan->type == 'featured') {
-          $user->featured = 1;
-          $user->feature_date = $today;
-        } else {
-          $user->featured = 0;
-        }
         $user->save();
 
         Session::flash('success', 'Your profile is published successfully!');
