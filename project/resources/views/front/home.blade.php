@@ -64,7 +64,7 @@
     <div class="container">
         <h2>How It Works</h2>
         <div class="row">
-            <div class="col-xl-3">
+            <div class="col-xl-3 col-lg-6 col-md-6">
                 <div class="step">
                     <div class="step-circle">
                         <figure>
@@ -75,49 +75,49 @@
                         </figure>
                     </div>
                     <h3>Sign Up</h3>
-                    <p>Lorem ipsum dolor sit amet, conse ctetur adipiscing elit, sed do eiusmod.</p>
+                    <p>Enter your details to Create an account and start selling straight away or register as a buyer and be able to make offers on hundreds of cars locally and nationally</p>
                 </div>
             </div>
-            <div class="col-xl-3">
+            <div class="col-xl-3 col-lg-6 col-md-6">
                 <div class="step">
                     <div class="step-circle">
                         <figure> 
                             <img class="cars" src="assets/front/images/list.png" alt="">
                             <div class="step-count">
-                                1
+                                2
                             </div>
                         </figure>
                     </div>
-                    <h3>List Your Car</h3>
-                    <p>Lorem ipsum dolor sit amet, conse ctetur adipiscing elit, sed do eiusmod.</p>
+                    <h3>Add Your Car Details</h3>
+                    <p>Enter your vehicles details, upload photos and your almost there.</p>
                 </div>
             </div>
-            <div class="col-xl-3">
+            <div class="col-xl-3 col-lg-6 col-md-6">
                 <div class="step">
                     <div class="step-circle">
                         <figure>
                             <img class="cars" src="assets/front/images/auction.png" alt="">
                             <div class="step-count">
-                                1
+                                3
                             </div>
                         </figure>
                     </div>
-                    <h3>Select Desired Offers</h3>
-                    <p>Lorem ipsum dolor sit amet, conse ctetur adipiscing elit, sed do eiusmod.</p>
+                    <h3>List For Auction</h3>
+                    <p>Preview your ad and select the duration that you want your vehicle to be open for offers. We have 3 options, Urgent sale 24hr, Quick sell 72hr or Standard 7 days listings</p>
                 </div>
             </div>
-            <div class="col-xl-3">
+            <div class="col-xl-3 col-lg-6 col-md-6">
                 <div class="step">
                     <div class="step-circle">
                         <figure>
                             <img class="cars" src="assets/front/images/smile.png" alt="">
                             <div class="step-count">
-                                1
+                                4
                             </div>
                         </figure>
                     </div>
-                    <h3>Easy Sign Off</h3>
-                    <p>Lorem ipsum dolor sit amet, conse ctetur adipiscing elit, sed do eiusmod.</p>
+                    <h3>Time To Sell</h3>
+                    <p>You'll start receiving offers in your inbox, we recommend you let your add run the full duration but if you get an offer you can't refuse you can accept it, contact the successful buyer and end your item. </p>
                 </div>
             </div>
         </div>
@@ -612,51 +612,46 @@
 <section class="home-users">
     <div class="container-fluid">
         <div class="row">
-            <div class="col-xl-4">
-                <div class="user-list bg-dark-blue">
-                    <div class="row">
-                        <div class="col-xl-3">
-                            <img class="cars" src="assets/front/images/buyers.png" alt="">
-                        </div>
-                        <div class="col-xl-9">
-                            <article>
-                                <h3>Buyers</h3>
-                                <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Quis ipsum suspendisse ultrices gravida.</p>
-                                <a href="#" class="btn btn-outline">Read More</a>
-                            </article>
-                        </div>
+            <div class="col-xl-4 col-lg-4 user-list bg-dark-blue">
+                <div class="row">
+                    <div class="col-xl-3">
+                        <img class="cars" src="assets/front/images/car.png" alt="">
+                    </div>
+                    <div class="col-xl-9">
+                        <article>
+                            <h3>Seller</h3>
+                            <p>As a seller you can list your vehicle for $9.90inc GST and receive offers from any and all active registered buyers. </p>
+                            <a href="#" class="btn btn-outline">Become a Seller</a>
+                        </article>
                     </div>
                 </div>
             </div>
-            <div class="col-xl-4">
-                <div class="user-list  bg-green">
-                    <div class="row">
-                        <div class="col-xl-3">
-                            <img class="cars" src="assets/front/images/car.png" alt="">
-                        </div>
-                        <div class="col-xl-9">
-                            <article>
-                                <h3>Seller</h3>
-                                <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Quis ipsum suspendisse ultrices gravida.</p>
-                                <a href="#" class="btn btn-outline">Read More</a>
-                            </article>
-                        </div>
+            <div class="col-xl-4 col-lg-4 user-list  bg-green">
+                <div class="row">
+                    <div class="col-xl-3">
+                        <img class="cars" src="assets/front/images/buyers.png" alt="">
+                    </div>
+                    <div class="col-xl-9">
+                        <article>
+                            <h3>Buyer/Seller</h3>
+                            <p>As a buyer with active membership you will have access to view and make offers on all vehicles currently listed. </p>
+                            <a href="#" class="btn btn-outline">Become a Buyer/Seller</a>
+                        </article>
                     </div>
                 </div>
             </div>
-            <div class="col-xl-4">
-                <div class="user-list bg-dark-blue">
-                    <div class="row">
-                        <div class="col-xl-3">
-                            <img class="cars" src="assets/front/images/wholesaler.png" alt="">
-                        </div>
-                        <div class="col-xl-9">
-                            <article>
-                                <h3>Wholesaler</h3>
-                                <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Quis ipsum suspendisse ultrices gravida.</p>
-                                <a href="#" class="btn btn-outline">Read More</a>
-                            </article>
-                        </div>
+
+            <div class="col-xl-4 col-lg-4 user-list bg-dark-blue">
+                <div class="row">
+                    <div class="col-xl-3">
+                        <img class="cars" src="assets/front/images/wholesaler.png" alt="">
+                    </div>
+                    <div class="col-xl-9">
+                        <article>
+                            <h3>Wholesaler</h3>
+                            <p>Some vehicles listed on this site may be listed as wholesale vehicles from licensed motor dealers and may only be viewed in full and offered on by other licences motor dealers. Membership fees are the same as basic or premium members.</p>
+                            <a href="#" class="btn btn-outline">Become a Wholesaler</a>
+                        </article>
                     </div>
                 </div>
             </div>
