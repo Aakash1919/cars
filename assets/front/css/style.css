@@ -4246,5 +4246,8 @@ h2.custom-title{
     display: inline-block;
     width: calc(100% - 35px);
 }
+.home-users .container-fluid > .row .col-xl-4.user-list {
+    padding: 150px 60px;
+}
 /*serller css end*/
 /*SWE added css end*/
