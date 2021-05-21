@@ -414,7 +414,7 @@ Route::group(['middleware' => 'auth'], function() {
   Route::post('/vendor-request', 'User\PackageController@vendorrequestsub')->name('user-vendor-request-submit');
   Route::post('/paypal/submit', 'User\PaypalController@storetodb')->name('user.paypal.storetodb');
   Route::post('/stripe-submit', 'User\StripeController@payWithStripe')->name('stripe.submit');
-  Route::post('/stripe-subscribe', 'User\StripeController@createSubscription')->name('stripe.subscribe');
+  Route::post('/stripe-subscribe', 'User\StripeController@createSubscription')->name('stripe.subscribe'); 
   Route::post('/freepublish', 'User\PackageController@freePublish')->name('user.freepublish');
 });
 
@@ -468,3 +468,12 @@ Route::post('/subscribe','Front\FrontendController@subscribe')->name('front.subs
 
 
 // ************************************ FRONT SECTION ENDS**********************************************
+Route::get('/seller', function(){
+    return view('front.seller');
+});
+Route::get('/buyer-seller', function(){
+    return view('front.buyerseller');
+});
+Route::get('/wholesaler', function(){
+    return view('front.wholesaler');
+});

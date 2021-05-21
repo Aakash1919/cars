@@ -2,7 +2,7 @@ $(function ($) {
     "use strict";
 
     // LOADER
-    if(gs.is_loader == 1)
+    if(true)
     {
       $(window).on("load", function (e) {
           $('#preloader').fadeOut(1000);

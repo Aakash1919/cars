@@ -21,12 +21,12 @@
         <link rel="stylesheet" href="https://pro.fontawesome.com/releases/v5.10.0/css/all.css" integrity="sha384-AYmEC3Yw5cVb3ZcuHtOA93w35dYTsvhLPVnYs9eStHfGJvOvKxVfELGroGkvsg+p" crossorigin="anonymous"/>
         <!-- stylesheet -->
         <link rel="stylesheet" href="{{asset('assets/front/css/style.css')}}">
-        <!-- responsive -->
-        <link rel="stylesheet" href="{{asset('assets/front/css/responsive.css')}}">
         <!-- custom -->
         <link rel="stylesheet" href="{{asset('assets/front/css/custom.css')}}">
         <!-- base color -->
         <link rel="stylesheet" href="{{ asset('assets/front/css/styles.php?color='.str_replace('#','',$gs->colors)) }}">
+        <!-- responsive -->
+        <link rel="stylesheet" href="{{asset('assets/front/css/responsive.css')}}">
         <script async src = "https://www.googletagmanager.com/gtag/js?id={{ $seo->google_analytics }}" ></script>
         <script>
 window.dataLayer = window.dataLayer || [];
@@ -62,9 +62,9 @@ gtag('config', '{{ $seo->google_analytics }}');
                             </button>
                             <div class="collapse navbar-collapse fixed-height" id="main_menu">
                                 <ul class="navbar-nav ml-auto">
-                                    <li class="nav-item">
+<!--                                    <li class="nav-item">
                                         <a class="nav-link @if(request()->path() == '/') active @endif" href="{{ route('front.index') }}">{{ $langg->lang1 }}</a>
-                                    </li>
+                                    </li>-->
 <!--                                    <li class="nav-item">
                                         <a class="nav-link">Auctions</a>
                                     </li>-->
@@ -72,12 +72,15 @@ gtag('config', '{{ $seo->google_analytics }}');
                                         <a class="nav-link @if(request()->path() == 'cars') active @endif" href="{{ route('front.cars') }}">{{ $langg->lang2 }}</a>
                                     </li>
                                     <li class="nav-item">
-                                        <a class="nav-link">Buy</a>
+                                        <a class="nav-link" href="/seller">Seller</a>
                                     </li>
                                     <li class="nav-item">
-                                        <a class="nav-link">Sell</a>
+                                        <a class="nav-link" href="/buyer-seller">Buyer/Seller</a>
                                     </li>
-                                    @if (!empty($menus))
+                                    <li class="nav-item">
+                                        <a class="nav-link" href="/wholesaler">Wholesaler</a>
+                                    </li>
+<!--                                    @if (!empty($menus))
                                     <li class="nav-item dropdown">
                                         <a class="nav-link dropdown-toggle @if (request()->is('*/pages')) active	@endif" href="#" role="button" data-toggle="dropdown"
                                            aria-haspopup="true" aria-expanded="false">
@@ -89,7 +92,7 @@ gtag('config', '{{ $seo->google_analytics }}');
                                             @endforeach
                                         </div>
                                     </li>
-                                    @endif
+                                    @endif-->
 <!--                                    @if ($gs->is_faq == 1)
                                     <li class="nav-item">
                                         <a class="nav-link @if(request()->path() == 'faq') active @endif" href="{{ route('front.faq') }}">{{ $langg->lang4 }}</a>
@@ -99,11 +102,11 @@ gtag('config', '{{ $seo->google_analytics }}');
 <!--                                    <li class="nav-item">
                                         <a class="nav-link @if(request()->path() == 'blog') active @endif" href="{{ route('front.blog') }}">{{ $langg->lang5 }}</a>
                                     </li>-->
-                                    @if ($ps->is_contact == 1)
+<!--                                    @if ($ps->is_contact == 1)
                                     <li class="nav-item">
                                         <a class="nav-link @if(request()->path() == 'contact') active @endif" href="{{ route('front.contact') }}">{{ $langg->lang6 }} </a>
                                     </li>
-                                    @endif
+                                    @endif-->
                                 </ul>
                                 <a href="{{ route('user.login-signup') }}" class="mybtn1 ml-4">
                                     @auth
@@ -228,7 +231,6 @@ gtag('config', '{{ $seo->google_analytics }}');
                         <div class="col-lg-12">
                             <div class="content">
                                 <div class="content">
-<!--                                    <p>{{$gs->copyright }}</p>-->
                                     <p>&copy; Copyright 2021. All Rights Reserved. Car Salvage Sales</p>
                                 </div>
                             </div>
@@ -257,7 +259,6 @@ gtag('config', '{{ $seo->google_analytics }}');
         <!-- main -->
         <script src="{{asset('assets/front/js/main.js')}}"></script>
         <script>
-        var gs = @php echo json_encode($gs) @endphp;
         </script>
         <!-- custom -->
         <script src="{{asset('assets/front/js/custom.js')}}"></script>
