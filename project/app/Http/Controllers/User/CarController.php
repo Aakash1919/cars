@@ -137,10 +137,9 @@ class CarController extends Controller
       // }
       //--- Validation Section Ends
       // Create A payment with Stripe
-      $response = $this->stripeController->chargeCard($request);
-      $stripeStatus = $response->get('status');
-      if(isset($stripeStatus) && $stripeStatus==400) {
-        return $response;
+      $response = $this->stripeController->chargeCard($request)->getData();
+      if(isset($response) && $response->status==400) {
+            return response()->json($response->errors);
       }
       die;
       // End Stripe Payment here
