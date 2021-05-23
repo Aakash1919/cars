@@ -103,94 +103,95 @@ class CarController extends Controller
         return response()->json($msg);
       }
 
-      // $messages = [
-      //   'label.*.required' => 'Specification label cannot be blank',
-      //   'value.*.required' => 'Specification value cannot be blank',
-      //   'brand_id.required' => 'Brand is required',
-      //   'brand_model_id.required' => 'Model is required',
-      //   'condtion_id.required' => 'Condtion is required',
-      // ];
+      $messages = [
+        'label.*.required' => 'Specification label cannot be blank',
+        'value.*.required' => 'Specification value cannot be blank',
+        'brand_id.required' => 'Brand is required',
+        'brand_model_id.required' => 'Model is required',
+        'condtion_id.required' => 'Condtion is required',
+      ];
 
-      // //--- Validation Section
-      // $rules = [
-      //   'title' => 'required',
-      //   'brand_id' => 'required',
-      //   'top_speed' => 'required|numeric',
-      //   'brand_model_id' => 'required',
-      //   'currency_code' => 'required|max:20',
-      //   'currency_symbol' => 'required',
-      //   'regular_price' => 'required',
-      //   'condtion_id' => 'required',
-      //   'description' => 'required',
-      //   'featured_image' => 'required',
-      //   'images' => 'required',
-      //   'year' => 'required|integer',
-      //   'mileage' => 'required|numeric',
-      //   'label.*' => 'required',
-      //   'value.*' => 'required',
-      // ];
+      //--- Validation Section
+      $rules = [
+        'title' => 'required',
+        'brand_id' => 'required',
+        'top_speed' => 'required|numeric',
+        'brand_model_id' => 'required',
+        'currency_code' => 'required|max:20',
+        'currency_symbol' => 'required',
+        'regular_price' => 'required',
+        'condtion_id' => 'required',
+        'description' => 'required',
+        'featured_image' => 'required',
+        'images' => 'required',
+        'year' => 'required|integer',
+        'mileage' => 'required|numeric',
+        'label.*' => 'required',
+        'value.*' => 'required',
+      ];
 
-      // $validator = Validator::make($request->all(), $rules, $messages);
+      $validator = Validator::make($request->all(), $rules, $messages);
 
-      // if ($validator->fails()) {
-      //   return response()->json(array('errors' => $validator->getMessageBag()->toArray()));
-      // }
-      //--- Validation Section Ends
-      // Create A payment with Stripe
-      $response = $this->stripeController->chargeCard($request)->getData();
-      if(isset($response) && $response->status==400) {
-            return response()->json($response->errors);
+      if ($validator->fails()) {
+        return response()->json(array('errors' => $validator->getMessageBag()->toArray()));
       }
-      die;
-      // End Stripe Payment here
-        $in = $request->all();
-        $in['user_id'] = Auth::user()->id;
-        if ($request->filled('featured_image')) {
-          $image = $request->featured_image;
-          list($type, $image) = explode(';', $image);
-          list(, $image)      = explode(',', $image);
-          $image = base64_decode($image);
-          $image_name = uniqid().'.jpg';
-
-          $path = 'assets/front/images/cars/featured/'.$image_name;
-          file_put_contents($path, $image);
-
-          $in['featured_image'] = $image_name;
+      //--- Validation Section Ends
+      $boughtPlan = Plan::find(Auth::user()->current_plan);
+      if(isset(isset($boughtPlan->listing_price) && $boughtPlan->listing_price != 0) {
+        $response = $this->stripeController->chargeCard($request)->getData();
+        if(isset($response) && $response->status==400) {
+              return response()->json($response->errors);
         }
-        if ($request->filled('sale_price')) {
-          $in['search_price'] = $request->sale_price;
-        } else {
-          $in['search_price'] = $request->regular_price;
+      }
+      
+      $in = $request->all();
+      $in['user_id'] = Auth::user()->id;
+      if ($request->filled('featured_image')) {
+        $image = $request->featured_image;
+        list($type, $image) = explode(';', $image);
+        list(, $image)      = explode(',', $image);
+        $image = base64_decode($image);
+        $image_name = uniqid().'.jpg';
+
+        $path = 'assets/front/images/cars/featured/'.$image_name;
+        file_put_contents($path, $image);
+
+        $in['featured_image'] = $image_name;
+      }
+      if ($request->filled('sale_price')) {
+        $in['search_price'] = $request->sale_price;
+      } else {
+        $in['search_price'] = $request->regular_price;
+      }
+      $in['label'] = json_encode($request->label);
+      $in['value'] = json_encode($request->value);
+      $car = Car::create($in);
+
+      if ($request->filled('images')) {
+        $imgs = [];
+        $imgs = $request->images;
+        foreach ($imgs as $key => $img) {
+          list($type, $img) = explode(';', $img);
+          list(, $img)      = explode(',', $img);
+          $img = base64_decode($img);
+          $img_name = uniqid().'.jpg';
+
+          $path = 'assets/front/images/cars/sliders/'.$img_name;
+          file_put_contents($path, $img);
+
+          $carimg = new CarImage;
+          $carimg->car_id = $car->id;
+          $carimg->image = $img_name;
+          $carimg->save();
         }
-        $in['label'] = json_encode($request->label);
-        $in['value'] = json_encode($request->value);
-        $car = Car::create($in);
+      }
 
-        if ($request->filled('images')) {
-          $imgs = [];
-          $imgs = $request->images;
-          foreach ($imgs as $key => $img) {
-            list($type, $img) = explode(';', $img);
-            list(, $img)      = explode(',', $img);
-            $img = base64_decode($img);
-            $img_name = uniqid().'.jpg';
+      $user = Auth::user();
+      $user->ads = $user->ads - 1;
+      $user->save();
 
-            $path = 'assets/front/images/cars/sliders/'.$img_name;
-            file_put_contents($path, $img);
-
-            $carimg = new CarImage;
-            $carimg->car_id = $car->id;
-            $carimg->image = $img_name;
-            $carimg->save();
-          }
-        }
-
-        $user = Auth::user();
-        $user->ads = $user->ads - 1;
-        $user->save();
-
-        $msg = 'Car Added Successfully.';
-        return response()->json($msg);
+      $msg = 'Car Added Successfully.';
+      return response()->json($msg);
     }
 
     //*** GET Request
