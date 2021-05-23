@@ -140,7 +140,8 @@ class StripeController extends Controller {
     }
 
     public function chargeCard($request) {
-        $plan = Plan::find(Auth::user()->current_plan);
+        $planId = Auth::user()->current_plan;
+        $plan = Plan::find($planId);
         $validator = Validator::make($request->all(), ['card_no' => 'required', 'ccExpiryMonth' => 'required', 'ccExpiryYear' => 'required', 'cvvNumber' => 'required'
         ]);
 
@@ -155,7 +156,6 @@ class StripeController extends Controller {
                 
                 $charge = $this->stripe->charges()->create(['card' => $token['id'], 'currency' => 'USD', 'amount' => $plan->listing_price, 'description' => 'Car Listing Price', ]);
                 if ($charge['status'] == 'succeeded') {
-                    $this->storetodb($request);
                     return response()->json(array('success' => 'Payment Successfully made'));
                 } else {
                     return response()->json(array('errors' => $e->getMessage()));
