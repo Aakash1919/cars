@@ -317,7 +317,7 @@
                   @if($boughtPlan->listing_price != 0)
                     <div class="row mt-5" id="app">
                       <div class="col-lg-8 offset-lg-3">
-                        <h4 class="heading">Payment</h4>
+                        <h4 class="heading">Payment ({{ '$'.$boughtPlan->listing_price.'/Car'}})</h4>
                           <div id="stripes">
                             <div class="form-group">
                                 <div class="col-sm-12 px-0">
