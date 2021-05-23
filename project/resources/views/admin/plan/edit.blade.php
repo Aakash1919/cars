@@ -61,6 +61,17 @@
                         <div class="row">
                           <div class="col-lg-4">
                             <div class="left-area">
+                                <h4 class="heading">Listing Price</h4>
+                            </div>
+                          </div>
+                          <div class="col-lg-7">
+                            <input type="text" class="input-field" name="listing_price" placeholder="Enter Listing Price" value="{{ $data->listing_price }}">
+                          </div>
+                        </div>
+
+                        <div class="row">
+                          <div class="col-lg-4">
+                            <div class="left-area">
                                 <h4 class="heading">Days</h4>
                             </div>
                           </div>

@@ -139,6 +139,40 @@ class StripeController extends Controller {
         }
     }
 
+    public function chargeCard($request) {
+        $plan = Plan::find(Auth::user()->current_plan);
+        $validator = Validator::make($request->all(), ['card_no' => 'required', 'ccExpiryMonth' => 'required', 'ccExpiryYear' => 'required', 'cvvNumber' => 'required'
+        ]);
+
+        $input = $request->all();
+        if ($validator->passes()) {
+            $input = array_except($input, array('_token'));
+            try {
+                $token = $this->stripe->tokens()->create(['card' => ['number' => $request->card_no, 'exp_month' => $request->ccExpiryMonth, 'exp_year' => $request->ccExpiryYear, 'cvc' => $request->cvvNumber ] ]);
+                if (!isset($token['id'])) {
+                    return redirect()->back();
+                }
+                
+                $charge = $this->stripe->charges()->create(['card' => $token['id'], 'currency' => 'USD', 'amount' => $plan->listing_price, 'description' => 'Car Listing Price', ]);
+                if ($charge['status'] == 'succeeded') {
+                    $this->storetodb($request);
+                    return response()->json(array('success' => 'Payment Successfully made'));
+                } else {
+                    return response()->json(array('errors' => $e->getMessage()));
+                }
+            }
+            catch(Exception $e) {
+                response()->json(array('errors' => $e->getMessage()));
+            }
+            catch(\Cartalyst\Stripe\Exception\CardErrorException $e) {
+                response()->json(array('errors' => $e->getMessage()));
+            }
+            catch(\Cartalyst\Stripe\Exception\MissingParameterException $e) {
+                response()->json(array('errors' => $e->getMessage()));
+            }
+        }
+    }
+
     public function storetodb(Request $request)
     {
         $plan = Plan::find($request->plan_id);

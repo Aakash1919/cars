@@ -4,6 +4,7 @@ namespace App\Http\Controllers\User;
 
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
+use App\Http\Controllers\User\StripeController;
 use App\Models\Car;
 use App\Models\Brand;
 use App\Models\Condtion;
@@ -21,7 +22,14 @@ use DB;
 
 class CarController extends Controller
 {
-    //*** JSON Reques
+
+  protected $stripeController;
+
+  public function __construct() {
+    $this->stripeController = new StripeController();
+  }
+
+    //*** JSON Request
     public function datatables(Request $request)
     {
          if ($request->type == 'featured') {
@@ -95,40 +103,43 @@ class CarController extends Controller
         return response()->json($msg);
       }
 
-      $messages = [
-        'label.*.required' => 'Specification label cannot be blank',
-        'value.*.required' => 'Specification value cannot be blank',
-        'brand_id.required' => 'Brand is required',
-        'brand_model_id.required' => 'Model is required',
-        'condtion_id.required' => 'Condtion is required',
-      ];
+      // $messages = [
+      //   'label.*.required' => 'Specification label cannot be blank',
+      //   'value.*.required' => 'Specification value cannot be blank',
+      //   'brand_id.required' => 'Brand is required',
+      //   'brand_model_id.required' => 'Model is required',
+      //   'condtion_id.required' => 'Condtion is required',
+      // ];
 
-      //--- Validation Section
-      $rules = [
-        'title' => 'required',
-        'brand_id' => 'required',
-        'top_speed' => 'required|numeric',
-        'brand_model_id' => 'required',
-        'currency_code' => 'required|max:20',
-        'currency_symbol' => 'required',
-        'regular_price' => 'required',
-        'condtion_id' => 'required',
-        'description' => 'required',
-        'featured_image' => 'required',
-        'images' => 'required',
-        'year' => 'required|integer',
-        'mileage' => 'required|numeric',
-        'label.*' => 'required',
-        'value.*' => 'required',
-      ];
+      // //--- Validation Section
+      // $rules = [
+      //   'title' => 'required',
+      //   'brand_id' => 'required',
+      //   'top_speed' => 'required|numeric',
+      //   'brand_model_id' => 'required',
+      //   'currency_code' => 'required|max:20',
+      //   'currency_symbol' => 'required',
+      //   'regular_price' => 'required',
+      //   'condtion_id' => 'required',
+      //   'description' => 'required',
+      //   'featured_image' => 'required',
+      //   'images' => 'required',
+      //   'year' => 'required|integer',
+      //   'mileage' => 'required|numeric',
+      //   'label.*' => 'required',
+      //   'value.*' => 'required',
+      // ];
 
-      $validator = Validator::make($request->all(), $rules, $messages);
+      // $validator = Validator::make($request->all(), $rules, $messages);
 
-      if ($validator->fails()) {
-        return response()->json(array('errors' => $validator->getMessageBag()->toArray()));
-      }
+      // if ($validator->fails()) {
+      //   return response()->json(array('errors' => $validator->getMessageBag()->toArray()));
+      // }
       //--- Validation Section Ends
-
+      // Create A payment with Stripe
+      $response = $this->stripeController->chargeCard($request);
+      print_r($response);die;
+      // End Stripe Payment here
         $in = $request->all();
         $in['user_id'] = Auth::user()->id;
         if ($request->filled('featured_image')) {

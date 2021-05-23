@@ -76,6 +76,7 @@ class PlanController extends Controller
             'currency' => 'required|max:30',
             'currency_code' => 'required',
             'price' => 'required|numeric',
+            'listing_price' => 'required|numeric',
             'days' => 'required|integer',
             'ads' => 'required',
             'details' => 'required',
@@ -89,7 +90,6 @@ class PlanController extends Controller
 
         //--- Logic Section
         $input = $request->all();
-
         $plan = Plan::create($input);
 
         //--- Redirect Section
@@ -114,6 +114,7 @@ class PlanController extends Controller
             'currency' => 'required|max:30',
             'currency_code' => 'required',
             'price' => 'required|numeric',
+            'listing_price' => 'required|numeric',
             'days' => 'required|integer',
             'ads' => 'required',
             'details' => 'required',
