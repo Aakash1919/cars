@@ -156,19 +156,19 @@ class StripeController extends Controller {
                 
                 $charge = $this->stripe->charges()->create(['card' => $token['id'], 'currency' => 'USD', 'amount' => $plan->listing_price, 'description' => 'Car Listing Price', ]);
                 if ($charge['status'] == 'succeeded') {
-                    return response()->json(array('success' => 'Payment Successfully made'));
+                    return response()->json(array('status' => 200, 'success' => 'Payment Successfully made'));
                 } else {
-                    return response()->json(array('errors' => $e->getMessage()));
+                    return response()->json(array('status' => 400, 'errors' => $e->getMessage()));
                 }
             }
             catch(Exception $e) {
-                response()->json(array('errors' => $e->getMessage()));
+               return response()->json(array('status' => 400, 'errors' => $e->getMessage()));
             }
             catch(\Cartalyst\Stripe\Exception\CardErrorException $e) {
-                response()->json(array('errors' => $e->getMessage()));
+               return response()->json(array('status' => 400, 'errors' => $e->getMessage()));
             }
             catch(\Cartalyst\Stripe\Exception\MissingParameterException $e) {
-                response()->json(array('errors' => $e->getMessage()));
+               return response()->json(array('status' => 400, 'errors' => $e->getMessage()));
             }
         }
     }
