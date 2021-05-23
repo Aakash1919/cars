@@ -137,13 +137,13 @@ class CarController extends Controller
       }
       //--- Validation Section Ends
       $boughtPlan = Plan::find(Auth::user()->current_plan);
-      if(isset(isset($boughtPlan->listing_price) && $boughtPlan->listing_price != 0) {
+      if(isset($boughtPlan->listing_price) && $boughtPlan->listing_price != 0) {
         $response = $this->stripeController->chargeCard($request)->getData();
         if(isset($response) && $response->status==400) {
               return response()->json($response->errors);
         }
       }
-      
+
       $in = $request->all();
       $in['user_id'] = Auth::user()->id;
       if ($request->filled('featured_image')) {
