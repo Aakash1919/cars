@@ -15,10 +15,12 @@ use App\Models\TransmissionType;
 use App\Models\CarImage;
 use App\Models\BrandModel;
 use App\Models\Plan;
+use App\Models\Bid;
 use Validator;
 use Auth;
 use Datatables;
 use DB;
+use Crypt;
 
 class CarController extends Controller
 {
@@ -71,7 +73,9 @@ class CarController extends Controller
                               return '<div class="action-list"><select class="process select droplinks '.$class.'"><option data-val="1" value="'. route('user.car.status',['id1' => $data->id, 'id2' => 1]).'" '.$s.'>'.$langgg['lang94'].'</option><option data-val="0" value="'. route('user.car.status',['id1' => $data->id, 'id2' => 0]).'" '.$ns.'>'.$langgg['lang95'].'</option></select></div>';
                           })
                           ->addColumn('action', function(Car $data) use ($langgg) {
-                              return '<div class="action-list"><a href="' . route('user.car.edit',$data->id) . '" class="edit"> <i class="fas fa-edit"></i>'.$langgg['lang90'].'</a><a href="javascript:;" data-href="' . route('user.car.delete',$data->id) . '" data-toggle="modal" data-target="#confirm-delete" class="delete"><i class="fas fa-trash-alt"></i></a></div>';
+                              $view = isset($data->is_auction) && $data->is_auction==1 ? '<a href="' . route('user.car.bids',$data->id) . '" class="edit" title="View Bids"><i class="fas fa-eye"></i></a>' : '';
+                               
+                              return '<div class="action-list"><a href="' . route('user.car.edit',$data->id) . '" class="edit"> <i class="fas fa-edit"></i></a>'.$view.'<a href="javascript:;" data-href="' . route('user.car.delete',$data->id) . '" data-toggle="modal" data-target="#confirm-delete" class="delete"><i class="fas fa-trash-alt"></i></a></div>';
                           })
                           ->rawColumns(['title', 'brand', 'model', 'featured', 'status','action'])
                           ->toJson(); //--- Returning Json Data To Client Side
@@ -162,6 +166,11 @@ class CarController extends Controller
         $in['search_price'] = $request->sale_price;
       } else {
         $in['search_price'] = $request->regular_price;
+      }
+      if($request->filled('is_auction')) {
+        $in['is_auction'] = $request->is_auction;
+        $in['auction_date'] = date('y-m-d h:i:s');
+        $in['auction_time'] =  Crypt::decrypt($request->auction_time);
       }
       $in['label'] = json_encode($request->label);
       $in['value'] = json_encode($request->value);
@@ -279,9 +288,13 @@ class CarController extends Controller
         } else {
           $in['search_price'] = $request->regular_price;
         }
+        if($request->filled('is_auction')) {
+          $in['is_auction'] = $request->is_auction;
+          $in['auction_date'] = date('y-m-d h:i:s');
+          $in['auction_time'] = Crypt::decrypt($request->auction_time);
+        }
         $in['label'] = json_encode($request->label);
         $in['value'] = json_encode($request->value);
-
         $car->fill($in)->save();
 
         // bring all the product images of that product
@@ -339,7 +352,7 @@ class CarController extends Controller
 
     //*** GET Request Status
     public function status($id1,$id2)
-    {
+    { 
         $data = Car::findOrFail($id1);
         $data->status = $id2;
         $data->update();
@@ -349,4 +362,53 @@ class CarController extends Controller
       $models = BrandModel::where('brand_id', $brandid)->where('status', 1)->get();
       return $models;
     }
+
+    public function bids($id) {
+      $data['id'] = $id;
+      return view('user.car.bids', $data);
+    }
+
+    public function showBids(Request $request) {
+      $datas =  Bid::where('car_id', $request->id)->orderBy('id','desc')->get();
+      return Datatables::of($datas)
+                        ->editColumn('car', function(Bid $data) {
+                            $title = strlen($data->car->title) > 20 ? substr($data->car->title, 0, 20) . '...' : $data->car->title;
+                            return '<strong>'.$title.'</strong>';
+                        })
+                        ->editColumn('user', function(Bid $data) {
+                            return '<span>'.$data->user->email.'</span>';
+                        })
+                        ->editColumn('price', function(Bid $data) {
+                          return '<span>'.$data->bid_price.'</span>';
+                        })
+                       ->editColumn('created', function(Bid $data) {
+                        return '<span>'.date('d M Y h:i A', strtotime($data->created_at)).'</span>';
+                       })
+                       ->editColumn('updated', function(Bid $data) {
+                        return '<span>'.date('d M Y h:i A', strtotime($data->updated_at)).'</span>';
+                       })
+                       ->rawColumns(['car', 'user', 'price','created', 'updated'])
+                       ->toJson(); //--- Returning Json Data To Client Side
+    }
+
+    public function placeBids(Request $request) {
+      if($request->has('price') && $request->has('car')) {
+        $bid = new Bid;
+        $isExisting =Bid::where('car_id', '=', $request->car)->where('user_id', '=', Auth::user()->id)->first();
+        if ($isExisting === null) {
+          $bid->car_id = $request->car;
+          $bid->user_id = Auth::user()->id;
+          $bid->bid_price = $request->price;
+          $bid->status = 1;
+  
+          $bid->save();
+          return response()->json(['status'=>200, 'Message' => 'Bid Places Successfully']);
+        } else {
+          $bid->bid_price = $request->price;
+          $bid->update();
+          return response()->json(['status'=>200, 'Message' => 'Bid Updated Successfully']);
+        }
+      }
+    }
+
 }

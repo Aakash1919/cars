@@ -96,16 +96,16 @@
               </div>
               <br>
 
-              <div class="row">
+              <div class="row hidden">
                 <div class="col-lg-7 offset-lg-3">
                   <div class="row">
                     <div class="col-lg-6">
                       <h4 class="heading mb-0">{{$langg->lang105}} *</h4>
-                      <input class="input-field" type="text" name="currency_code" placeholder="{{$langg->lang101}} {{$langg->lang105}}" value="">
+                      <input class="input-field" type="text" name="currency_code" placeholder="{{$langg->lang101}} {{$langg->lang105}}" value="AUD">
                     </div>
                     <div class="col-lg-6">
                       <h4 class="heading mb-0">{{$langg->lang106}} *</h4>
-                      <input class="input-field" type="text" name="currency_symbol" placeholder="{{$langg->lang101}} {{$langg->lang106}}" value="">
+                      <input class="input-field" type="text" name="currency_symbol" placeholder="{{$langg->lang101}} {{$langg->lang106}}" value="$">
                     </div>
                   </div>
                 </div>
@@ -146,13 +146,33 @@
               <div class="row">
                 <div class="col-lg-7 offset-lg-3">
                   <div class="row">
-                    <div class="col-lg-6">
+                    <div class="col-lg-3">
                       <h4 class="heading mb-0">{{$langg->lang112}} *</h4>
                       <input class="input-field" type="text" name="year" placeholder="{{$langg->lang101}} {{$langg->lang112}}" value="">
                     </div>
-                    <div class="col-lg-6">
+                    <div class="col-lg-3">
                       <h4 class="heading mb-0">{{$langg->lang113}} *</h4>
                       <input class="input-field" type="text" name="mileage" placeholder="{{$langg->lang101}} {{$langg->lang113}}" value="">
+                    </div>
+                    <div class="col-lg-3">
+                      <h4 class="heading mb-0">{{$langg->lang182}} </h4>
+                      <div class="form-check form-check-inline mt-4">
+                        <input class="form-check-input" type="radio" name="is_auction" id="inlineRadio1" value="1">
+                        <label class="form-check-label" for="inlineRadio1">{{$langg->lang88}}</label>
+                      </div>
+                      <div class="form-check form-check-inline">
+                        <input class="form-check-input" type="radio" name="is_auction" id="inlineRadio2" value="0" checked>
+                        <label class="form-check-label" for="inlineRadio2">{{$langg->lang89}}</label>
+                      </div>
+                    </div>
+                    <div class="col-lg-3">
+                      <h4 class="heading mb-0">{{$langg->lang183}} </h4>
+                      <select class="input-field" name="auction_time">
+                        <option value="" selected>{{$langg->lang184}}</option>
+                        <option value="{{ \Crypt::encrypt(1) }}">{{$langg->lang185}}</option>
+                        <option value="{{ \Crypt::encrypt(3) }}">{{$langg->lang186}}</option>
+                        <option value="{{ \Crypt::encrypt(7) }}">{{$langg->lang187}}</option>
+                      </select>
                     </div>
                   </div>
                 </div>

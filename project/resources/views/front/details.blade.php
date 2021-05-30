@@ -1,7 +1,8 @@
 @extends('layouts.front')
 
 @section('content')
-	<!-- Breadcrumb Area Start -->
+
+<!-- Breadcrumb Area Start -->
 	<div class="breadcrumb-area">
 			<div class="container">
 				<div class="row">
@@ -68,21 +69,21 @@
 						</div>
 						<div class="solial-links">
 							<ul>
-								@if ($car->user->socialsetting->f_status == 1)
+								@if (isset($car->user->socialsetting->f_status) && $car->user->socialsetting->f_status == 1)
 								<li>
 									 <a href="{{$car->user->socialsetting->facebook}}" target="_blank">
 									 <i class="fab fa-facebook-f"></i>
 									 </a>
 								</li>
 								@endif
-								@if ($car->user->socialsetting->t_status == 1)
+								@if (isset($car->user->socialsetting->t_status) && $car->user->socialsetting->t_status == 1)
 								<li>
 									 <a href="{{$car->user->socialsetting->twitter}}" target="_blank">
 									 <i class="fab fa-twitter"></i>
 									 </a>
 								</li>
 								@endif
-								@if ($car->user->socialsetting->l_status == 1)
+								@if (isset($car->user->socialsetting->l_status) && $car->user->socialsetting->l_status == 1)
 								<li>
 									 <a href="{{$car->user->socialsetting->linkedin}}" target="_blank">
 									 <i class="fab fa-linkedin-in"></i>
@@ -164,6 +165,28 @@
 					</div>
 				</div>
 				<div class="col-lg-4">
+					@if (isset($car->is_auction) && $car->is_auction==1 && isset($car->auction_time))
+						<div class="details-info-area">
+							<div class="heading">
+								<h4 class="title">Auction Time</h4>
+								<ul class="details-list">
+									<li>
+										<p>Auction Time :</p>
+										<P id="countDownTimer"></P>
+									</li>
+									@auth
+										<li>
+											<p><input type ="number" name="bid_price" id="bid_price" placeholder="Bid Price (in AUD)"></input></p>
+											<P><button id = "bid" class="btn btn-sm btn-success">Bid</button></P>
+										</li>
+										<li>
+											<div id="response" style="width:100%"></div>
+										</li>
+									@endauth
+								</ul>
+							</div>
+						</div>
+					@endif
 					<div class="details-info-area">
 						<div class="heading">
 							<h4 class="title">
@@ -235,12 +258,14 @@
 									$labels = json_decode($car->label, true);
 									$values = json_decode($car->value, true);
 								@endphp
-								@for ($i=0; $i < count($labels); $i++)
-									<li>
-										<p>{{ $labels[$i] }}:</p>
-										<p>{{ $values[$i] }}</p>
-									</li>
-								@endfor
+								@if(is_array($labels))
+									@for ($i=0; $i < count($labels); $i++)
+										<li>
+											<p>{{ $labels[$i] }}:</p>
+											<p>{{ $values[$i] }}</p>
+										</li>
+									@endfor
+								@endif
 							</ul>
 						</div>
 					</div>
@@ -282,6 +307,44 @@
 @endsection
 
 @section('scripts')
+@if (isset($car->is_auction) && $car->is_auction==1 && isset($car->auction_time))
+	<script>
+		var expiredDays = '{{date("M d, Y h:i:s", strtotime("+$car->auction_time days", strtotime($car->auction_date)))}}'
+		var countDownDate = new Date(expiredDays).getTime();
+		var x = setInterval(function() {
+			var now = new Date().getTime();
+			var distance = countDownDate - now;
+			var days = Math.floor(distance / (1000 * 60 * 60 * 24));
+			var hours = Math.floor((distance % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60));
+			var minutes = Math.floor((distance % (1000 * 60 * 60)) / (1000 * 60));
+			var seconds = Math.floor((distance % (1000 * 60)) / 1000);
+			document.getElementById("countDownTimer").innerHTML = days + "d " + hours + "h "+ minutes + "m " + seconds + "s ";
+			if (distance < 0) {
+				clearInterval(x);
+				document.getElementById("countDownTimer").innerHTML = "EXPIRED";
+			}
+		}, 1000);
+
+		$('#bid').on('click', function() {
+			var price =$('#bid_price').val();
+			var csrf = '{{csrf_token()}}'
+			var car= {{$car->id}}
+			if(price && car) {
+				$.post( "{{route('user.car.placeBid')}}", {price : price, car: car, _token: csrf}, function( data ) {
+					if(data.status==200) {
+						$('#response').removeAttr('class')
+						$('#response').addClass('alert alert-success')
+						$('#response').html(data.Message)
+					}else {
+						$('#response').removeAttr('class')
+						$('#response').addClass('alert alert-warning')
+						$('#response').html(data.Message)
+					}
+				});	
+			}
+		})
+	</script>	
+@endif
 <script type="text/javascript">
 	var lat = {{ $car->user->latitude }};
 	var long = {{ $car->user->longitude }};

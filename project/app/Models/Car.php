@@ -6,7 +6,7 @@ use Illuminate\Database\Eloquent\Model;
 
 class Car extends Model
 {
-    protected $fillable = ['id', 'user_id', 'title', 'brand_id', 'year', 'mileage', 'regular_price', 'sale_price', 'search_price', 'negotiable', 'brand_model_id', 'category_id', 'body_type_id', 'fuel_type_id', 'transmission_type_id', 'condtion_id', 'featured_image', 'description', 'label', 'value', 'top_speed', 'currency_code', 'currency_symbol', 'created_at', 'updated_at'];
+    protected $fillable = ['id', 'user_id', 'title', 'brand_id', 'year', 'mileage', 'regular_price', 'sale_price', 'search_price', 'negotiable', 'brand_model_id', 'category_id', 'body_type_id', 'fuel_type_id', 'transmission_type_id', 'condtion_id', 'featured_image', 'description', 'label', 'value', 'is_auction','auction_date', 'auction_time', 'top_speed', 'currency_code', 'currency_symbol', 'created_at', 'updated_at'];
 
     public function user() {
       return $this->belongsTo('App\Models\User');
