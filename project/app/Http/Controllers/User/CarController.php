@@ -102,10 +102,10 @@ class CarController extends Controller
 
     public function store(Request $request)
     {
-      if (Auth()->user()->ads == 0) {
-        $msg = 'You have to buy a package to post ad.';
-        return response()->json($msg);
-      }
+      // if (Auth()->user()->ads == 0) {
+      //   $msg = 'You have to buy a package to post ad.';
+      //   return response()->json($msg);
+      // }
 
       $messages = [
         'label.*.required' => 'Specification label cannot be blank',
@@ -194,10 +194,6 @@ class CarController extends Controller
           $carimg->save();
         }
       }
-
-      $user = Auth::user();
-      $user->ads = $user->ads - 1;
-      $user->save();
 
       $msg = 'Car Added Successfully.';
       return response()->json($msg);
@@ -387,8 +383,12 @@ class CarController extends Controller
                        ->editColumn('updated', function(Bid $data) {
                         return '<span>'.date('d M Y h:i A', strtotime($data->updated_at)).'</span>';
                        })
-                       ->rawColumns(['car', 'user', 'price','created', 'updated'])
-                       ->toJson(); //--- Returning Json Data To Client Side
+                       ->editColumn('action', function(Bid $data) {
+                         $bidStatus = $data->status==1 ? "drop-success" : 'acceptBid';
+                        return '<div class="action-list"><a href="javascript:void(0)" id="bidStatus" class="edit '.$bidStatus .'" data-value="'.$data->id.'"><i class="fa fa-check"></i></a></div>';
+                       })
+                       ->rawColumns(['car', 'user', 'price','created', 'updated', 'action'])
+                       ->toJson(); 
     }
 
     public function placeBids(Request $request) {
@@ -399,16 +399,23 @@ class CarController extends Controller
           $bid->car_id = $request->car;
           $bid->user_id = Auth::user()->id;
           $bid->bid_price = $request->price;
-          $bid->status = 1;
+          $bid->status = 0;
   
           $bid->save();
           return response()->json(['status'=>200, 'Message' => 'Bid Places Successfully']);
         } else {
-          $bid->bid_price = $request->price;
-          $bid->update();
+          $isExisting->bid_price = $request->price;
+          $isExisting->update();
           return response()->json(['status'=>200, 'Message' => 'Bid Updated Successfully']);
         }
       }
     }
-
+    public function acceptBids(Request $request) {
+      if($request->has('bid') && $request->has('status')) {
+        $bid = Bid::findOrFail($request->bid);
+        $bid->status = $request->status=="accept" ? 1 : 0;
+        $bid->update();
+        return response()->json(['status'=>200, 'Message' => 'Bid Accepted']);
+      }
+    }
 }

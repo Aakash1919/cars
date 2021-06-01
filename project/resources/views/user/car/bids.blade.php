@@ -31,6 +31,7 @@
                            <th>Price</th>
                            <th>Created</th>
                            <th>Updated</th>
+                           <th>Action</th>
                         </tr>
                      </thead>
                   </table>
@@ -120,6 +121,10 @@
               data: 'updated',
               name: 'updated'
           },
+          {
+              data: 'action',
+              name: 'action'
+          },
 
       ],
       language: {
@@ -134,5 +139,30 @@
    $(document).ready(function() {
       $("#geniustable_filter").parent().addClass("offset-md-4")
    });
+</script>
+<script>
+    $(document).on('click', '.acceptBid', function(){
+      var bid = $(this).attr('data-value')
+      var csrf = "{{csrf_token()}}"
+      if(bid) {
+      $.post( "{{route('user.car.acceptBids')}}", {bid: bid, _token : csrf, status : 'accept'}, function( data ) {
+         if(data.status==200) {
+          location.reload()
+         }
+      });
+      }
+   })
+
+   $(document).on('click', '.drop-success', function(){
+      var bid = $(this).attr('data-value')
+      var csrf = "{{csrf_token()}}"
+      if(bid) {
+      $.post( "{{route('user.car.acceptBids')}}", {bid: bid, _token : csrf, status : 'reject'}, function( data ) {
+         if(data.status==200) {
+            location.reload()
+         }
+      });
+      }
+   })
 </script>
 @endsection

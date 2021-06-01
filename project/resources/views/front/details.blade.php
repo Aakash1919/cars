@@ -55,9 +55,9 @@
 								@endif
 							</div>
 							<div class="right">
-								<h4 class="title">
+								{{-- <h4 class="title">
 									{{ $car->user->first_name }} {{ $car->user->last_name }}
-								</h4>
+								</h4> --}}
 								<ul class="profile-meta">
 									<li>
 										<p>
@@ -100,10 +100,10 @@
 									<a class="nav-link active" id="pills-productdetails-tab" data-toggle="pill" href="#pills-productdetails"
 										role="tab" aria-controls="pills-productdetails" aria-selected="false">{{ $langg->lang60 }}</a>
 								</li>
-								<li class="nav-item">
+								{{-- <li class="nav-item">
 									<a class="nav-link" id="pills-contact-tab" data-toggle="pill" href="#pills-contact" role="tab"
 										aria-controls="pills-contact" aria-selected="false">{{ $langg->lang61 }}</a>
-								</li>
+								</li> --}}
 							</ul>
 						</div>
 						<div class="tab-content" id="pills-tabContent">
@@ -113,7 +113,7 @@
 									{{ $car->description }}
 								</div>
 							</div>
-							<div class="tab-pane fade" id="pills-contact" role="tabpanel" aria-labelledby="pills-contact-tab">
+							{{-- <div class="tab-pane fade" id="pills-contact" role="tabpanel" aria-labelledby="pills-contact-tab">
 
 									<div class="contact-area">
 										<p>{{ $car->user->about }}</p>
@@ -160,7 +160,7 @@
 											</div>
 
 									</div>
-							</div>
+							</div> --}}
 						</div>
 					</div>
 				</div>
@@ -176,7 +176,7 @@
 									</li>
 									@auth
 										<li>
-											<p><input type ="number" name="bid_price" id="bid_price" placeholder="Bid Price (in AUD)"></input></p>
+											<p><input type ="number" name="bid_price" id="bid_price" placeholder="Bid Price"></input></p>
 											<P><button id = "bid" class="btn btn-sm btn-success">Bid</button></P>
 										</li>
 										<li>

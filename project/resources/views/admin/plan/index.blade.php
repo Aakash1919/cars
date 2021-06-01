@@ -33,7 +33,6 @@
 			                        <th>Currency</th>
 															<th>Price</th>
 															<th>Days</th>
-															<th>Ads</th>
 															<th>Status</th>
 			                        <th>Action</th>
 														</tr>
@@ -124,7 +123,6 @@
                   { data: 'currency', name: 'currency', searchable: false, orderable: false },
 									{ data: 'price', name: 'price', searchable: false, orderable: false},
 									{ data: 'days', name: 'days', searchable: false, orderable: false},
-									{ data: 'ads', name: 'ads', searchable: false, orderable: false},
 									{ data: 'status', name: 'status', searchable: false, orderable: false},
                   { data: 'action', name: 'action', searchable: false, orderable: false},
 								],

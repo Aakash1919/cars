@@ -80,7 +80,7 @@
                           </div>
                         </div>
 
-                        <div class="row">
+                        {{-- <div class="row">
                           <div class="col-lg-4">
                             <div class="left-area">
                                 <h4 class="heading">Ads *</h4>
@@ -89,7 +89,7 @@
                           <div class="col-lg-7">
                             <input type="number" class="input-field" name="ads" placeholder="Enter number of ads seller can post" value="{{ $data->ads }}">
                           </div>
-                        </div>
+                        </div> --}}
 
                         <div class="row">
                           <div class="col-lg-4">

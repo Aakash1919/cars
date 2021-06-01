@@ -39,9 +39,6 @@ class PlanController extends Controller
                             ->addColumn('days', function(Plan $data) {
                                 return '<span>'.$data->days.'</span>';
                             })
-                            ->addColumn('ads', function(Plan $data) {
-                                return '<span>'.$data->ads.'</span>';
-                            })
                             ->addColumn('status', function(Plan $data) {
                                 $class = $data->status == 1 ? 'drop-success' : 'drop-danger';
                                 $s = $data->status == 1 ? 'selected' : '';
@@ -78,7 +75,6 @@ class PlanController extends Controller
             'price' => 'required|numeric',
             'listing_price' => 'required|numeric',
             'days' => 'required|integer',
-            'ads' => 'required',
             'details' => 'required',
         ];
         $validator = Validator::make(Input::all(), $rules);
@@ -116,7 +112,6 @@ class PlanController extends Controller
             'price' => 'required|numeric',
             'listing_price' => 'required|numeric',
             'days' => 'required|integer',
-            'ads' => 'required',
             'details' => 'required',
         ];
         $validator = Validator::make(Input::all(), $rules);

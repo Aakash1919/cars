@@ -365,6 +365,7 @@ Route::group(['middleware' => 'auth'], function() {
   Route::get('/car/{id}/bids', 'User\CarController@bids')->name('user.car.bids');
   Route::get('/car/show-bids', 'User\CarController@showBids')->name('user.car.showBids');
   Route::post('/car/place-bids', 'User\CarController@placeBids')->name('user.car.placeBid');
+  Route::post('/car/accept-bids', 'User\CarController@acceptBids')->name('user.car.acceptBids');
   Route::post('/car/update', 'User\CarController@update')->name('user.car.update');
   Route::get('/car/delete/{id}', 'User\CarController@destroy')->name('user.car.delete');
   Route::get('/car/status/{id1}/{id2}', 'User\CarController@status')->name('user.car.status');

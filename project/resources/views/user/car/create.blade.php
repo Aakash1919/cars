@@ -57,7 +57,7 @@
                 <div class="row mb-4">
                   <div class="col-lg-7 offset-lg-3">
                     <div class="alert alert-warning" role="alert">
-                      <p class="mb-0">{{$langg->lang97}} <strong>{{ $boughtPlan->title }}</strong>.{{$langg->lang98}} <strong>{{ Auth::user()->ads }}</strong> {{$langg->lang99}}. {{$langg->lang100}} <strong>{{ date('jS M, o', strtotime(Auth::user()->expired_date)) }} </strong>.
+                      <p class="mb-0">{{$langg->lang97}} <strong>{{ $boughtPlan->title }}</strong> </strong>
                       </p>
                     </div>
                   </div>
@@ -123,20 +123,9 @@
                       <h4 class="heading mb-0">{{$langg->lang108}} </h4>
                       <input class="input-field" type="text" name="sale_price" placeholder="{{$langg->lang101}} {{$langg->lang108}}" value="">
                     </div>
-                    <div class="col-lg-3">
-                      <h4 class="heading mb-0">{{$langg->lang109}} </h4>
-                      <div class="form-check form-check-inline mt-4">
-                        <input class="form-check-input" type="radio" name="negotiable" id="inlineRadio1" value="1">
-                        <label class="form-check-label" for="inlineRadio1">{{$langg->lang88}}</label>
-                      </div>
-                      <div class="form-check form-check-inline">
-                        <input class="form-check-input" type="radio" name="negotiable" id="inlineRadio2" value="0" checked>
-                        <label class="form-check-label" for="inlineRadio2">{{$langg->lang89}}</label>
-                      </div>
-                    </div>
-                    <div class="col-lg-3">
-                      <h4 class="heading mb-0">{{$langg->lang110}} ({{$langg->lang111}}) *</h4>
-                      <input class="input-field" type="text" name="top_speed" placeholder="{{$langg->lang101}} {{$langg->lang110}}" value="">
+                    <div class="col-lg-6">
+                      <h4 class="heading mb-0">{{$langg->lang112}} *</h4>
+                      <input class="input-field" type="text" name="year" placeholder="{{$langg->lang101}} {{$langg->lang112}}" value="">
                     </div>
                   </div>
                 </div>
@@ -146,26 +135,13 @@
               <div class="row">
                 <div class="col-lg-7 offset-lg-3">
                   <div class="row">
-                    <div class="col-lg-3">
-                      <h4 class="heading mb-0">{{$langg->lang112}} *</h4>
-                      <input class="input-field" type="text" name="year" placeholder="{{$langg->lang101}} {{$langg->lang112}}" value="">
-                    </div>
-                    <div class="col-lg-3">
+                    <div class="col-lg-6">
                       <h4 class="heading mb-0">{{$langg->lang113}} *</h4>
                       <input class="input-field" type="text" name="mileage" placeholder="{{$langg->lang101}} {{$langg->lang113}}" value="">
                     </div>
-                    <div class="col-lg-3">
-                      <h4 class="heading mb-0">{{$langg->lang182}} </h4>
-                      <div class="form-check form-check-inline mt-4">
-                        <input class="form-check-input" type="radio" name="is_auction" id="inlineRadio1" value="1">
-                        <label class="form-check-label" for="inlineRadio1">{{$langg->lang88}}</label>
-                      </div>
-                      <div class="form-check form-check-inline">
-                        <input class="form-check-input" type="radio" name="is_auction" id="inlineRadio2" value="0" checked>
-                        <label class="form-check-label" for="inlineRadio2">{{$langg->lang89}}</label>
-                      </div>
-                    </div>
-                    <div class="col-lg-3">
+                    <input type="hidden" name="is_auction" value='1'>
+                    
+                    <div class="col-lg-6">
                       <h4 class="heading mb-0">{{$langg->lang183}} </h4>
                       <select class="input-field" name="auction_time">
                         <option value="" selected>{{$langg->lang184}}</option>

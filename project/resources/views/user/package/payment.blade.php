@@ -34,14 +34,14 @@
         </div>
       </div>
 
-      <div class="row mb-4">
+      {{-- <div class="row mb-4">
         <div class="col-lg-6 text-right text-uppercase">
           <strong>{{ $langg->lang158 }}:</strong>
         </div>
         <div class="col-lg-6 text-left">
           {{ $plan->ads  }}
         </div>
-      </div>
+      </div> --}}
 
       <div class="row mb-4">
         <div class="col-lg-6 text-right text-uppercase">
