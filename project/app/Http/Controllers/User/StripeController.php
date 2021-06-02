@@ -139,6 +139,35 @@ class StripeController extends Controller {
         }
     }
 
+    public function chargeCustomerProfile($request) {
+        $planId = Auth::user()->current_plan;
+        $plan = Plan::find($planId);
+        $customerId = Auth::user()->stripe_customer_id;
+        if(!isset($customerId))  return response()->json(array('status' => 400, 'errors' => 'User Not eligible for payment'));
+        try {
+            $charge = $this->stripe->charges()->create([
+                'customer' => $customerId,
+                'currency' => 'AUD',
+                'amount'   => $plan->listing_price,
+            ]);
+            if ($charge['status'] == 'succeeded') {
+                return response()->json(array('status' => 200, 'success' => 'Payment Successfully made'));
+            } else {
+                return response()->json(array('status' => 400, 'errors' => $e->getMessage()));
+            }
+        }
+        catch(Exception $e) {
+            return response()->json(array('status' => 400, 'errors' => $e->getMessage()));
+         }
+         catch(\Cartalyst\Stripe\Exception\CardErrorException $e) {
+            return response()->json(array('status' => 400, 'errors' => $e->getMessage()));
+         }
+         catch(\Cartalyst\Stripe\Exception\MissingParameterException $e) {
+            return response()->json(array('status' => 400, 'errors' => $e->getMessage()));
+         }
+       
+    }
+
     public function chargeCard($request) {
         $planId = Auth::user()->current_plan;
         $plan = Plan::find($planId);

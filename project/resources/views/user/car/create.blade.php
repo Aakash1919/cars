@@ -313,29 +313,7 @@
                   @if($boughtPlan->listing_price != 0)
                     <div class="row mt-5" id="app">
                       <div class="col-lg-8 offset-lg-3">
-                        <h4 class="heading">Payment ({{ '$'.$boughtPlan->listing_price.'/Car'}})</h4>
-                          <div id="stripes">
-                            <div class="form-group">
-                                <div class="col-sm-12 px-0">
-                                    <input type="text" class="form-control" id="scard" name="card_no" placeholder="{{ $langg->lang161 }}" autocomplete="off">
-                                </div>
-                            </div>
-                            <div class="form-group">
-                                <div class="col-sm-12 px-0">
-                                    <input type="text" class="form-control" id="scvv" name="cvvNumber" placeholder="{{ $langg->lang162 }}" autocomplete="off">
-                                </div>
-                            </div>
-                            <div class="form-group">
-                                <div class="col-sm-12 px-0">
-                                    <input type="text" class="form-control" id="smonth" name="ccExpiryMonth" placeholder="{{ $langg->lang163 }}" autocomplete="off">
-                                </div>
-                            </div>
-                            <div class="form-group">
-                                <div class="col-sm-12 px-0">
-                                    <input type="text" class="form-control" id="syear" name="ccExpiryYear" placeholder="{{ $langg->lang164 }}" autocomplete="off">
-                                </div>
-                            </div>
-                        </div>
+                        <h4 class="heading">You will be charged ({{ '$'.$boughtPlan->listing_price.'/Car'}})</h4>
                       </div>
                     </div>
                   @endif
@@ -493,7 +471,7 @@
   </script>
 
 
-@if($boughtPlan->listing_price != 0)
+{{-- @if($boughtPlan->listing_price != 0)
 <script type="text/javascript">
   function meThods(val) {
     $("#scard").prop("required", true);
@@ -503,5 +481,5 @@
   }
         
 </script>
-@endif;
+@endif; --}}
 @endsection
