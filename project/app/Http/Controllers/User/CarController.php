@@ -134,11 +134,11 @@ class CarController extends Controller
         'value.*' => 'required',
       ];
 
-      // $validator = Validator::make($request->all(), $rules, $messages);
+      $validator = Validator::make($request->all(), $rules, $messages);
 
-      // if ($validator->fails()) {
-      //   return response()->json(array('errors' => $validator->getMessageBag()->toArray()));
-      // }
+      if ($validator->fails()) {
+        return response()->json(array('errors' => $validator->getMessageBag()->toArray()));
+      }
       //--- Validation Section Ends
       $boughtPlan = Plan::find(Auth::user()->current_plan);
       if(isset($boughtPlan->listing_price) && $boughtPlan->listing_price != 0) {
@@ -147,7 +147,6 @@ class CarController extends Controller
               return response()->json($response->errors);
         }
       }
-die;
       $in = $request->all();
       $in['user_id'] = Auth::user()->id;
       if ($request->filled('featured_image')) {
