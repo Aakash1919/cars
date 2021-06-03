@@ -92,6 +92,8 @@
                                 <li><a href="{{ route('user.car.index') }}"><i class="fas fa-table"></i> {{ $langg->lang70 }}</a></li>
                                 <li><a href="{{ route('user.car.index', 'featured') }}"><i class="fas fa-table"></i> {{ $langg->lang71 }}</a></li>
                                 <li><a href="{{route('user-social-index')}}"><i class="fas fa-link"></i>{{ $langg->lang72 }}</a></li>
+                                <li><a href="{{route('user-transactions')}}"><i class="fas fa-money-check-alt"></i>Payment History</a></li>
+
                             @endif
                             <li><a href="{{route('user-package')}}"><i class="fas fa-box-open"></i>{{ $langg->lang73 }}</a></li>
                             <li><a href="{{route('user-logout')}}"><i class="fas fa-sign-out-alt"></i>{{ $langg->lang74 }}</a></li>

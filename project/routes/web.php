@@ -415,6 +415,11 @@ Route::group(['middleware' => 'auth'], function() {
   // User Subscription
   Route::get('/package', 'User\PackageController@package')->name('user-package');
   Route::get('/subscription/{id}', 'User\PackageController@selectPayment')->name('user-select-payment');
+  Route::get('/user-payment', 'User\TransactionController@index')->name('user-transactions');
+  Route::get('/payment/datatables', 'User\TransactionController@datatables')->name('user-payment-datatables'); //JSON REQUEST
+
+
+  
   Route::post('/vendor-request', 'User\PackageController@vendorrequestsub')->name('user-vendor-request-submit');
   Route::post('/paypal/submit', 'User\PaypalController@storetodb')->name('user.paypal.storetodb');
   Route::post('/stripe-submit', 'User\StripeController@payWithStripe')->name('stripe.submit');
