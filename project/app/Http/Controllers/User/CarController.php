@@ -93,6 +93,9 @@ class CarController extends Controller
     }
 
     public function create() {
+      if(!isset(Auth::user()->stripe_customer_id)) {
+        return redirect()->route('user.profile');
+      }
       $data['brands'] = Brand::where('status', 1)->get();
       $data['cats'] = Category::where('status', 1)->get();
       $data['conditions'] = Condtion::where('status', 1)->get();

@@ -34,7 +34,15 @@
                   <div class="col-lg-12">
                     <div class="product-description">
                       <div class="body-area">
-
+                        @if (!isset(Auth::user()->stripe_customer_id))
+                        <div class="row mb-4">
+                          <div class="col-lg-7 offset-lg-3">
+                            <div class="alert alert-warning" role="alert">
+                              <p class="mb-0">Please complete your profile first, To post an Ad. Thanks</p>
+                            </div>
+                          </div>
+                        </div>
+                      @endif
                       <div class="gocover" style="background: url({{ asset('assets/images/spinner.gif') }}) no-repeat scroll center center rgba(45, 45, 45, 0.5);"></div>
 
                       <div class="row">
