@@ -17,6 +17,7 @@ use App\Models\BrandModel;
 use Validator;
 use Auth;
 use Datatables;
+use Crypt;
 
 class CarController extends Controller
 {
@@ -156,6 +157,10 @@ class CarController extends Controller
 
             $in['featured_image'] = $image_name;
           }
+        }
+        if($request->filled('is_auction')) {
+          $in['is_auction'] = $request->is_auction;
+          $in['auction_time'] = Crypt::decrypt($request->auction_time);
         }
         $in['label'] = json_encode($request->label);
         $in['value'] = json_encode($request->value);
