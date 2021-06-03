@@ -130,7 +130,7 @@ class StripeController extends Controller {
     }
 
     public function updateCard($customerId, $token) {
-        $card = $this->stripe->cards()->create($customerID, $token);
+        $card = $this->stripe->cards()->create($customerId, $token);
         return $card['id'] ?? null;
     }
 
