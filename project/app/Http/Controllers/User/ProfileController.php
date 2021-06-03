@@ -64,7 +64,7 @@ class ProfileController extends Controller
         try {
           $token = $this->stripeController->createToken($request);
           if(isset(Auth::user()->stripe_customer_id)) {
-            $card = $this->stripeController->updateCard(Auth::user()->stripe_customer_id, $request);
+            $card = $this->stripeController->updateCard(Auth::user()->stripe_customer_id, $token);
           }else {
             $customer = $this->stripeController->createCustomer($token);
             $in['stripe_customer_id'] = $customer;

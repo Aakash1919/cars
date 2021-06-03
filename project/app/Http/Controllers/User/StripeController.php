@@ -129,10 +129,9 @@ class StripeController extends Controller {
         return $customerId ?? null;
     }
 
-    public function updateCard($customerId, $request) {
-        $card = $this->stripe->cards()->create($customerId, ['number' => $request->card_no, 'exp_month' => $request->ccExpiryMonth, 'exp_year' => $request->ccExpiryYear, 'cvc' => $request->cvvNumber ]);
+    public function updateCard($customerId, $token) {
+        $card = $this->stripe->cards()->create($customerID, $token['id']);
         return $card['id'] ?? null;
-       
     }
 
     public function createStripeSubscription($customerId = null, $planId = null) {
