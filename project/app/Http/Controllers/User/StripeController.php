@@ -212,7 +212,7 @@ class StripeController extends Controller {
         $subscriptionId = Auth::user()->stripe_subscription_id;
         if(isset($customerId) && isset($subscriptionId)) {
           $response =  $this->stripe->subscriptions()->cancel($customerId, $subscriptionId);
-          if(isset($subscription['status']) && $subscription['status'] == 'canceled') {
+          if(isset($response['status']) && $response['status'] == 'canceled') {
             $user = User::find(Auth::user()->id);
             $user->stripe_customer_id = NULL;
             $user->stripe_subscription_id = NULL;
