@@ -341,7 +341,6 @@
     });
     
     function meThods(val) {
-      console.log(val.value)
       if(val.value == "business") {
         $('.show-business').show()
       }else if(val.value == "dealer"){

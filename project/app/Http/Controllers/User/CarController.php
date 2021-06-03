@@ -71,7 +71,9 @@ class CarController extends Controller
                               $class = $data->status == 1 ? 'drop-success' : 'drop-danger';
                               $s = $data->status == 1 ? 'selected' : '';
                               $ns = $data->status == 0 ? 'selected' : '';
-                              return '<div class="action-list"><select class="process select droplinks '.$class.'"><option data-val="1" value="'. route('user.car.status',['id1' => $data->id, 'id2' => 1]).'" '.$s.'>'.$langgg['lang94'].'</option><option data-val="0" value="'. route('user.car.status',['id1' => $data->id, 'id2' => 0]).'" '.$ns.'>'.$langgg['lang95'].'</option></select></div>';
+                              $rs = $data->status == 2 ? 'selected' : '';
+
+                              return '<div class="action-list"><select class="process select droplinks '.$class.'"><option data-val="1" value="'. route('user.car.status',['id1' => $data->id, 'id2' => 1]).'" '.$s.'>'.$langgg['lang94'].'</option><option data-val="0" value="'. route('user.car.status',['id1' => $data->id, 'id2' => 0]).'" '.$ns.'>'.$langgg['lang95'].'</option><option data-val="1" value="'. route('user.car.status',['id1' => $data->id, 'id2' => 2]).'" '.$rs.'>Relist</option></select></div>';
                           })
                           ->addColumn('action', function(Car $data) use ($langgg) {
                               $view = isset($data->is_auction) && $data->is_auction==1 ? '<a href="' . route('user.car.bids',$data->id) . '" class="edit" title="View Bids"><i class="fas fa-eye"></i></a>' : '';
@@ -290,7 +292,6 @@ class CarController extends Controller
         }
         if($request->filled('is_auction')) {
           $in['is_auction'] = $request->is_auction;
-          $in['auction_date'] = date('y-m-d h:i:s');
           $in['auction_time'] = Crypt::decrypt($request->auction_time);
         }
         $in['label'] = json_encode($request->label);
@@ -355,6 +356,10 @@ class CarController extends Controller
     { 
         $data = Car::findOrFail($id1);
         $data->status = $id2;
+        if($data->relist!=1 && $id2==2) {
+          $data->auction_date = date('y-m-d h:i:s');
+          $data->relist = 1;
+        }
         $data->update();
     }
 
@@ -389,7 +394,9 @@ class CarController extends Controller
                        })
                        ->editColumn('action', function(Bid $data) {
                          $bidStatus = $data->status==1 ? "drop-success" : 'acceptBid';
-                        return '<div class="action-list"><a href="javascript:void(0)" id="bidStatus" class="edit '.$bidStatus .'" data-value="'.$data->id.'"><i class="fa fa-check"></i></a></div>';
+                         $bidTitle = $data->status==1 ? "Accepted" : 'Accept';
+
+                        return '<div class="action-list"><a href="javascript:void(0)" id="bidStatus" class="edit '.$bidStatus .'" data-value="'.$data->id.'"><i class="fa fa-check"></i>'.$bidTitle.'</a></div>';
                        })
                        ->rawColumns(['car', 'user', 'price','created', 'updated', 'action'])
                        ->toJson(); 
