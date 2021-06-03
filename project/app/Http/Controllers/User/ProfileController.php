@@ -61,7 +61,19 @@ class ProfileController extends Controller
         return response()->json(array('errors' => $validator->getMessageBag()->toArray()));
       }
       if(isset($request->card_no)) {
-        $token = $this->stripeController->createToken($request);
+       
+        try {
+          $token = $this->stripeController->createToken($request);
+        }
+        catch(Exception $e) {
+            return response()->json($e->getMessage());
+        }
+        catch(\Cartalyst\Stripe\Exception\CardErrorException $e) {
+            return response()->json($e->getMessage());
+        }
+        catch(\Cartalyst\Stripe\Exception\MissingParameterException $e) {
+            return response()->json($e->getMessage());
+        }
         $customer = $this->stripeController->createCustomer($token);
         $in['stripe_customer_id'] = $customer;
       }

@@ -110,9 +110,6 @@ class StripeController extends Controller {
         if ($validator->passes()) {
             $input = array_except($input, array('_token'));
             $token = $this->stripe->tokens()->create(['card' => ['number' => $request->card_no, 'exp_month' => $request->ccExpiryMonth, 'exp_year' => $request->ccExpiryYear, 'cvc' => $request->cvvNumber ] ]);
-            if (!isset($token['id'])) {
-                return redirect()->back();
-            }
             return $token;
         }
        
