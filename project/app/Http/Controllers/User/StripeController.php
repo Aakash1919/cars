@@ -129,6 +129,11 @@ class StripeController extends Controller {
         return $customerId ?? null;
     }
 
+    public function updateCard($customerId, $token) {
+        $card = $this->stripe->cards()->create($customerID, $token);
+        return $card['id'] ?? null;
+    }
+
     public function createStripeSubscription($customerId = null, $planId = null) {
         if(isset($customerId) && isset($planId)) {
             $subscription = $this->stripe->subscriptions()->create($customerId, ['items' => [['price' => $planId]]]);

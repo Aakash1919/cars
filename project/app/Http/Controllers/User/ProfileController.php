@@ -73,14 +73,22 @@ class ProfileController extends Controller
         catch(\Cartalyst\Stripe\Exception\MissingParameterException $e) {
             return response()->json($e->getMessage());
         }
-        $customer = $this->stripeController->createCustomer($token);
-        $in['stripe_customer_id'] = $customer;
+        if(isset(Auth::user()->stripe_customer_id)) {
+          $card = $this->stripeController->updateCard(Auth::user()->stripe_customer_id, $token);
+        }else {
+          $customer = $this->stripeController->createCustomer($token);
+          $in['stripe_customer_id'] = $customer;
+        }
       }
       $in = $request->all();
       $user = User::find(Auth::user()->id);
       $user->fill($in)->save();
 
       $msg = 'Data Updated Successfully.';
+      
+      if(isset($card)) {
+        $msg.=' Also Card Updated Successfully';
+      }
       return response()->json($msg);
     }
 }
