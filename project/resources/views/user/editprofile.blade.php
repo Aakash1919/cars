@@ -146,7 +146,66 @@
                           </div>
                         </div>
                         <br>
-
+                        <div class="row">
+                          <div class="col-lg-3">
+                            <div class="left-area">
+                                <h4 class="heading">Select Profile Type </h4>
+                            </div>
+                          </div>
+                          <div class="col-lg-7">
+                            <select class="input-field" id="usertype" name="usertype" onchange="meThods(this)" required>
+                              <option value="">Please select a type</option>
+                              <option value="personal" {{ isset($user->usertype) && $user->usertype=='personal' ? 'selected' :''}}>Personal</option>
+                              <option value="business"{{ isset($user->usertype) && $user->usertype=='business' ? 'selected' :''}}>Business</option>
+                              <option value="dealer"{{ isset($user->usertype) && $user->usertype=='dealer' ? 'selected' :''}}>Dealer</option>
+                            </select>
+                          </div>
+                        </div>
+                        
+                          <div class="row show-business" style="display:none">
+                            <div class="col-lg-3">
+                              <div class="left-area">
+                                  <h4 class="heading">Trading Name </h4>
+                              </div>
+                            </div>
+                            <div class="col-lg-7">
+                              <input class="input-field" type="text" name="trading_name" placeholder="Enter Trading Name" value="{{ $user->trading_name }}">
+                            </div>
+                          </div>
+                          <br>
+                          <div class="row show-business" style="display:none">
+                            <div class="col-lg-3">
+                              <div class="left-area">
+                                  <h4 class="heading">Business Address </h4>
+                              </div>
+                            </div>
+                            <div class="col-lg-7">
+                              <input class="input-field" type="text" name="business_address" placeholder="Enter Business Address" value="{{ $user->business_address }}">
+                            </div>
+                          </div>
+                          <br>
+                          <div class="row show-business" style="display:none">
+                            <div class="col-lg-3">
+                              <div class="left-area">
+                                  <h4 class="heading">ABN</h4>
+                              </div>
+                            </div>
+                            <div class="col-lg-7">
+                              <input class="input-field" type="text" name="abn" placeholder="Enter ABN" value="{{ $user->abn }}">
+                            </div>
+                          </div>
+                          <br>
+                          <div class="row show-dealer" style="display:none">
+                            <div class="col-lg-3">
+                              <div class="left-area">
+                                  <h4 class="heading">Licence</h4>
+                              </div>
+                            </div>
+                            <div class="col-lg-7">
+                              <input class="input-field" type="text" name="licence" placeholder="Enter Licence" value="{{ $user->licence }}">
+                            </div>
+                          </div>
+                          
                         <div class="row">
                           <div class="col-lg-3">
                             <div class="left-area">
@@ -274,7 +333,25 @@
   </script>
   <script type="text/javascript">
     $(document).ready(function() {
-        $(".myTags").tagit();
+        $(".myTags").tagit();      
     });
+    $(window).load(function() {
+      var element = document.getElementById('usertype');
+      meThods(element)
+    });
+    
+    function meThods(val) {
+      console.log(val.value)
+      if(val.value == "business") {
+        $('.show-business').show()
+      }else if(val.value == "dealer"){
+        $('.show-business').show()
+        $('.show-dealer').show()
+
+      }else {
+        $('.show-business').hide()
+        $('.show-dealer').hide()
+     }
+    }
   </script>
 @endsection
