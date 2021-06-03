@@ -208,10 +208,12 @@ class StripeController extends Controller {
         $customerId = Auth::user()->stripe_customer_id;
         $subscriptionId = Auth::user()->stripe_subscription_id;
         $user = User::find(Auth::user()->id);
-        try {
-            if(isset($customerId) && isset($subscriptionId)) {
+        $ms = 'You do not have any subscription';
+        if(isset($customerId) && isset($subscriptionId)) {
+            try {
                 $response =  $this->stripe->subscriptions()->cancel($customerId, $subscriptionId);
                 if(isset($response['status']) && $response['status'] == 'canceled') {
+                    $user->current_plan = NULL;
                     $user->stripe_customer_id = NULL;
                     $user->stripe_subscription_id = NULL;
                     $user->save();
@@ -219,15 +221,17 @@ class StripeController extends Controller {
                 }else {
                     $msg = $response->errors;
                 }
-                return response()->json($msg);
+            }catch(\Cartalyst\Stripe\Exception\NotFoundException $e) {
+                $user->current_plan = NULL;
+                $user->stripe_customer_id = NULL;
+                $user->stripe_subscription_id = NULL;
+                $user->save();
+                $msg = $e->getMessage();
             }
-        }catch(\Cartalyst\Stripe\Exception\NotFoundException $e) {
-            $user->stripe_customer_id = NULL;
-            $user->stripe_subscription_id = NULL;
-            $user->save();
-            return response()->json($e->getMessage());
+            
         }
-       
+        Session::flash('error',  $msg);
+        return redirect()->back();
         
       }
 

@@ -61,7 +61,6 @@ class ProfileController extends Controller
         return response()->json(array('errors' => $validator->getMessageBag()->toArray()));
       }
       if(isset($request->card_no)) {
-       
         try {
           $token = $this->stripeController->createToken($request);
         }
