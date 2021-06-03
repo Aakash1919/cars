@@ -63,6 +63,12 @@ class ProfileController extends Controller
       if(isset($request->card_no)) {
         try {
           $token = $this->stripeController->createToken($request);
+          if(isset(Auth::user()->stripe_customer_id)) {
+            $card = $this->stripeController->updateCard(Auth::user()->stripe_customer_id, $request);
+          }else {
+            $customer = $this->stripeController->createCustomer($token);
+            $in['stripe_customer_id'] = $customer;
+          }
         }
         catch(Exception $e) {
             return response()->json($e->getMessage());
@@ -72,12 +78,6 @@ class ProfileController extends Controller
         }
         catch(\Cartalyst\Stripe\Exception\MissingParameterException $e) {
             return response()->json($e->getMessage());
-        }
-        if(isset(Auth::user()->stripe_customer_id)) {
-          $card = $this->stripeController->updateCard(Auth::user()->stripe_customer_id, $token);
-        }else {
-          $customer = $this->stripeController->createCustomer($token);
-          $in['stripe_customer_id'] = $customer;
         }
       }
       $in = $request->all();
