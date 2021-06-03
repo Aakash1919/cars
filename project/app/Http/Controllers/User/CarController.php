@@ -120,7 +120,6 @@ class CarController extends Controller
       $rules = [
         'title' => 'required',
         'brand_id' => 'required',
-        'top_speed' => 'required|numeric',
         'brand_model_id' => 'required',
         'currency_code' => 'required|max:20',
         'currency_symbol' => 'required',
