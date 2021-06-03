@@ -203,6 +203,7 @@ class CarController extends Controller
           $payment->user_id = Auth::user()->id;
           $payment->car_id = $car->id;
           $payment->amount = $boughtPlan->listing_price;
+          $payment->save();
         }
       }
       $msg = 'Car Added Successfully.';
