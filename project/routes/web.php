@@ -419,6 +419,8 @@ Route::group(['middleware' => 'auth'], function() {
   Route::post('/paypal/submit', 'User\PaypalController@storetodb')->name('user.paypal.storetodb');
   Route::post('/stripe-submit', 'User\StripeController@payWithStripe')->name('stripe.submit');
   Route::post('/stripe-subscribe', 'User\StripeController@createSubscription')->name('stripe.subscribe'); 
+  Route::get('/cancel-subscription', 'User\StripeController@unsubscribe')->name('stripe.unsubscribe'); 
+
   Route::post('/freepublish', 'User\PackageController@freePublish')->name('user.freepublish');
 });
 

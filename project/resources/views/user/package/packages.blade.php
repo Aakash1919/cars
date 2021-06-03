@@ -27,11 +27,6 @@
                 @else
                     <div class="alert alert-warning" role="alert">
                         <p class="mb-0">{{$langg->lang145}} <strong>{{ $boughtPlan->title }}</strong>.
-                            @if (!empty($boughtPlan->days))
-                                {{$langg->lang146}} <strong>{{ date('jS M, o', strtotime(Auth::user()->expired_date)) }}</strong>.
-                            @else
-                                The validity of this package is <strong>Lifetime</strong>.
-                            @endif
                         </p>
                     </div>
                 @endif

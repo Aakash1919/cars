@@ -71,58 +71,63 @@ class StripeController extends Controller {
 
     public function createSubscription(Request $request) {
         $plan = Plan::find($request->plan_id);
-        $validator = Validator::make($request->all(), ['card_no' => 'required', 'ccExpiryMonth' => 'required', 'ccExpiryYear' => 'required', 'cvvNumber' => 'required'
-        ]);
 
-        $input = $request->all();
-        if ($validator->passes()) {
-            $input = array_except($input, array('_token'));
-            try {
-                $token = $this->stripe->tokens()->create(['card' => ['number' => $request->card_no, 'exp_month' => $request->ccExpiryMonth, 'exp_year' => $request->ccExpiryYear, 'cvc' => $request->cvvNumber ] ]);
-
-                if (!isset($token['id'])) {
-                    return redirect()->back();
-                }
+        try {
+            if(isset(Auth::user()->stripe_customer_id)) {
+                $customerId = Auth::user()->stripe_customer_id;
+            }else {
+                $token = $is->createToken($request);
                 $customerId = $this->createCustomer($token);
-                $subscription = $this->createStripeSubscription($customerId, $plan->stripe_plan_id );
-                if ($subscription['status'] == 'active') {
-                    $this->storetodb($request);
-                    Session::flash('success', "Thanks! Your subscription is active");
-                    return redirect()->back();
-                } else {
-                    Session::flash('error', 'Money not add in wallet!!');
-                    return redirect()->back();
-                }
             }
-            catch(Exception $e) {
-                Session::flash('error', $e->getMessage());
+            
+            $subscription = $this->createStripeSubscription($customerId, $plan->stripe_plan_id );
+            if ($subscription['status'] == 'active') {
+                $this->storetodb($request);
+                Session::flash('success', "Thanks! Your subscription is active");
                 return redirect()->back();
-            }
-            catch(\Cartalyst\Stripe\Exception\CardErrorException $e) {
-                Session::flash('error', $e->getMessage());
-                return redirect()->back();
-            }
-            catch(\Cartalyst\Stripe\Exception\MissingParameterException $e) {
-                Session::flash('error', $e->getMessage());
+            } else {
+                Session::flash('error', 'Money not add in wallet!!');
                 return redirect()->back();
             }
         }
+        catch(Exception $e) {
+            Session::flash('error', $e->getMessage());
+            return redirect()->back();
+        }
+        catch(\Cartalyst\Stripe\Exception\CardErrorException $e) {
+            Session::flash('error', $e->getMessage());
+            return redirect()->back();
+        }
+        catch(\Cartalyst\Stripe\Exception\MissingParameterException $e) {
+            Session::flash('error', $e->getMessage());
+            return redirect()->back();
+        }
+    }
+
+    public function createToken($request) {
+        $validator = Validator::make($request->all(), ['card_no' => 'required', 'ccExpiryMonth' => 'required', 'ccExpiryYear' => 'required', 'cvvNumber' => 'required']);
+        $input = $request;
+        if ($validator->passes()) {
+            $input = array_except($input, array('_token'));
+            $token = $this->stripe->tokens()->create(['card' => ['number' => $request->card_no, 'exp_month' => $request->ccExpiryMonth, 'exp_year' => $request->ccExpiryYear, 'cvc' => $request->cvvNumber ] ]);
+            if (!isset($token['id'])) {
+                return redirect()->back();
+            }
+            return $token;
+        }
+       
     }
 
     public function createCustomer($token = null) {
         if(isset($token)) {
-            if(isset(Auth::user()->stripe_customer_id)) {
-                $customerId = Auth::user()->stripe_customer_id;
-            }else {
-                $customer = $this->stripe->customers()->create([
-                    'email' => Auth::user()->email,
-                    'source' => $token['id']
-                ]);
-                $user = Auth::user();
-                $user->stripe_customer_id = $customer['id'] ?? null;
-                $user->save();
-                $customerId = $customer['id'];
-            }
+            $customer = $this->stripe->customers()->create([
+                'email' => Auth::user()->email,
+                'source' => $token['id']
+            ]);
+            $user = Auth::user();
+            $user->stripe_customer_id = $customer['id'] ?? null;
+            $user->save();
+            $customerId = $customer['id'];
         }
         return $customerId ?? null;
     }
@@ -201,6 +206,27 @@ class StripeController extends Controller {
             }
         }
     }
+
+    public function unsubscribe(Request $request) {
+        $customerId = Auth::user()->stripe_customer_id;
+        $subscriptionId = Auth::user()->stripe_subscription_id;
+        if(isset($customerId) && isset($subscriptionId)) {
+          $response =  $this->stripe->subscriptions()->cancel($customerId, $subscriptionId);
+          if(isset($subscription['status']) && $subscription['status'] == 'canceled') {
+            $user = User::find(Auth::user()->id);
+            $user->stripe_customer_id = NULL;
+            $user->stripe_subscription_id = NULL;
+            $user->save();
+            $msg = 'Subscription Cancelled';
+            
+          }else {
+              $msg = $response->errors;
+          }
+
+          return response()->json($msg);
+        }
+        
+      }
 
     public function storetodb(Request $request)
     {

@@ -65,48 +65,47 @@
       @if ($plan->price > 0)
       <div class="row mb-4">
         <div class="col-lg-6 text-right text-uppercase">
-          <strong>{{ $langg->lang160 }}:</strong>
+          @if(!isset(Auth::user()->stripe_customer_id))
+            <strong>{{ $langg->lang160 }}:</strong>
+          @endif
         </div>
         <div class="col-lg-6 text-left">
           <div class="row">
             <div class="col-lg-6">
-              <form class="form-horizontal" id="subscribe_form" action="" method="POST">
+              <form class="form-horizontal" id="subscribe_form" action="{{route('stripe.subscribe')}}" method="POST">
                 {{ csrf_field() }}
                 <input type="hidden" name="plan_id" value="{{ $plan->id }}">
+                  @if(!isset(Auth::user()->stripe_customer_id))
+                    <select class="form-control" name="" onchange="meThods(this)">
+                      <option value="">Select a payment method</option>
+                      {{-- <option value="Paypal">Paypal</option> --}}
+                      <option value="Stripe">Stripe</option>
+                    </select>
 
-                  <select class="form-control" name="" onchange="meThods(this)">
-                    <option value="">Select a payment method</option>
-                    {{-- <option value="Paypal">Paypal</option> --}}
-                    <option value="Stripe">Stripe</option>
-                  </select>
-
-                  <div id="stripes" style="display: none;">
-                      <div class="form-group">
-                          <div class="col-sm-12 px-0">
-                              <input type="text" class="form-control" id="scard" name="card_no" placeholder="{{ $langg->lang161 }}" autocomplete="off">
-                          </div>
-                      </div>
-                      <div class="form-group">
-                          <div class="col-sm-12 px-0">
-                              <input type="text" class="form-control" id="scvv" name="cvvNumber" placeholder="{{ $langg->lang162 }}" autocomplete="off">
-                          </div>
-                      </div>
-                      <div class="form-group">
-                          <div class="col-sm-12 px-0">
-                              <input type="text" class="form-control" id="smonth" name="ccExpiryMonth" placeholder="{{ $langg->lang163 }}" autocomplete="off">
-                          </div>
-                      </div>
-                      <div class="form-group">
-                          <div class="col-sm-12 px-0">
-                              <input type="text" class="form-control" id="syear" name="ccExpiryYear" placeholder="{{ $langg->lang164 }}" autocomplete="off">
-                          </div>
-                      </div>
-                  </div>
-                  <div id="paypals">
-                      <input type="hidden" name="amount" value="{{ $plan->price }}">
-                  </div>
-
-                  <div class="text-left" id="stripeSubmit" style="display:none;">
+                    <div id="stripes" style="display: none;">
+                        <div class="form-group">
+                            <div class="col-sm-12 px-0">
+                                <input type="text" class="form-control" id="scard" name="card_no" placeholder="{{ $langg->lang161 }}" autocomplete="off">
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <div class="col-sm-12 px-0">
+                                <input type="text" class="form-control" id="scvv" name="cvvNumber" placeholder="{{ $langg->lang162 }}" autocomplete="off">
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <div class="col-sm-12 px-0">
+                                <input type="text" class="form-control" id="smonth" name="ccExpiryMonth" placeholder="{{ $langg->lang163 }}" autocomplete="off">
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <div class="col-sm-12 px-0">
+                                <input type="text" class="form-control" id="syear" name="ccExpiryYear" placeholder="{{ $langg->lang164 }}" autocomplete="off">
+                            </div>
+                        </div>
+                    </div>
+                  @endif
+                  <div class="text-left" id="stripeSubmit">
                     <button type="submit" class="btn btn-primary" style="background-color:#1f224f;">{{ $langg->lang165 }}</div>
                   </div>
               </form>
@@ -152,7 +151,6 @@
                 $("#smonth").prop("required", true);
                 $("#syear").prop("required", true);
                 $("#stripes").show();
-                $("#stripeSubmit").show();
                 $(".paypal-modal").attr("style", "display: none !important");
             }
         }

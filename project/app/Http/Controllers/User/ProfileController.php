@@ -4,12 +4,19 @@ namespace App\Http\Controllers\User;
 
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
+use App\Http\Controllers\User\StripeController;
 use App\Models\User;
 use Auth;
 use Validator;
 
 class ProfileController extends Controller
 {
+    protected $stripeController;
+
+    public function __construct() {
+      $this->stripeController = new StripeController();
+    }
+
     public function edit()
     {
         $data['user'] = Auth::user();
@@ -53,7 +60,11 @@ class ProfileController extends Controller
       if ($validator->fails()) {
         return response()->json(array('errors' => $validator->getMessageBag()->toArray()));
       }
-
+      if(isset($request->card_no)) {
+        $token = $this->stripeController->createToken($request);
+        $customer = $this->stripeController->createCustomer($token);
+        $in['stripe_customer_id'] = $customer;
+      }
       $in = $request->all();
       $user = User::find(Auth::user()->id);
       $user->fill($in)->save();

@@ -13,6 +13,7 @@ use App\Models\BodyType;
 use App\Models\FuelType;
 use App\Models\TransmissionType;
 use App\Models\CarImage;
+use App\Models\Payment;
 use App\Models\BrandModel;
 use App\Models\Plan;
 use App\Models\Bid;
@@ -140,13 +141,7 @@ class CarController extends Controller
         return response()->json(array('errors' => $validator->getMessageBag()->toArray()));
       }
       //--- Validation Section Ends
-      $boughtPlan = Plan::find(Auth::user()->current_plan);
-      if(isset($boughtPlan->listing_price) && $boughtPlan->listing_price != 0) {
-        $response = $this->stripeController->chargeCustomerProfile($request)->getData();
-        if(isset($response) && $response->status==400) {
-              return response()->json($response->errors);
-        }
-      }
+      
       $in = $request->all();
       $in['user_id'] = Auth::user()->id;
       if ($request->filled('featured_image')) {
@@ -193,7 +188,19 @@ class CarController extends Controller
           $carimg->save();
         }
       }
-
+      $boughtPlan = Plan::find(Auth::user()->current_plan);
+      $payment = new Payment;
+      if(isset($boughtPlan->listing_price) && $boughtPlan->listing_price != 0) {
+        $response = $this->stripeController->chargeCustomerProfile($request)->getData();
+        if(isset($response) && $response->status==400) {
+              return response()->json($response->errors. ' Please complete your profile to proceed further <a href="'.route('user.profile').'" target="_blank">Click Here</a>');
+        }else {
+          $payment->plan_id = $boughtPlan->id;
+          $payment->user_id = Auth::user()->id;
+          $payment->car_id = $car->id;
+          $payment->amount = $boughtPlan->listing_price;
+        }
+      }
       $msg = 'Car Added Successfully.';
       return response()->json($msg);
     }
@@ -214,7 +221,6 @@ class CarController extends Controller
         // return $data['labels'];
         return view('user.car.edit',$data);
     }
-
 
     public function update(Request $request)
     {

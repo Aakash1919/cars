@@ -158,7 +158,37 @@
                           </div>
                         </div>
                         <br>
-
+                        <div class="row">
+                          <div class="col-lg-3">
+                            <div class="left-area">
+                              <h4 class="heading">Payment Method</h4>
+                          </div>
+                          </div>
+                          <div class="col-lg-7">
+                            <div id="stripes">
+                              <div class="form-group">
+                                  <div class="col-sm-12 px-0">
+                                      <input type="text" class="form-control" id="scard" name="card_no" placeholder="{{ $langg->lang161 }}" autocomplete="off">
+                                  </div>
+                              </div>
+                              <div class="form-group">
+                                  <div class="col-sm-12 px-0">
+                                      <input type="text" class="form-control" id="scvv" name="cvvNumber" placeholder="{{ $langg->lang162 }}" autocomplete="off">
+                                  </div>
+                              </div>
+                              <div class="form-group">
+                                  <div class="col-sm-12 px-0">
+                                      <input type="text" class="form-control" id="smonth" name="ccExpiryMonth" placeholder="{{ $langg->lang163 }}" autocomplete="off">
+                                  </div>
+                              </div>
+                              <div class="form-group">
+                                  <div class="col-sm-12 px-0">
+                                      <input type="text" class="form-control" id="syear" name="ccExpiryYear" placeholder="{{ $langg->lang164 }}" autocomplete="off">
+                                  </div>
+                              </div>
+                            </div>
+                          </div>
+                        </div>
                         <div class="row">
                           <div class="col-lg-3">
                             <div class="left-area">
@@ -178,6 +208,19 @@
                   </div>
                 </div>
               </div>
+              @if(isset(Auth::user()->stripe_subscription_id))
+              <div class="add-product-content">
+                <div class="row">
+                  <div class="col-lg-12">
+                    <div class="product-description">
+                      <div class="body-area text-center">
+                        <a href="{{route('stripe.unsubscribe')}}" class="btn btn-danger">Cancel Subscription</a>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              </div>
+              @endif;
             </div>
 
 @endsection
@@ -189,40 +232,26 @@
     var v_aspY = 540;
   </script>
   <script src="{{asset('assets/admin/js/jquery.SimpleCropper.js')}}"></script>
-
   <script type="text/javascript">
-
     $('.cropme').simpleCropper();
     $('#crop-image').on('click',function(){
       $('.cropme').click();
     });
   </script>
-
-
-    <script type="text/javascript">
+  <script type="text/javascript">
     $(document).ready(function() {
-
       let html = `<img src="{{ empty($user->image) ? asset('assets/user/blank.png') : asset('assets/user/propics/'.$user->image) }}" alt="">`;
       $(".span4.cropme").html(html);
-
       $.ajaxSetup({
           headers: {
               'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
           }
       });
-
     });
-
-
     $('.ok').on('click', function () {
-
-       setTimeout(
+        setTimeout(
           function() {
-
-
-        	var img = $('#feature_photo').val();
-
-
+          var img = $('#feature_photo').val();
             $.ajax({
               url: "{{ route('user-propic-upload') }}",
               type: "POST",
@@ -239,19 +268,12 @@
                 }
               }
             });
-
           }, 1000);
-
-
-
       });
-
-    </script>
-
+  </script>
   <script type="text/javascript">
     $(document).ready(function() {
         $(".myTags").tagit();
     });
   </script>
-
 @endsection
