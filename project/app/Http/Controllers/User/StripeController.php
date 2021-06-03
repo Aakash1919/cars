@@ -76,7 +76,7 @@ class StripeController extends Controller {
             if(isset(Auth::user()->stripe_customer_id)) {
                 $customerId = Auth::user()->stripe_customer_id;
             }else {
-                $token = $is->createToken($request);
+                $token = $this->createToken($request);
                 $customerId = $this->createCustomer($token);
             }
             
