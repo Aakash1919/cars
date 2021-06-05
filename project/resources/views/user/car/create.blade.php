@@ -137,7 +137,7 @@
                   <div class="row">
                     <div class="col-lg-6">
                       <h4 class="heading mb-0">{{$langg->lang113}} *</h4>
-                      <input class="input-field" type="text" name="mileage" placeholder="{{$langg->lang101}} {{$langg->lang113}}" value="{{ $car->mileage }}">
+                      <input class="input-field" type="text" name="mileage" placeholder="{{$langg->lang101}} {{$langg->lang113}}" value="">
                     </div>
                     <input type="hidden" name="is_auction" value='1'>
                     
@@ -145,9 +145,9 @@
                       <h4 class="heading mb-0">{{$langg->lang183}} </h4>
                       <select class="input-field" name="auction_time">
                         <option value="" selected>{{$langg->lang184}}</option>
-                        <option value="{{ \Crypt::encrypt(1) }}" {{ $car->auction_time == 1 ? 'selected' : '' }}>{{$langg->lang185}}</option>
-                        <option value="{{ \Crypt::encrypt(3) }}" {{ $car->auction_time == 3 ? 'selected' : '' }}>{{$langg->lang186}}</option>
-                        <option value="{{ \Crypt::encrypt(7) }}" {{ $car->auction_time == 7 ? 'selected' : '' }}>{{$langg->lang187}}</option>
+                        <option value="{{ \Crypt::encrypt(1) }}" >{{$langg->lang185}}</option>
+                        <option value="{{ \Crypt::encrypt(3) }}" >{{$langg->lang186}}</option>
+                        <option value="{{ \Crypt::encrypt(7) }}" >{{$langg->lang187}}</option>
                       </select>
                     </div>
                   </div>
