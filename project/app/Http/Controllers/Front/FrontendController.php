@@ -163,7 +163,7 @@ class FrontendController extends Controller
 											return $query->where('featured', 1);
 										}
 									})
-									->where('status', 1)->where('admin_status', 1)->paginate($view);
+									->where('status','!=', 0)->where('admin_status', 1)->paginate($view);
 
 			return view('front.cars', $data);
 		}
@@ -171,7 +171,7 @@ class FrontendController extends Controller
 		public function details($id) {
 			$car = Car::findOrFail($id);
 
-			if ($car->admin_status == 1 && $car->status == 1) {
+			if ($car->admin_status == 1 && $car->status != 0) {
 				$car->views = $car->views + 1;
 				$car->save();
 

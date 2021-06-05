@@ -387,7 +387,7 @@ class CarController extends Controller
                             return '<span>'.$data->user->email.'</span>';
                         })
                         ->editColumn('price', function(Bid $data) {
-                          return '<span>$ '.$data->bid_price.'</span>';
+                          return '<span>$'.$data->bid_price.'</span>';
                         })
                        ->editColumn('created', function(Bid $data) {
                         return '<span>'.date('d M Y h:i A', strtotime($data->created_at)).'</span>';
