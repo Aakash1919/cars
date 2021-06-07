@@ -30,7 +30,7 @@
           <strong>{{ $langg->lang157 }}:</strong>
         </div>
         <div class="col-lg-6 text-left">
-          {{ $plan->price ? round($plan->price,2) : 'Free' }}
+          {{ $plan->price ? '$'.round($plan->price,2) : 'Free' }}
         </div>
       </div>
 
@@ -43,7 +43,7 @@
         </div>
       </div> --}}
 
-      <div class="row mb-4">
+      <div class="row mb-4 hidden">
         <div class="col-lg-6 text-right text-uppercase">
           <strong>{{ $langg->lang159 }}:</strong>
         </div>
