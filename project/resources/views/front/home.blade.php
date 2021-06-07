@@ -1,7 +1,6 @@
 @extends('layouts.front')
 
 @section('content')
-HI this is aaksh changes
 <!-- Hero Area Start -->
 <section class="hero-area">
     <img class="cars" src="{{  asset('assets/front/images/heroarea-img.jpg') }}" alt="">
