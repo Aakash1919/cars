@@ -44,6 +44,7 @@
         <link href="{{asset('assets/theme/assets/css/dark-theme.css')}}" rel="stylesheet" />
         <link href="{{asset('assets/theme/assets/css/semi-dark.css')}}" rel="stylesheet" />
         <link href="{{asset('assets/theme/assets/css/header-colors.css')}}" rel="stylesheet" />
+		<link href="{{asset('assets/theme/dropzone/dropzone.css')}}" rel="stylesheet" />
 		<script src="{{asset('assets/theme/assets/js/bootstrap.bundle.min.js')}}"></script>
 		<script src="{{asset('assets/theme/assets/js/jquery.min.js')}}"></script>
         @yield('styles')
@@ -299,7 +300,7 @@
         <script src="{{asset('assets/admin/js/notify.js') }}"></script>
         <script src="{{asset('assets/admin/js/load.js')}}"></script>
         <script src="{{asset('assets/admin/js/select2.min.js')}}"></script>
-		
+		<script src="{{asset('assets/theme/dropzone/dropzone.js')}}"></script>
 	<script src="{{asset('assets/theme/assets/js/app.js')}}"></script>
 	<script src="{{asset('assets/admin/js/custom.js')}}"></script>
         <!-- AJAX Js-->

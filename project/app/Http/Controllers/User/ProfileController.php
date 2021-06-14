@@ -28,22 +28,35 @@ class ProfileController extends Controller
     {
 
         $user = User::find(Auth::user()->id);
+          $this->validate($request, [
+            'image' => 'required|image|mimes:jpeg,png,jpg,gif,svg|max:2048',
+        ]);
+  
+        if ($request->hasFile('image')) {
+            $image = $request->file('image');
+            $name = time().'.'.$image->getClientOriginalExtension();
+            $destinationPath = public_path('/assets/user/propics/');
+            $image->move($destinationPath, $name);
+            $this->save();
+            $user->image = $image_name;
+            $user->save();
+            return back()->with('success','Image Upload successfully');
+        }
+        // $image = $request->image;
+        // list($type, $image) = explode(';', $image);
+        // list(, $image)      = explode(',', $image);
+        // $image = base64_decode($image);
+        // $image_name = time().'.png';
 
-        $image = $request->image;
-        list($type, $image) = explode(';', $image);
-        list(, $image)      = explode(',', $image);
-        $image = base64_decode($image);
-        $image_name = time().'.png';
+        // $path = 'assets/user/propics/'.$image_name;
+        // file_put_contents($path, $image);
 
-        $path = 'assets/user/propics/'.$image_name;
-        file_put_contents($path, $image);
+        // @unlink('assets/user/propics/'.$user->image);
 
-        @unlink('assets/user/propics/'.$user->image);
+        // $user->image = $image_name;
+        // $user->save();
 
-        $user->image = $image_name;
-        $user->save();
-
-        return response()->json(['status'=>true]);
+        // return response()->json(['status'=>true]);
 
     }
 

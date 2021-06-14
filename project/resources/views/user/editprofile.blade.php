@@ -26,7 +26,22 @@
 						</nav>
 					</div>
   </div>
+  @if (!isset(Auth::user()->stripe_customer_id))
+  <div class="card">
+  	<div class="card-body">
+	  <div class="row mb-4">
+                          <div class="col-lg-7 offset-lg-3">
+                            <div class="alert alert-warning" role="alert">
+                              <p class="mb-0">Please complete your profile first, To post an Ad. Thanks</p>
+                            </div>
+                          </div>
+       </div>
+	</div>
+  </div>
+  @endif
+  <div class="gocover" style="background: url({{ asset('assets/images/spinner.gif') }}) no-repeat scroll center center rgba(45, 45, 45, 0.5);"></div>
   <div class="container">
+  @include('includes.admin.form-both')
 					<div class="main-body">
 						<div class="row">
 							<div class="col-lg-4">
@@ -35,21 +50,30 @@
 										<div class="d-flex flex-column align-items-center text-center">
 											<img src="{{ empty($user->image) ? asset('assets/user/blank.png') : asset('assets/user/propics/'.$user->image) }}" alt="Admin" class="rounded-circle p-1 bg-primary" width="110">
 											<div class="mt-3">
-												<h4>John Doe</h4>
-												<p class="text-secondary mb-1">Full Stack Developer</p>
-												<p class="text-muted font-size-sm">Bay Area, San Francisco, CA</p>
-												<button class="btn btn-primary">Follow</button>
-												<button class="btn btn-outline-primary">Message</button>
+												<h4>{{ $user->first_name }} {{ $user->last_name }}</h4>
+												@if (empty(Auth::user()->current_plan))
+												<p class="text-secondary mb-1">No Plan subscribed yet</p>
+												@else
+												<p class="text-secondary mb-1">User plan here</p>
+												@endif
+												
+												<p class="text-muted font-size-sm">Username: {{Auth::user()->username}}</p>
 											</div>
 										</div>
 										<hr class="my-4" />
-
+										<form id="profileimg" action="{{ route('user-propic-upload') }}" class="dropzone" method="post" enctype="multipart/form-data">
+  @csrf
+											<div class="fallback">
+											<input type="image" name="image" />
+											</div>
+										</form>
 									</div>
 								</div>
 							</div>
 							<div class="col-lg-8">
 								<div class="card">
 									<div class="card-body">
+
 										<div class="row mb-3">
 											<div class="col-sm-3">
 												<h6 class="mb-0">Full Name</h6>
@@ -105,15 +129,24 @@
 				</div>
 			</div>
 		</div>
-		<!--end page wrapper -->
-		<!--start overlay-->
-		<div class="overlay toggle-icon"></div>
-		<!--end overlay-->
-		<!--Start Back To Top Button--> <a href="javaScript:;" class="back-to-top"><i class='bx bxs-up-arrow-alt'></i></a>
-		<!--End Back To Top Button-->
-		<footer class="page-footer">
-			<p class="mb-0">Copyright © 2021. All right reserved.</p>
-		</footer>
 	</div>
+	@endofsection
 	<!--end wrapper-->
+	@section('scripts')
+	<script  type="text/javascript">
+	Dropzone.autoDiscover = false;
+	var myDropzone = new Dropzone("form#profileimg", { 
+			maxFilesize: 10, 
+			uploadMultiple :false,
+			acceptedFiles : "image/*",
+			addRemoveLinks: true,
+			forceFallback: false,
+			init: function() {
+				this.on("success", function(file, responseText) {
+					console.log(responseText);
+				});
+			}
+		});
+	</script>
+	@endsection
 	
