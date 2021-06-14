@@ -42,7 +42,7 @@
         <link href="{{asset('assets/theme/assets/css/app.css')}}" rel="stylesheet" />
         <link href="{{asset('assets/theme/assets/css/icons.css')}}" rel="stylesheet" />
         <link href="{{asset('assets/theme/assets/css/dark-theme.css')}}" rel="stylesheet" />
-        <link href="{{asset('assets/theme/assets/css/semi-dark.css')}}" rel="stylesheet" />
+        
         <link href="{{asset('assets/theme/assets/css/header-colors.css')}}" rel="stylesheet" />
 		<link href="{{asset('assets/theme/dropzone/dropzone.css')}}" rel="stylesheet" />
 		<script src="{{asset('assets/theme/assets/js/bootstrap.bundle.min.js')}}"></script>
