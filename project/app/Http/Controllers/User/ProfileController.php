@@ -27,9 +27,9 @@ class ProfileController extends Controller
 
     {
 
-        $user = User::find(Auth::user()->id);
+        $user = Auth::user();
           $this->validate($request, [
-            'image' => 'required|image|mimes:jpeg,png,jpg,gif,svg|max:2048',
+            'image' => 'required|image|mimes:jpeg,png,jpg,gif,svg|max:5048',
         ]);
   
         if ($request->hasFile('image')) {
@@ -37,10 +37,10 @@ class ProfileController extends Controller
             $name = time().'.'.$image->getClientOriginalExtension();
             $destinationPath = public_path('/assets/user/propics/');
             $image->move($destinationPath, $name);
-            $this->save();
-            $user->image = $image_name;
+           // $this->save();
+            $user->image = $name;
             $user->save();
-            return back()->with('success','Image Upload successfully');
+            return response()->json(['status'=>true,'message'=>'/assets/user/propics/'.$name]);
         }
         // $image = $request->image;
         // list($type, $image) = explode(';', $image);
