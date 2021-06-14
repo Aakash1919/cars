@@ -375,6 +375,7 @@ Route::group(['middleware' => 'auth'], function() {
   //------------ USER PROFILE SETTINGS SECTION ------------
   Route::get('/profile', 'User\ProfileController@edit')->name('user.profile');
   Route::post('/profile/update', 'User\ProfileController@update')->name('user.profile.update');
+  Route::post('/profile/stripe-update', 'User\ProfileController@stripeUpdate')->name('user.profile.stripeUpdate');
   Route::post('/upload/propic', 'User\ProfileController@uploadPropic')->name('user-propic-upload');
   //------------ USER PROFILE SETTINGS SECTION ENDS ------------
 
