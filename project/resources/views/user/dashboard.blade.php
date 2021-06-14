@@ -1,61 +1,74 @@
 @extends('layouts.user')
 
 @section('content')
-
+<div class="page-breadcrumb d-none d-sm-flex align-items-center mb-3">
+				
+					<div class="ps-3">
+						<nav aria-label="breadcrumb">
+							<ol class="breadcrumb mb-0 p-0">
+								<li class="breadcrumb-item"><a href="javascript:;"><i class="bx bx-home-alt"></i></a>
+								</li>
+								<li class="breadcrumb-item active" aria-current="page">Dashboard</li>
+							</ol>
+						</nav>
+					</div>
+    </div>
     <div class="content-area">
-      <div class="row">
-        <div class="col-lg-12">
-          @if (empty(Auth::user()->current_plan))
-            <div class="alert alert-warning" role="alert">
-              <p class="mb-0">{{ $langg->lang135 }}. <strong>{{ $langg->lang136 }}</strong> {{ $langg->lang137 }}. <a class="text-danger" href="{{ route('user-package') }}">{{ $langg->lang138 }}</a>.</p>
-            </div>
-          @endif
-        </div>
-      </div>
-        <div class="row row-cards-one">
-                <div class="col-md-12 col-lg-6 col-xl-4">
-                    <div class="mycard bg1">
-                        <div class="left">
-                            <h5 class="title">{{ $langg->lang78 }}! </h5>
-                            <span class="number">{{ \App\Models\Car::where('user_id', Auth::user()->id)->count() }}</span>
-                            <a href="{{ route('user.car.index') }}" class="link">{{ $langg->lang1000 }}</a>
-                        </div>
-                        <div class="right d-flex align-self-center">
-                            <div class="icon">
-                                <i class="fas fa-images"></i>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-                <div class="col-md-12 col-lg-6 col-xl-4">
-                    <div class="mycard bg2">
-                        <div class="left">
-                            <h5 class="title">{{ $langg->lang79 }}!</h5>
-                            <span class="number">{{ \App\Models\Car::where('user_id', Auth::user()->id)->where('featured', 1)->count() }}</span>
-                            <a href="{{ route('user.car.index', 'featured') }}" class="link">{{ $langg->lang1000 }}</a>
-                        </div>
-                        <div class="right d-flex align-self-center">
-                            <div class="icon">
-                                <i class="fas fa-marker"></i>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-                <div class="col-md-12 col-lg-6 col-xl-4">
-                    <div class="mycard bg4">
-                        <div class="left">
-                            <h5 class="title">{{ $langg->lang80 }}!</h5>
-                            <span class="number">{{ !empty($user->socialsetting) ? ($user->socialsetting->f_status + $user->socialsetting->i_status + $user->socialsetting->g_status + $user->socialsetting->t_status + $user->socialsetting->l_status + $user->socialsetting->d_status) : 0 }}</span>
-                            <a href="{{ route('user-social-index') }}" class="link">{{ $langg->lang1000 }}</a>
-                        </div>
-                        <div class="right d-flex align-self-center">
-                            <div class="icon">
-                                <i class="fa fa-link" aria-hidden="true"></i>
-                            </div>
-                        </div>
-                    </div>
-                </div>
+    @if (empty(Auth::user()->current_plan))
+    <div class="alert alert-warning border-0 bg-warning alert-dismissible fade show py-2">
+									<div class="d-flex align-items-center">
+										<div class="font-35 text-dark"><i class="bx bx-info-circle"></i>
+										</div>
+										<div class="ms-3">
+											<h6 class="mb-0 text-dark">{{ $langg->lang135 }}. <strong>{{ $langg->lang136 }}</strong> {{ $langg->lang137 }}</h6>
+											<div class="text-dark"><a class="text-danger" href="{{ route('user-package') }}">{{ $langg->lang138 }}</a></div>
+										</div>
+									</div>
+			</div>
+    @endif  
+    <div class="row row-cols-1 row-cols-md-4 row-cols-xl-5">
+					<div class="col">
+						<div class="card radius-10">
+							<div class="card-body">
+								<div class="text-center">
+									<div class="widgets-icons rounded-circle mx-auto bg-light-primary text-primary mb-3"><i class="fadeIn animated bx bx-car"></i>
+									</div>
+									<h4 class="my-1">{{ \App\Models\Car::where('user_id', Auth::user()->id)->count() }}</h4>
+									<p class="mb-0 text-secondary">{{ $langg->lang78 }}!</p>
+                  <p><a href="{{ route('user.car.index') }}" class="link">{{ $langg->lang1000 }}</a></p>
+								</div>
+							</div>
+						</div>
+					</div>
 
+          <div class="col">
+						<div class="card radius-10">
+							<div class="card-body">
+								<div class="text-center">
+									<div class="widgets-icons rounded-circle mx-auto bg-light-primary text-primary mb-3"><i class="fadeIn animated bx bx-car"></i>
+									</div>
+									<h4 class="my-1">{{ \App\Models\Car::where('user_id', Auth::user()->id)->where('featured', 1)->count() }}</h4>
+									<p class="mb-0 text-secondary">{{ $langg->lang79 }}!</p>
+                  <p> <a href="{{ route('user.car.index', 'featured') }}" class="link">{{ $langg->lang1000 }}</a></p>
+								</div>
+							</div>
+						</div>
+					</div>
+
+          <div class="col">
+						<div class="card radius-10">
+							<div class="card-body">
+								<div class="text-center">
+									<div class="widgets-icons rounded-circle mx-auto bg-light-primary text-primary mb-3"><i class="bx bxl-facebook-square"></i></div>
+									<h4 class="my-1">{{ !empty($user->socialsetting) ? ($user->socialsetting->f_status + $user->socialsetting->i_status + $user->socialsetting->g_status + $user->socialsetting->t_status + $user->socialsetting->l_status + $user->socialsetting->d_status) : 0 }}</h4>
+									<p class="mb-0 text-secondary">{{ $langg->lang80 }}!</p>
+                  <p><a href="{{ route('user-social-index') }}" class="link">{{ $langg->lang1000 }}</a></p>
+								</div>
+							</div>
+						</div>
+					</div>
+      </div>    
+        <div class="row row-cards-one">
                 <div class="col-12">
                   <div class="row row-cards-one">
                      <div class="col-md-12 col-lg-12 col-xl-12">
@@ -70,7 +83,7 @@
                                     </div>
                                     <div class="row">
                                        <div class="col-sm-12">
-                                          <table id="poproducts" class="table table-hover dt-responsive dataTable no-footer dtr-inline" cellspacing="0" width="100%" role="grid">
+                                          <table id="poproducts" class="table table-sm mb-0" cellspacing="0" width="100%" role="grid">
                                              <thead>
                                                 <tr role="row">
                                                   <th>{{ $langg->lang82 }}</th>
@@ -91,14 +104,14 @@
                                                    <td>
                                                      @php
                                                      if ($car->featured == 1) {
-                                                       echo '<span class="badge badge-success">'.$langg->lang88 .'</span>';
+                                                       echo '<span class="badge rounded-pill bg-info text-dark">'.$langg->lang88 .'</span>';
                                                      } else {
-                                                       echo '<span class="badge badge-danger">'.$langg->lang89 .'</span>';
+                                                       echo '<span class="badge rounded-pill bg-danger text-dark">'.$langg->lang89 .'</span>';
                                                      }
                                                      @endphp
                                                    </td>
                                                    <td>
-                                                     <div class="action-list"><a href="{{ route('user.car.edit',$car->id)  }}" class="edit"> <i class="fas fa-edit"></i>{{$langg->lang90}}</a></div>
+                                                     <div class="action-list"><a href="{{ route('user.car.edit',$car->id)  }}" class="btn btn-info btn-sm px-2 edit"> <i class="fas fa-edit"></i>{{$langg->lang90}}</a></div>
                                                    </td>
                                                  </tr>
                                                @endforeach

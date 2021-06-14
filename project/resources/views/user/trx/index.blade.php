@@ -1,49 +1,47 @@
 @extends('layouts.user')
-
 @section('content')
-					<input type="hidden" id="headerdata" value="PLAN">
-					<div class="content-area">
-						<div class="mr-breadcrumb">
-							<div class="row">
-								<div class="col-lg-12">
-										<h4 class="heading">Transactions</h4>
-										<ul class="links">
-                                            <li>
-                                                <a href="{{ route('user-dashboard') }}">{{$langg->lang8}} </a>
-                                              </li>
-                                              <li>
-                                                <a href="{{ route('user-social-index') }}">{{$langg->lang140}}</a>
-                                              </li>
-										</ul>
-								</div>
-							</div>
-						</div>
-						<div class="product-area">
-							<div class="row">
-								<div class="col-lg-12">
-									<div class="mr-table allproduct">
+<input type="hidden" id="headerdata" value="PLAN">
+<div class="page-breadcrumb d-none d-sm-flex align-items-center mb-3">
+				
+					<div class="ps-3">
+						<nav aria-label="breadcrumb">
+							<ol class="breadcrumb mb-0 p-0">
+								<li class="breadcrumb-item"><a href="javascript:;"><i class="bx bx-home-alt"></i></a></li>
+                        <li class="breadcrumb-item"><a href="{{ route('user-dashboard') }}">{{$langg->lang8}} </a></li>
+                        <li class="breadcrumb-item active"  aria-current="page"><a href="#">Transactions</a></li>
+							</ol>
+						</nav>
+					</div>
+  </div>
+					
+  <div class="card">
+	<div class="card-body">
+		<div class="product-area">
+			<div class="row">
+				<div class="col-lg-12">
+					<div class="mr-table allproduct">
 
-                                        @include('includes.admin.form-success')
+						@include('includes.admin.form-success')
 
-										<div class="table-responsiv">
-												<table id="geniustable" class="table table-hover dt-responsive" cellspacing="0" width="100%">
-													<thead>
-														<tr>
-															<th>User</th>
-															<th>Package Name</th>
-															<th>Car</th>
-                                                            <th>Amount</th>
-                                                            <th>Gateway</th>
-														</tr>
-													</thead>
-												</table>
-										</div>
-									</div>
-								</div>
-							</div>
+						<div class="table-responsiv">
+								<table id="geniustable" class="table table-hover dt-responsive" cellspacing="0" width="100%">
+									<thead>
+										<tr>
+											<th>User</th>
+											<th>Package Name</th>
+											<th>Car</th>
+											<th>Amount</th>
+											<th>Gateway</th>
+										</tr>
+									</thead>
+								</table>
 						</div>
 					</div>
-
+				</div>
+			</div>
+		</div>
+	</div>
+</div>
 
 
 

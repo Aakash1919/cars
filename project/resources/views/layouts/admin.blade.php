@@ -117,11 +117,11 @@
                                     </li>
                                 </ul>
                             </li>
-
+                            <!--
                             <li>
                                 <a href="{{ route('admin-pricing-index') }}" class="wave-effect active"><i class="fas fa-tags"></i> Pricing Ranges</a>
                             </li>
-
+                            -->
                             <li>
                                 <a href="{{ route('admin-plan-index') }}" class="wave-effect active"><i class="fa fa-tasks" aria-hidden="true"></i>Plan Management</a>
                             </li>
@@ -235,10 +235,11 @@
                                     <li><a href="{{route('admin-group-show')}}"><span>Group Email</span></a></li>
                                 </ul>
                             </li>
+                            <!--
                             <li>
                                 <a href="{{ route('admin-lang-edit',1) }}"><i class="fas fa-language"></i>Language Settings</a>
                             </li>
-
+                            -->
                             <li>
                                 <a href="#blog" class="accordion-toggle wave-effect" data-toggle="collapse" aria-expanded="false">
                                     <i class="fas fa-fw fa-newspaper"></i>Blog

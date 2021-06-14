@@ -1,23 +1,21 @@
 @extends('layouts.user')
 
 @section('content')
+<div class="page-breadcrumb d-none d-sm-flex align-items-center mb-3">
+				
+					<div class="ps-3">
+						<nav aria-label="breadcrumb">
+							<ol class="breadcrumb mb-0 p-0">
+								<li class="breadcrumb-item"><a href="javascript:;"><i class="bx bx-home-alt"></i></a></li>
+                        <li class="breadcrumb-item"><a href="{{ route('user-dashboard') }}">{{$langg->lang8}} </a></li>
+                        <li class="breadcrumb-item active"  aria-current="page"><a href="#">{{$langg->lang140}} </a></li>
+							</ol>
+						</nav>
+					</div>
+  </div>
+  <div class="card">
+	<div class="card-body">
 
-<div class="content-area">
-            <div class="mr-breadcrumb">
-              <div class="row">
-                <div class="col-lg-12">
-                    <h4 class="heading">{{$langg->lang140}}</h4>
-                    <ul class="links">
-                      <li>
-                        <a href="{{ route('user-dashboard') }}">{{$langg->lang8}} </a>
-                      </li>
-                      <li>
-                        <a href="{{ route('user-social-index') }}">{{$langg->lang140}}</a>
-                      </li>
-                    </ul>
-                </div>
-              </div>
-            </div>
             <div class="social-links-area">
             <div class="gocover" style="background: url({{ asset('assets/images/spinner.gif') }}) no-repeat scroll center center rgba(45, 45, 45, 0.5);"></div>
               <form id="geniusform" class="form-horizontal" action="{{ route('user-social-update') }}" method="POST">
@@ -66,11 +64,11 @@
 
                 <div class="row">
                   <div class="col-12 text-center">
-                    <button type="submit" class="submit-btn">{{$langg->lang134}}</button>
+                    <button type="submit" class="submit-btn btn btn-primary btn-sm">{{$langg->lang134}}</button>
                   </div>
                 </div>
               </form>
             </div>
           </div>
-
+                    </div>
 @endsection

@@ -1,5 +1,5 @@
 <!doctype html>
-<html lang="en" dir="ltr">
+<html lang="en" dir="ltr" class="semi-dark">
 
     <head>
         <meta charset="UTF-8">
@@ -12,110 +12,280 @@
         <!-- favicon -->
         <link rel="icon"  type="image/x-icon" href="{{asset('assets/front/images/favicon.png')}}"/>
         <!-- Bootstrap -->
-        <link href="{{asset('assets/admin/css/bootstrap.min.css')}}" rel="stylesheet" />
+        <link href="{{asset('assets/theme/assets/css/bootstrap.min.css')}}" rel="stylesheet" />
         <!-- Fontawesome -->
         <link rel="stylesheet" href="{{asset('assets/admin/css/fontawesome.css')}}">
         <!-- icofont -->
         <link rel="stylesheet" href="{{asset('assets/admin/css/icofont.min.css')}}">
-        <!-- Sidemenu Css -->
+        <!--favicon-->
+        <link rel="icon" href="assets/images/favicon-32x32.png" type="image/png" />
+        <!--plugins-->
+        <link href="{{asset('assets/theme/assets/plugins/simplebar/css/simplebar.css')}}" rel="stylesheet" />
+        <link href="{{asset('assets/theme/assets/plugins/perfect-scrollbar/css/perfect-scrollbar.css')}}" rel="stylesheet" />
+        <link href="{{asset('assets/theme/assets/plugins/highcharts/css/highcharts.css')}}" rel="stylesheet" />
+        <link href="{{asset('assets/theme/assets/plugins/vectormap/jquery-jvectormap-2.0.2.css')}}" rel="stylesheet" />
+        <link href="{{asset('assets/theme/assets/plugins/metismenu/css/metisMenu.min.css')}}" rel="stylesheet" />
+		<link href="{{asset('assets/theme/assets/plugins/Drag-And-Drop/dist/imageuploadify.min.css')}}" rel="stylesheet" />
+        <!-- Sidemenu Css 
         <link href="{{asset('assets/admin/plugins/fullside-menu/css/dark-side-style.css')}}" rel="stylesheet" />
         <link href="{{asset('assets/admin/plugins/fullside-menu/waves.min.css')}}" rel="stylesheet" />
-
+-->
         <link href="{{asset('assets/admin/css/plugin.css')}}" rel="stylesheet" />
         <link href="{{asset('assets/admin/css/jquery.tagit.css')}}" rel="stylesheet" />
         <link rel="stylesheet" href="{{ asset('assets/admin/css/select2.min.css') }}">
-        <!-- Main Css -->
+        <link href="{{asset('assets/theme/assets/css/pace.min.css')}}" rel="stylesheet" />
+	    <script src="{{asset('assets/theme/assets/js/pace.min.js')}}"></script>
+        <!-- Main Css
         <link href="{{asset('assets/admin/css/style.css')}}" rel="stylesheet"/>
         <link href="{{asset('assets/admin/css/custom.css')}}" rel="stylesheet"/>
-        <link href="{{asset('assets/admin/css/responsive.css')}}" rel="stylesheet" />
+        <link href="{{asset('assets/admin/css/responsive.css')}}" rel="stylesheet" /> -->
+        <link href="{{asset('assets/theme/assets/css/app.css')}}" rel="stylesheet" />
+        <link href="{{asset('assets/theme/assets/css/icons.css')}}" rel="stylesheet" />
+        <link href="{{asset('assets/theme/assets/css/dark-theme.css')}}" rel="stylesheet" />
+        <link href="{{asset('assets/theme/assets/css/semi-dark.css')}}" rel="stylesheet" />
+        <link href="{{asset('assets/theme/assets/css/header-colors.css')}}" rel="stylesheet" />
+		<script src="{{asset('assets/theme/assets/js/bootstrap.bundle.min.js')}}"></script>
+		<script src="{{asset('assets/theme/assets/js/jquery.min.js')}}"></script>
         @yield('styles')
 
     </head>
     <body>
-        <div class="page">
-            <div class="page-main">
-                <!-- Header Menu Area Start -->
-                <div class="header">
-                    <div class="container-fluid">
-                        <div class="d-flex justify-content-between py-2">
-                            <div class="menu-toggle-button">
-                                <a class="nav-link" href="javascript:;" id="sidebarCollapse">
-                                    <div class="my-toggl-icon">
-                                        <span class="bar1"></span>
-                                        <span class="bar2"></span>
-                                        <span class="bar3"></span>
-                                    </div>
-                                </a>
-                            </div>
+	<!--wrapper-->
+	<div class="wrapper">
+		<!--sidebar wrapper -->
+		<div class="sidebar-wrapper" data-simplebar="true">
+			<div class="sidebar-header">
+				<div>
+					<img src="{{asset('assets/front/images/loader.gif')}}" class="logo-icon" alt="{{$gs->title}}">
+				</div>
+				<div class="toggle-icon ms-auto"><i class='bx bx-arrow-to-left'></i>
+				</div>
+			</div>
+			<!--navigation-->
+			<ul class="metismenu" id="menu">
+                <li><a href="{{ route('user-dashboard') }}" class="active"><i class='bx bx-home-circle'></i> &nbsp; {{ $langg->lang68 }}</a></li>
+                @if (isset(Auth::user()->current_plan))
+                <li>
+                    <a href="javascript:;" class="has-arrow">
+						<div class="parent-icon"><i class="fadeIn animated bx bx-car"></i> 
+						</div>
+						<div class="menu-title">Cars</div>
+					</a>
+                    <ul>
+                        <li><a href="{{ route('user.car.create') }}"><i class="fadeIn animated bx bx-car"></i> &nbsp;{{ $langg->lang69 }}</a></li>
+                        <li><a href="{{ route('user.car.index') }}"><i class="fadeIn animated bx bx-car"></i></i> &nbsp;{{ $langg->lang70 }}</a></li>
+                        <li><a href="{{ route('user.car.index', 'featured') }}"><i class="fadeIn animated bx bx-car"></i></i> &nbsp;{{ $langg->lang71 }}</a></li>
+                    </ul>
+                </li>
+                 <!--   <li><a href="{{route('user-social-index')}}"><i class="fas fa-link"></i> &nbsp;{{ $langg->lang72 }}</a></li>-->
+                    <li><a href="{{route('user-transactions')}}"><i class="fas fa-money-check-alt"></i>&nbsp; Payment History</a></li>
 
-                            <div class="right-eliment">
-                                <ul class="list">
+                @endif
+                <li><a href="{{route('user-package')}}"><i class="fas fa-box-open"></i> &nbsp;{{ $langg->lang73 }}</a></li>
+                <li><a href="{{route('user-logout')}}"><i class="fas fa-sign-out-alt"></i>&nbsp; {{ $langg->lang74 }}</a></li>
+			</ul>
+			<!--end navigation-->
+		</div>
+		<!--end sidebar wrapper -->
+		<!--start header -->
+		<header>
+			<div class="topbar d-flex align-items-center">
+				<nav class="navbar navbar-expand">
+					<div class="mobile-toggle-menu"><i class='bx bx-menu'></i>
+					</div>
+					<div class="top-menu-left d-none d-lg-block">
+						<ul class="nav">
+						  <li class="nav-item">
+							<a class="nav-link" href="app-emailbox.html"><i class='bx bx-envelope'></i></a>
+						  </li>
+						  <li class="nav-item">
+							<a class="nav-link" href="app-chat-box.html"><i class='bx bx-message'></i></a>
+						  </li>
+						  <li class="nav-item">
+							<a class="nav-link" href="app-fullcalender.html"><i class='bx bx-calendar'></i></a>
+						  </li>
+						  <li class="nav-item">
+							  <a class="nav-link" href="app-to-do.html"><i class='bx bx-check-square'></i></a>
+						  </li>
+					  </ul>
+					 </div>
+					<div class="search-bar flex-grow-1">
+						<div class="position-relative search-bar-box">
+							<input type="text" class="form-control search-control" placeholder="Type to search..."> <span class="position-absolute top-50 search-show translate-middle-y"><i class='bx bx-search'></i></span>
+							<span class="position-absolute top-50 search-close translate-middle-y"><i class='bx bx-x'></i></span>
+						</div>
+					</div>
+					<div class="top-menu ms-auto">
+						<ul class="navbar-nav align-items-center">
+							<li class="nav-item mobile-search-icon">
+								<a class="nav-link" href="#">	<i class='bx bx-search'></i>
+								</a>
+							</li>
+							<li class="nav-item dropdown dropdown-large">
+								<a class="nav-link dropdown-toggle dropdown-toggle-nocaret" href="#" role="button" data-bs-toggle="dropdown" aria-expanded="false">	<i class='bx bx-category'></i>
+								</a>
+								<div class="dropdown-menu dropdown-menu-end">
+									<div class="row row-cols-3 g-3 p-3">
+										<div class="col text-center">
+											<div class="app-box mx-auto bg-gradient-cosmic text-white"><i class='bx bx-group'></i>
+											</div>
+											<div class="app-title">Teams</div>
+										</div>
+										<div class="col text-center">
+											<div class="app-box mx-auto bg-gradient-burning text-white"><i class='bx bx-atom'></i>
+											</div>
+											<div class="app-title">Projects</div>
+										</div>
+										<div class="col text-center">
+											<div class="app-box mx-auto bg-gradient-lush text-white"><i class='bx bx-shield'></i>
+											</div>
+											<div class="app-title">Tasks</div>
+										</div>
+										<div class="col text-center">
+											<div class="app-box mx-auto bg-gradient-kyoto text-dark"><i class='bx bx-notification'></i>
+											</div>
+											<div class="app-title">Feeds</div>
+										</div>
+										<div class="col text-center">
+											<div class="app-box mx-auto bg-gradient-blues text-dark"><i class='bx bx-file'></i>
+											</div>
+											<div class="app-title">Files</div>
+										</div>
+										<div class="col text-center">
+											<div class="app-box mx-auto bg-gradient-moonlit text-white"><i class='bx bx-filter-alt'></i>
+											</div>
+											<div class="app-title">Alerts</div>
+										</div>
+									</div>
+								</div>
+							</li>
+							<li class="nav-item dropdown dropdown-large">
+								<a class="nav-link dropdown-toggle dropdown-toggle-nocaret position-relative" href="#" role="button" data-bs-toggle="dropdown" aria-expanded="false"> <span class="alert-count">7</span>
+									<i class='bx bx-bell'></i>
+								</a>
+								<div class="dropdown-menu dropdown-menu-end">
+									<a href="javascript:;">
+										<div class="msg-header">
+											<p class="msg-header-title">Notifications</p>
+											<p class="msg-header-clear ms-auto">Marks all as read</p>
+										</div>
+									</a>
+									<div class="header-notifications-list">
+										<a class="dropdown-item" href="javascript:;">
+											<div class="d-flex align-items-center">
+												<div class="notify bg-light-primary text-primary"><i class="bx bx-group"></i>
+												</div>
+												<div class="flex-grow-1">
+													<h6 class="msg-name">New Customers<span class="msg-time float-end">14 Sec
+												ago</span></h6>
+													<p class="msg-info">5 new user registered</p>
+												</div>
+											</div>
+										</a>
+										
+										
+									</div>
+									<a href="javascript:;">
+										<div class="text-center msg-footer">View All Notifications</div>
+									</a>
+								</div>
+							</li>
+							<li class="nav-item dropdown dropdown-large">
+								<a class="nav-link dropdown-toggle dropdown-toggle-nocaret position-relative" href="#" role="button" data-bs-toggle="dropdown" aria-expanded="false"> <span class="alert-count">8</span>
+									<i class='bx bx-comment'></i>
+								</a>
+								<div class="dropdown-menu dropdown-menu-end">
+									<a href="javascript:;">
+										<div class="msg-header">
+											<p class="msg-header-title">Messages</p>
+											<p class="msg-header-clear ms-auto">Marks all as read</p>
+										</div>
+									</a>
+									<div class="header-message-list">
+										
+										<a class="dropdown-item" href="javascript:;">
+											<div class="d-flex align-items-center">
+												<div class="user-online">
+													<img src="https://via.placeholder.com/110x110" class="msg-avatar" alt="user avatar">
+												</div>
+												<div class="flex-grow-1">
+													<h6 class="msg-name">Johnny Seitz <span class="msg-time float-end">5 days
+												ago</span></h6>
+													<p class="msg-info">All the Lorem Ipsum generators</p>
+												</div>
+											</div>
+										</a>
+									</div>
+									<a href="javascript:;">
+										<div class="text-center msg-footer">View All Messages</div>
+									</a>
+								</div>
+							</li>
+						</ul>
+					</div>
+					<div class="user-box dropdown">
+						<a class="d-flex align-items-center nav-link dropdown-toggle dropdown-toggle-nocaret" href="#" role="button" data-bs-toggle="dropdown" aria-expanded="false">
+                            <img class="user-img" src="{{ Auth::user()->image ? asset('assets/user/propics/'.Auth::user()->image ):asset('assets/user/blank.png') }}" alt="{{Auth::user()->username}}">
+							<div class="user-info ps-3">
+								<p class="user-name mb-0">{{Auth::user()->username}}</p>
+								@if (empty(Auth::user()->current_plan))
 
-                                    <li class="login-profile-area">
-                                        <a class="dropdown-toggle-1" href="javascript:;">
-                                            <div class="user-img">
-                                                <img src="{{ Auth::user()->image ? asset('assets/user/propics/'.Auth::user()->image ):asset('assets/user/blank.png') }}" alt="">
-                                            </div>
-                                        </a>
-                                        <div class="dropdown-menu">
-                                            <div class="dropdownmenu-wrapper">
-                                                <ul>
-                                                    <h5>{{ $langg->lang75 }} {{Auth::user()->username}}!</h5>
-                                                    <li>
-                                                        <a href="{{ route('user.profile') }}"><i class="fas fa-user"></i> {{ $langg->lang76 }}</a>
-                                                    </li>
-                                                    <li>
-                                                        <a href="{{ route('user.password') }}"><i class="fas fa-cog"></i> {{ $langg->lang77 }}</a>
-                                                    </li>
-                                                    <li>
-                                                        <a href="{{ route('user-logout') }}"><i class="fas fa-power-off"></i> {{ $langg->lang74 }}</a>
-                                                    </li>
-                                                </ul>
-                                            </div>
-                                        </div>
-                                    </li>
-                                </ul>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-                <!-- Header Menu Area End -->
-                <div class="wrapper">
-                    <!-- Side Menu Area Start -->
-                    <nav id="sidebar" class="nav-sidebar">
-                        <ul class="list-unstyled components" id="accordion">
-                            <li>
-                                <a href="{{ route('user-dashboard') }}" class="wave-effect active"><i class="fa fa-home mr-2"></i>{{ $langg->lang68 }}</a>
-                            </li>
-                            @if (isset(Auth::user()->current_plan))
-                                <li><a href="{{ route('user.car.create') }}"><i class="fas fa-plus"></i> {{ $langg->lang69 }}</a></li>
-                                <li><a href="{{ route('user.car.index') }}"><i class="fas fa-table"></i> {{ $langg->lang70 }}</a></li>
-                                <li><a href="{{ route('user.car.index', 'featured') }}"><i class="fas fa-table"></i> {{ $langg->lang71 }}</a></li>
-                                <li><a href="{{route('user-social-index')}}"><i class="fas fa-link"></i>{{ $langg->lang72 }}</a></li>
-                                <li><a href="{{route('user-transactions')}}"><i class="fas fa-money-check-alt"></i>Payment History</a></li>
-
-                            @endif
-                            <li><a href="{{route('user-package')}}"><i class="fas fa-box-open"></i>{{ $langg->lang73 }}</a></li>
-                            <li><a href="{{route('user-logout')}}"><i class="fas fa-sign-out-alt"></i>{{ $langg->lang74 }}</a></li>
-
-                        </ul>
-                    </nav>
-
-                    <!-- Main Content Area Start -->
-                    @yield('content')
-                    <!-- Main Content Area End -->
-                </div>
+								<p class="designattion mb-0">No Plan</p>
+								@else
+								<p class="designattion mb-0"> Plan</p>
+								@endif
+							</div>
+						</a>
+						<ul class="dropdown-menu dropdown-menu-end">
+							<li><a class="dropdown-item" href="{{ route('user.profile') }}"><i class="bx bx-user"></i><span>Profile</span></a></li>
+							<li><a class="dropdown-item" href="{{ route('user.password') }}"><i class="bx bx-cog"></i><span>Settings</span></a></li>
+							</li>
+							<li>
+								<div class="dropdown-divider mb-0"></div>
+							</li>
+							<li><a class="dropdown-item" href="{{ route('user-logout') }}"><i class='bx bx-log-out-circle'></i><span>Logout</span></a>
+							</li>
+						</ul>
+					</div>
+				</nav>
+			</div>
+		</header>
+		<!--end header -->
+		<!--start page wrapper -->
+		<div class="page-wrapper">
+			<div class="page-content">
+            @yield('content')
             </div>
-        </div>
-
-        <script type="text/javascript">
-            var mainurl = "{{url('/')}}";
-        </script>
-
-        <!-- Dashboard Core -->
-        <script src="{{asset('assets/admin/js/vendors/jquery-1.12.4.min.js')}}"></script>
-        <script src="{{asset('assets/admin/js/vendors/bootstrap.min.js')}}"></script>
-        <script src="{{asset('assets/admin/js/jqueryui.min.js')}}"></script>
+		</div>
+		<!--end page wrapper -->
+		<!--start overlay-->
+		<div class="overlay toggle-icon"></div>
+		<!--end overlay-->
+		<!--Start Back To Top Button--> <a href="javaScript:;" class="back-to-top"><i class='bx bxs-up-arrow-alt'></i></a>
+		<!--End Back To Top Button-->
+		<footer class="page-footer">
+			<p class="mb-0">Copyright © 2021. All right reserved.</p>
+		</footer>
+	</div>
+	<!--end wrapper-->
+	
+	<!-- Bootstrap JS -->
+	
+	<script src="{{asset('assets/theme/assets/plugins/simplebar/js/simplebar.min.js')}}"></script>
+	<script src="{{asset('assets/theme/assets/plugins/metismenu/js/metisMenu.min.js')}}"></script>
+	<script src="{{asset('assets/theme/assets/plugins/perfect-scrollbar/js/perfect-scrollbar.js')}}"></script>
+	<script src="{{asset('assets/theme/assets/plugins/vectormap/jquery-jvectormap-2.0.2.min.js')}}"></script>
+	<script src="{{asset('assets/theme/assets/plugins/vectormap/jquery-jvectormap-world-mill-en.js')}}"></script>
+	<script src="{{asset('assets/theme/assets/plugins/highcharts/js/highcharts.js')}}"></script>
+	<script src="{{asset('assets/theme/assets/plugins/highcharts/js/exporting.js')}}"></script>
+	<script src="{{asset('assets/theme/assets/plugins/highcharts/js/variable-pie.js')}}"></script>
+	<script src="{{asset('assets/theme/assets/plugins/highcharts/js/export-data.js')}}"></script>
+	<script src="{{asset('assets/theme/assets/plugins/highcharts/js/accessibility.js')}}"></script>
+	<script src="{{asset('assets/theme/assets/plugins/apexcharts-bundle/js/apexcharts.min.js')}}"></script>
+	<script src="{{asset('assets/theme/assets/plugins/Drag-And-Drop/dist/imageuploadify.min.js')}}"></script>
+	<script src="{{asset('assets/theme/assets/js/index.js')}}"></script>
+	<!--app JS-->
+	<script src="{{asset('assets/admin/js/jqueryui.min.js')}}"></script>
         <script src="{{asset('assets/admin/js/vendors/vue.js')}}"></script>
         <!-- Fullside-menu Js-->
         <script src="{{asset('assets/admin/plugins/fullside-menu/jquery.slimscroll.min.js')}}"></script>
@@ -129,8 +299,9 @@
         <script src="{{asset('assets/admin/js/notify.js') }}"></script>
         <script src="{{asset('assets/admin/js/load.js')}}"></script>
         <script src="{{asset('assets/admin/js/select2.min.js')}}"></script>
-        <!-- Custom Js-->
-        <script src="{{asset('assets/admin/js/custom.js')}}"></script>
+		
+	<script src="{{asset('assets/theme/assets/js/app.js')}}"></script>
+	<script src="{{asset('assets/admin/js/custom.js')}}"></script>
         <!-- AJAX Js-->
         <script src="{{asset('assets/admin/js/myscript.js')}}"></script>
         @if (session()->has('success'))
@@ -144,6 +315,18 @@
         </script>
         @endif
         @yield('scripts')
+	<script>
+		/*	
+		new PerfectScrollbar('.customers-list');
+		new PerfectScrollbar('.store-metrics');
+		new PerfectScrollbar('.product-list');
+		*/
+		$(document).ready(function () {
+			$('#featuredimg').imageuploadify();
+			$('#gallery').imageuploadify();
+		});
+	</script>
+			
     </body>
 
 </html>

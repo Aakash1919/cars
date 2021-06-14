@@ -62,9 +62,9 @@ class CarController extends Controller
                            })
                            ->editColumn('featured', function(Car $data) use ($langgg) {
                                if ($data->featured == 1) {
-                                 return '<span class="badge badge-success">'.$langgg['lang88'].'</span>';
+                                 return '<span class="badge rounded-pill bg-success">'.$langgg['lang88'].'</span>';
                                } else {
-                                 return '<span class="badge badge-danger">'.$langgg['lang89'].'</span>';
+                                 return '<span class="badge rounded-pill bg-danger">'.$langgg['lang89'].'</span>';
                                }
                            })
                           ->addColumn('status', function(Car $data) use ($langgg) {
@@ -73,12 +73,12 @@ class CarController extends Controller
                               $ns = $data->status == 0 ? 'selected' : '';
                               $rs = $data->status == 2 ? 'selected' : '';
 
-                              return '<div class="action-list"><select class="process select droplinks '.$class.'"><option data-val="1" value="'. route('user.car.status',['id1' => $data->id, 'id2' => 1]).'" '.$s.'>'.$langgg['lang94'].'</option><option data-val="0" value="'. route('user.car.status',['id1' => $data->id, 'id2' => 0]).'" '.$ns.'>'.$langgg['lang95'].'</option><option data-val="1" value="'. route('user.car.status',['id1' => $data->id, 'id2' => 2]).'" '.$rs.'>Relist</option></select></div>';
+                              return '<div class="action-list"><select class="process select droplinks  '.$class.'"><option data-val="1" value="'. route('user.car.status',['id1' => $data->id, 'id2' => 1]).'" '.$s.'>'.$langgg['lang94'].'</option><option data-val="0" value="'. route('user.car.status',['id1' => $data->id, 'id2' => 0]).'" '.$ns.'>'.$langgg['lang95'].'</option><option data-val="1" value="'. route('user.car.status',['id1' => $data->id, 'id2' => 2]).'" '.$rs.'>Relist</option></select></div>';
                           })
                           ->addColumn('action', function(Car $data) use ($langgg) {
-                              $view = isset($data->is_auction) && $data->is_auction==1 ? '<a href="' . route('user.car.bids',$data->id) . '" class="edit" title="View Bids"><i class="fas fa-eye"></i></a>' : '';
+                              $view = isset($data->is_auction) && $data->is_auction==1 ? '<a href="' . route('user.car.bids',$data->id) . '" class="edit btn btn-info btn-sm px-2" title="View Bids"><i class="fas fa-eye"></i>Bids</a>' : '';
                                
-                              return '<div class="action-list"><a href="' . route('user.car.edit',$data->id) . '" class="edit"> <i class="fas fa-edit"></i></a>'.$view.'<a href="javascript:;" data-href="' . route('user.car.delete',$data->id) . '" data-toggle="modal" data-target="#confirm-delete" class="delete"><i class="fas fa-trash-alt"></i></a></div>';
+                              return '<div class="action-list"><a href="' . route('user.car.edit',$data->id) . '" class="edit btn btn-primary btn-sm px-2"> <i class="fas fa-edit"></i>Edit</a>&nbsp;'.$view.'&nbsp;<a href="javascript:;" data-href="' . route('user.car.delete',$data->id) . '" data-toggle="modal" data-target="#confirm-delete" class="delete btn btn-primary px-5btn btn-danger btn-sm px-2"><i class="fas fa-trash-alt"></i>Delete</a></div>';
                           })
                           ->rawColumns(['title', 'brand', 'model', 'featured', 'status','action'])
                           ->toJson(); //--- Returning Json Data To Client Side
@@ -398,8 +398,9 @@ class CarController extends Controller
                        ->editColumn('action', function(Bid $data) {
                          $bidStatus = $data->status==1 ? "drop-success" : 'acceptBid';
                          $bidTitle = $data->status==1 ? "Accepted" : 'Accept';
+                         $bidColor = $data->status==1 ? "btn-success" : 'btn-info';
 
-                        return '<div class="action-list"><a href="javascript:void(0)" id="bidStatus" class="edit '.$bidStatus .'" data-value="'.$data->id.'"><i class="fa fa-check"></i>'.$bidTitle.'</a></div>';
+                        return '<div class="action-list"><a href="javascript:void(0)" id="bidStatus" class="btn btn-sm edit '.$bidStatus .' '.$bidColor.'" data-value="'.$data->id.'"><i class="fa fa-check"></i>'.$bidTitle.'</a></div>';
                        })
                        ->rawColumns(['car', 'user', 'price','created', 'updated', 'action'])
                        ->toJson(); 
