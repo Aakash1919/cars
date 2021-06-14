@@ -8,6 +8,7 @@ use App\Http\Controllers\User\StripeController;
 use App\Models\User;
 use Auth;
 use Validator;
+use Redirect; 
 
 class ProfileController extends Controller
 {
