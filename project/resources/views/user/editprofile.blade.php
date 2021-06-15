@@ -10,8 +10,8 @@
 				<nav aria-label="breadcrumb">
 					<ol class="breadcrumb mb-0 p-0">
 						<li class="breadcrumb-item"><a href="javascript:;"><i class="bx bx-home-alt"></i></a></li>
-				<li class="breadcrumb-item"><a href="{{ route('user-dashboard') }}">{{$langg->lang8}} </a></li>
-				<li class="breadcrumb-item active"  aria-current="page"><a href="{{ route('user.profile') }}">{{ $langg->lang165 }}</a></li>
+						<li class="breadcrumb-item"><a href="{{ route('user-dashboard') }}">{{$langg->lang8}} </a></li>
+						<li class="breadcrumb-item active"  aria-current="page"><a href="{{ route('user.profile') }}">{{ $langg->lang165 }}</a></li>
 					</ol>
 				</nav>
 			</div>
@@ -44,7 +44,7 @@
 											@if (empty(Auth::user()->current_plan))
 												<p class="text-secondary mb-1">No Plan subscribed yet</p>
 											@else
-												<p class="text-secondary mb-1">User plan here</p>
+												<p class="text-secondary mb-1">{{ get_plan_name(Auth::user()->current_plan) }}</p>
 											@endif
 											<p class="text-muted font-size-sm">Username: {{Auth::user()->username}}</p>
 										</div>
@@ -70,22 +70,30 @@
 									<h5 class="mb-0 text-primary">Payment Information</h5>
 								</div>
 								<hr>
-								<!-- Aakash Payment Form here-->
+								<form action="{{route('user.profile.stripeUpdate')}}" method="post" id="payment-form">
+									@if($errors->any())
+										<h4>{{$errors->first()}}</h4>
+									@endif
+									<input type="hidden" name="_token" value={{csrf_token()}} />
+									<div class="form-row">
+									  <div id="card-element"></div>
+									  <div id="card-errors" role="alert"></div>
+									</div>
+									<button class="btn btn-success btn-sm mt-2">update</button>
+								</form>
 							</div>
 							@if(isset(Auth::user()->stripe_subscription_id))
 							<div class="card-footer">
-							
-							<a href="{{route('stripe.unsubscribe')}}" class="btn btn-danger">Cancel Subscription</a>
-							
+								<a href="{{route('stripe.unsubscribe')}}" class="btn btn-danger">Cancel Subscription</a>
 							</div>
-							@endif
-							</div>
+						@endif
 						</div>
-						<div class="col-lg-8">
-							<div class="card border-top border-0 border-4 border-primary">
+					</div>
+					<div class="col-lg-8">
+						<div class="card border-top border-0 border-4 border-primary">
 							<div class="card-body p-5">
 								<form class="row g-3" action="{{ route('user.profile.update') }}" method="POST" enctype="multipart/form-data" novalidate>
-								{{csrf_field()}}
+									{{csrf_field()}}
 									<div class="col-md-6">
 										<label for="first_name" class="form-label">First Name</label>
 										<div class="input-group"> <span class="input-group-text bg-transparent"><i class='bx bxs-user'></i></span>
@@ -200,17 +208,15 @@
 									<div class="col-12">
 										<label for="about" class="form-label">About</label>
 										<textarea  class="form-control border-start-0" name="about" id="about">{{ $user->about }}</textarea>
-										</div>
 									</div>
-									<div class="card-footer">
+								</div>
+								<div class="card-footer">
 									<div class="col-12">
 										<button type="submit" class="btn btn-primary px-5">Save</button>
 									</div>
-									</div>
-								</form>
-							
+								</div>
+							</form>
 						</div>
-
 					</div>
 				</div>
 			</div>
@@ -230,7 +236,6 @@ var myDropzone = new Dropzone("form#profileimg", {
 		forceFallback: false,
 		init: function() {
 			this.on("success", function(file, responseText) {
-				console.log(responseText.status);
 				if(responseText.status==true){
 					$("#myprofileimage").attr('src',responseText.message);
 					$(".user-img").attr('src',responseText.message);
@@ -250,6 +255,42 @@ var myDropzone = new Dropzone("form#profileimg", {
         $('.show-dealer').hide()
      }
     }
+</script>
+<script src="https://js.stripe.com/v3/"></script>
+<script>
+	var stripe = Stripe('{{ env('STRIPE_KEY') }}');
+	var elements = stripe.elements();
+	var style = {
+	base: {
+		// Add your base input styles here. For example:
+		fontSize: '16px',
+		color: '#32325d',
+	},
+	};
+	var card = elements.create('card', {style: style});
+	card.mount('#card-element');
+	var form = document.getElementById('payment-form');
+	form.addEventListener('submit', function(event) {
+	event.preventDefault();
+	stripe.createToken(card).then(function(result) {
+		if (result.error) {
+			var errorElement = document.getElementById('card-errors');
+			errorElement.textContent = result.error.message;
+		} else {
+			stripeTokenHandler(result.token);
+		}
+	});
+	});
+
+	function stripeTokenHandler(token) {
+		var form = document.getElementById('payment-form');
+		var hiddenInput = document.createElement('input');
+		hiddenInput.setAttribute('type', 'hidden');
+		hiddenInput.setAttribute('name', 'stripeToken');
+		hiddenInput.setAttribute('value', token.id);
+		form.appendChild(hiddenInput);
+		form.submit();
+	}
 </script>
 @endsection
 	

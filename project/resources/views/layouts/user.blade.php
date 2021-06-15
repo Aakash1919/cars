@@ -169,10 +169,9 @@
 							<div class="user-info ps-3">
 								<p class="user-name mb-0">{{Auth::user()->username}}</p>
 								@if (empty(Auth::user()->current_plan))
-
-								<p class="designattion mb-0">No Plan</p>
+									<p class="designattion mb-0">No Plan</p>
 								@else
-								<p class="designattion mb-0"> Plan</p>
+									<p class="designattion mb-0"> {{ get_plan_name(Auth::user()->current_plan) }}</p>
 								@endif
 							</div>
 						</a>
