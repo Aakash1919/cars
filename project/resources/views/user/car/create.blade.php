@@ -24,7 +24,7 @@
 @endsection
 
 @section('content')
-<div class="page-wrapper">
+<div class="">
 			<div class="page-content">
 <div class="page-breadcrumb d-none d-sm-flex align-items-center mb-3">
 				
@@ -87,28 +87,33 @@
 								<textarea id="nicDesc" name="description" class="form-control nic-edit" rows="8" cols="80"></textarea>
 							  </div>
                             </div>
-							<div class="row">
-								<div class="col-6">
-									<div class="card">
-										<div class="card-body">
-											<div class="card-title">Featured Image</div>
-											<input id="featuredimg" type="file" accept=".xlsx,.xls,image/*,.doc,audio/*,.docx,video/*,.ppt,.pptx,.txt,.pdf" multiple>
-										</div>
-									</div>
-								</div>
-								<div class="col-6">
-									<div class="card">
-										<div class="card-body">
-											<div class="card-title">Gallery Images</div>
-											<input id="gallery" type="file" accept=".xlsx,.xls,image/*,.doc,audio/*,.docx,video/*,.ppt,.pptx,.txt,.pdf" multiple>
-										</div>
-									</div>
-								</div>
+							<hr/>
+							<div class="border border-3 p-4 rounded">
+							<div class="col-12" id="app">
+							<label class="form-label">{{$langg->lang130}} </label>
+
+							<div id="'spec'+n" class="row specs" v-for="n in count" style="margin-top:10px;margin-bottom:10px;">
+							<div class="col-lg-5">
+								<input type="text" class="form-control" name="label[]" placeholder="{{$langg->lang131}}" required="" value="">
 							</div>
+							<div class="col-lg-5">
+								<input type="text" class="form-control" name="value[]" placeholder="{{$langg->lang132}}" required="" value="">
+							</div>
+							<div class="col-lg-2">
+								<button type="button" class="btn btn-danger btn-sm" @click="subspec(n)"><i class="fas fa-minus-square"></i></button>
+							</div>
+							</div>
+							<div class="row">
+							<div class="col-lg-12">
+								<button type="button" class="btn btn-primary btn-sm" @click="addspec()"><i class="fas fa-plus-square"></i>&nbsp; {{$langg->lang133}}</button>
+							</div>
+							</div>
+							</div>
+						</div>
 						   </div>
 						   <div class="col-lg-4">
 							<div class="border border-3 p-4 rounded">
-                  <div class="row g-3">
+                  			<div class="row g-3">
 								      <div class="col-md-6">
                           <label for="category_id" class="form-label">{{$langg->lang103}}</label>
                           <select id="category_id" class="searchable-select input-field form-select" name="category_id">
@@ -187,24 +192,73 @@
 							<option value="{{ \Crypt::encrypt(7) }}" >{{$langg->lang187}}</option>
 						</select>
 						</div>
+
 						<div class="col-12">
 							<div class="d-grid">
-								<button type="submit" class="btn btn-primary addProductSubmit-btn mt-4">{{$langg->lang134}}</button>
+								<button type="submit" class="btn btn-primary addProductSubmit-btn">{{$langg->lang134}}</button>
 							</div>
 						</div>
 						</div> 
 						
+						
 						  </div>
+						
 						  
 						  </div>
+						  
 					   </div><!--end row-->
+					   
           </form>
+		  				
 					</div>
+					
 				  </div>
+				  
 			  </div>
+			  <div class="row">
+				
+						<div class="col-md-6">
+						<div class="card">
+						<div class="card-body">
+						<h5 class="card-title">Featured Image</h5>
+						<hr>
+								<form id="featuredimg" action="#" class="dropzone" method="post" enctype="multipart/form-data">
+										<input type="hidden" name="_token" value={{csrf_token()}}>
+										<div class="dz-message">
+										<div class="font-22 text-primary">	<i class="lni lni-cloud-upload"></i>
+										</div>	
+										Drop files here or click to upload.
+									
+										</div>
+										<div class="fallback"><input type="file" name="image" /></div>
+									</form>
+						</div>
+					</div>
+					</div>
+						<div class="col-md-6">
+						<div class="card">
+						<div class="card-body">
+						<h5 class="card-title">Gallery Images </h5>
+						<hr>
+								<form id="galleryimg" action="#" class="dropzone" method="post" enctype="multipart/form-data">
+										<input type="hidden" name="_token" value={{csrf_token()}}>
+										<div class="dz-message">
+										<div class="font-22 text-primary">	<i class="lni lni-cloud-upload"></i>
+										</div>	
+										Drop files here or click to upload.
+									
+										</div>
+										<div class="fallback"><input type="file" name="image" /></div>
+									</form>
+						</div>
+						</div>
+				</div>
+			</div>
 </div>
 </div>
+@endsection
 
+@section('scripts')
  <!-- Old Data-->
  <script>
 
@@ -222,4 +276,23 @@
         })
       }
 
+    var app = new Vue({
+      el: '#app',
+      data: {
+        count: 0
+      },
+      methods: {
+        addspec() {
+          this.count++;
+        },
+        subspec(n) {
+          $("#spec"+n).remove();
+        },
+        subexspec(n) {
+          $("#exspec"+n).remove();
+        }
+      }
+    })
+
     </script>
+	@endsection

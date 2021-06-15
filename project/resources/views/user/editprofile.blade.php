@@ -52,6 +52,12 @@
 									<hr class="my-4" />
 									<form id="profileimg" action="{{ route('user-propic-upload') }}" class="dropzone" method="post" enctype="multipart/form-data">
 										<input type="hidden" name="_token" value={{csrf_token()}}>
+										<div class="dz-message">
+										<div class="font-22 text-primary">	<i class="lni lni-cloud-upload"></i>
+										</div>	
+										Drop files here or click to upload.
+									
+										</div>
 										<div class="fallback"><input type="file" name="image" /></div>
 									</form>
 								</div>
