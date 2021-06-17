@@ -201,6 +201,7 @@
                             </div>
                             <!--end row-->
                             <input type="hidden" id="myfeaturedcarimg" name="featured_image" value="">
+                            <div class="slider_images"></div>
                     </form>
 
                 </div>
@@ -322,9 +323,8 @@
             init: function() {
                 this.on("success", function(file, responseText) {
                     if (responseText.status == true) {
-                        var html = '<input type="hidden" name="imagesdb[]" value="' + responseText.message + '">'
+                        var html = '<input type="hidden" name="images[]" value="' + responseText.message + '">'
                         $(".slider_images").append(html);
-                        $(".dz-remove").attr('data-val', responseText.time)
                     }
                 });
             },

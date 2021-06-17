@@ -141,7 +141,7 @@ class CarController extends Controller
         return response()->json(array('errors' => $validator->getMessageBag()->toArray()));
       }
       //--- Validation Section Ends
-      
+     
       $in = $request->all();
       $in['user_id'] = Auth::user()->id;
       if ($request->filled('featured_image')) {
@@ -163,11 +163,10 @@ class CarController extends Controller
         foreach ($imgs as $key => $img) {
           $carimg = new CarImage;
           $carimg->car_id = $car->id;
-          $carimg->image = $$img;
+          $carimg->image = $img;
           $carimg->save();
         }
       }
-      
       $boughtPlan = Plan::find(Auth::user()->current_plan);
       $payment = new Payment;
       if(isset($boughtPlan->listing_price) && $boughtPlan->listing_price != 0) {
