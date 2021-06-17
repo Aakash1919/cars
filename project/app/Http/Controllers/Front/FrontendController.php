@@ -24,6 +24,7 @@ use App\Models\Car;
 use App\Models\Generalsetting;
 use App\Models\Pagesetting as PS;
 use App\Models\Category;
+use App\Models\BrandModel;
 use App\Models\Testimonial;
 use App\Classes\GeniusMailer;
 use Carbon\Carbon;
@@ -52,7 +53,10 @@ class FrontendController extends Controller
 			$specs = Specification::all();
 			return view('front.about', compact('skills', 'specs', 'aboutimgs'));
 		}
-
+		public function getModels($brandid) {
+			$models = BrandModel::where('brand_id', $brandid)->where('status', 1)->get();
+			return $models;
+		  }
 		public function faq() {
 			$data['faqs'] = Faq::all();
 			return view('front.faq', $data);

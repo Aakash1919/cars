@@ -466,6 +466,7 @@ Route::post('/model/sendmail', 'Front\FrontendController@modelsendmail')->name('
 Route::get('/contact', 'Front\FrontendController@contact')->name('front.contact');
 Route::post('/sendmail', 'Front\FrontendController@sendmail')->name('front.sendmail');
 Route::get('/faq', 'Front\FrontendController@faq')->name('front.faq');
+Route::get('/front/{brandid}/models', 'Front\FrontendController@getmodels')->name('front.car.getmodels');
 
 
 // Dynamic Page

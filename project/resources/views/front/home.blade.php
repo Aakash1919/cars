@@ -776,7 +776,7 @@
 @section('scripts')
 <script>
     function getModels(brandid) {
-            var url = '{{ url('/') }}' + '/car/' + brandid + '/models';
+            var url = '{{ url('/') }}' + '/front/' + brandid + '/models';
             // console.log(url);
             $.get(url, function(data) {
                 // console.log(data);
