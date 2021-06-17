@@ -62,7 +62,7 @@
 								<div class="d-flex align-items-center">
 									<div>
 										<p class="mb-0 text-white">Notifications</p>
-										<h4 class="my-1 text-white">8569</h4>
+										<h4 class="my-1 text-white">{{count(get_notifications(Auth::user()->id))}}</h4>
 									</div>
 									<div class="text-white ms-auto font-35"><i class="bx bx-comment-detail"></i>
 									</div>
