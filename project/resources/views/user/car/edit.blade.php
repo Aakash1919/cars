@@ -286,10 +286,10 @@
                         <h5 class="card-title">Gallery Images </h5>
                         <div class="imagesuploaded-images d-flex">
                             @foreach ($car->car_images as $key => $ci)
-                            <div class="image">
+                            <div class="image" style="position:relative;">
                                <img src="{{ asset('assets/front/images/cars/sliders/'.$ci->image) }}" alt="" width="100" height="100" style="object-fit: cover; margin:5px; max-height: 100px;max-width:100px;">
                                <div class="image-overlay">
-                                 <i class="fas fa-times" data-val="{{ $ci->id }}" onclick="removeimg(event)"></i>
+                                 <i class="fas fa-times" style="position: absolute; right: 5px; top: 5px; z-index: 200; color: red;" data-val="{{ $ci->id }}" onclick="removeimg(event)"></i>
                                </div>
                              </div>
                           @endforeach
