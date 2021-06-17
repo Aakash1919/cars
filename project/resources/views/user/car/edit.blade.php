@@ -26,8 +26,7 @@
                     <form class="add-form" id="geniusform" action="{{ route('user.car.update') }}" method="POST"
                         enctype="multipart/form-data" novalidate>
                         {{ csrf_field() }}
-						<input type="hidden" name="car_id" value="{{ $car->id }}">
-
+						<input type="hidden" name="car_id" value="{{ $car->id }}"> 
                         <div class="row">
                             <div class="col-lg-7 offset-lg-3">
                                 @include('includes.admin.form-both')
@@ -257,15 +256,11 @@
                         <hr>
                         @foreach ($car->car_images as $key => $ci)
                             <div class="image">
-                                <input type="hidden" name="imagesdb[]" value="{{ $ci->image }}">
-                                <img src="{{ asset('assets/front/images/cars/sliders/' . $ci->image) }}" alt=""
-                                    width="200">
-                                <div class="image-overlay">
-                                    <i class="fas fa-times" onclick="removeimg(event)"></i>
-                                </div>
+                                <input type="hidden" id="myfeaturedcarimg" name="imagesdb[]" value="{{ $ci->image }}">
+                                <img id="myfeaturedcar" src="{{ asset('assets/front/images/cars/sliders/' . $ci->image) }}" alt="{{$ci->image}}"  width="200" style="max-height: 100px;max-width:100px;">
                             </div>
                         @endforeach
-                        <form id="featuredimg" action="#" class="dropzone" method="post" enctype="multipart/form-data">
+                        <form id="featuredimg" action="{{ route('user.car.uploadFeatured') }}" class="dropzone" method="post" enctype="multipart/form-data">
                             <input type="hidden" name="_token" value={{ csrf_token() }}>
                             <div class="dz-message">
                                 <div class="font-22 text-primary"> <i class="lni lni-cloud-upload"></i>
@@ -283,7 +278,7 @@
                     <div class="card-body">
                         <h5 class="card-title">Gallery Images </h5>
                         <hr>
-                        <form id="galleryimg" action="#" class="dropzone" method="post" enctype="multipart/form-data">
+                        <form id="galleryimg" action="{{ route('user.car.uploadgallery') }}" class="dropzone" method="post" enctype="multipart/form-data">
                             <input type="hidden" name="_token" value={{ csrf_token() }}>
                             <div class="dz-message">
                                 <div class="font-22 text-primary"> <i class="lni lni-cloud-upload"></i></div>
@@ -331,6 +326,42 @@
                 }
             }
         })
+
+        Dropzone.autoDiscover = false;
+        var myDropzone = new Dropzone("form#featuredimg", { 
+		paramName: "image",
+		maxFilesize: 10, 
+		uploadMultiple :false,
+		acceptedFiles : "image/*",
+		addRemoveLinks: true,
+		forceFallback: false,
+		init: function() {
+			this.on("success", function(file, responseText) {
+				if(responseText.status==true){
+                    imgpath = "/assets/front/images/cars/featured/"+responseText.message;
+					$("img#myfeaturedcar").attr('src',imgpath);
+                    $("input#myfeaturedcarimg").val(responseText.message);
+				}
+			});
+		}
+	});
+
+    var myDropzone = new Dropzone("form#galleryimg", { 
+		paramName: "image",
+		maxFilesize: 10, 
+		uploadMultiple :false,
+		acceptedFiles : "image/*",
+		addRemoveLinks: true,
+		forceFallback: false,
+		init: function() {
+			this.on("success", function(file, responseText) {
+				if(responseText.status==true){
+					$("img#myfeaturedcar").attr('src',responseText.message);
+                    $("input#featuredGallery").val(responseText.message);
+				}
+			});
+		}
+	});
 
     </script>
 @endsection

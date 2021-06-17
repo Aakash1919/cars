@@ -417,4 +417,28 @@ class CarController extends Controller
         return response()->json(['status'=>200, 'Message' => 'Bid Accepted']);
       }
     }
+
+    public function uploadFeatured(Request $request)
+
+    {
+        //--- Validation Section
+        $rules = [
+          'image' => 'required',
+        ];
+
+        $validator = Validator::make($request->all(), $rules);
+
+        if ($validator->fails()) {
+          return response()->json(array('errors' => $validator->getMessageBag()->toArray()));
+        }
+
+        $image = $request->image;
+        //$image_name = time().'.png';
+        $path = 'assets/front/images/cars/featured/';
+        $tmp_name = $_FILES["image"]["tmp_name"];
+        $name = basename($_FILES["image"]["name"]);
+        move_uploaded_file($tmp_name, "$path/$name");
+        return response()->json(['status'=>true,'message'=>$name]);
+
+    }
 }

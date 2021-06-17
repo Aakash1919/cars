@@ -27,42 +27,66 @@
 			</div>
     @endif  
     <div class="row row-cols-1 row-cols-md-4 row-cols-xl-5">
-					<div class="col">
-						<div class="card radius-10">
+					
+          <div class="col">
+						<div class="card radius-10 bg-info bg-gradient">
 							<div class="card-body">
-								<div class="text-center">
-									<div class="widgets-icons rounded-circle mx-auto bg-light-primary text-primary mb-3"><i class="fadeIn animated bx bx-car"></i>
+								<div class="d-flex align-items-center">
+									<div>
+										<p class="mb-0 text-white">{{ $langg->lang78 }}!</p>
+										<h4 class="my-1 text-white"><a href="{{ route('user.car.index', 'featured') }}" class="link">{{ \App\Models\Car::where('user_id', Auth::user()->id)->count() }}</a></h4>
 									</div>
-									<h4 class="my-1">{{ \App\Models\Car::where('user_id', Auth::user()->id)->count() }}</h4>
-									<p class="mb-0 text-secondary">{{ $langg->lang78 }}!</p>
-                  <p><a href="{{ route('user.car.index') }}" class="link">{{ $langg->lang1000 }}</a></p>
+									<div class="text-white ms-auto font-35"><i class="fadeIn animated bx bx-car"></i>
+									</div>
 								</div>
 							</div>
 						</div>
 					</div>
-
           <div class="col">
-						<div class="card radius-10">
+						<div class="card radius-10 bg-danger bg-gradient">
 							<div class="card-body">
-								<div class="text-center">
-									<div class="widgets-icons rounded-circle mx-auto bg-light-primary text-primary mb-3"><i class="fadeIn animated bx bx-car"></i>
+								<div class="d-flex align-items-center">
+									<div>
+										<p class="mb-0 text-white">{{ $langg->lang79 }}!</p>
+										<h4 class="my-1 text-white"><a href="{{ route('user.car.index', 'featured') }}" class="link">{{ \App\Models\Car::where('user_id', Auth::user()->id)->where('featured', 1)->count() }}</a></h4>
 									</div>
-									<h4 class="my-1">{{ \App\Models\Car::where('user_id', Auth::user()->id)->where('featured', 1)->count() }}</h4>
-									<p class="mb-0 text-secondary">{{ $langg->lang79 }}!</p>
-                  <p> <a href="{{ route('user.car.index', 'featured') }}" class="link">{{ $langg->lang1000 }}</a></p>
+									<div class="text-white ms-auto font-35"><i class="fadeIn animated bx bx-car"></i>
+									</div>
 								</div>
 							</div>
 						</div>
 					</div>
-
           <div class="col">
-						<div class="card radius-10">
+						<div class="card radius-10 bg-success bg-gradient">
 							<div class="card-body">
-								<div class="text-center">
-									<div class="widgets-icons rounded-circle mx-auto bg-light-primary text-primary mb-3"><i class="bx bxl-facebook-square"></i></div>
-									<h4 class="my-1">{{ !empty($user->socialsetting) ? ($user->socialsetting->f_status + $user->socialsetting->i_status + $user->socialsetting->g_status + $user->socialsetting->t_status + $user->socialsetting->l_status + $user->socialsetting->d_status) : 0 }}</h4>
-									<p class="mb-0 text-secondary">{{ $langg->lang80 }}!</p>
-                  <p><a href="{{ route('user-social-index') }}" class="link">{{ $langg->lang1000 }}</a></p>
+								<div class="d-flex align-items-center">
+									<div>
+										<p class="mb-0 text-white">Notifications</p>
+										<h4 class="my-1 text-white">8569</h4>
+									</div>
+									<div class="text-white ms-auto font-35"><i class="bx bx-comment-detail"></i>
+									</div>
+								</div>
+							</div>
+						</div>
+					</div>
+          <div class="col">
+						<div class="card radius-10 bg-warning bg-gradient">
+							<div class="card-body">
+								<div class="d-flex align-items-center">
+									<div>
+										<p class="mb-0 text-dark">Your Current Package</p>
+										<h4 class="text-dark my-1">
+                      @if (empty(Auth::user()->current_plan))
+                      <p class="text-secondary mb-1">No Plan subscribed yet</p>
+                    @else
+                      <p class="text-secondary mb-1">{{ get_plan_name(Auth::user()->current_plan) }}</p>
+                    @endif
+
+                    </h4>
+									</div>
+									<div class="text-dark ms-auto font-35"><i class="bx bx-user-pin"></i>
+									</div>
 								</div>
 							</div>
 						</div>
