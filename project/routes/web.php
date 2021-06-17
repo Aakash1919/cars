@@ -192,6 +192,7 @@ Route::prefix('admin')->group(function() {
   Route::get('/car/delete/{id}', 'Admin\CarController@destroy')->name('admin.car.delete');
   Route::get('/car/status/{id1}/{id2}', 'Admin\CarController@status')->name('admin.car.status');
   Route::get('/car/featured/{id1}/{id2}', 'Admin\CarController@featured')->name('admin.car.featured');
+
   //------------ ADMIN CAR MANAGEMENT SECTION ENDS ------------
 
 
@@ -369,6 +370,8 @@ Route::group(['middleware' => 'auth'], function() {
   Route::post('/car/update', 'User\CarController@update')->name('user.car.update');
   Route::get('/car/delete/{id}', 'User\CarController@destroy')->name('user.car.delete');
   Route::get('/car/status/{id1}/{id2}', 'User\CarController@status')->name('user.car.status');
+  Route::post('/car/uploadFeatured', 'User\CarController@uploadFeatured')->name('user.car.uploadFeatured');
+  Route::post('/car/uploadgallery', 'User\CarController@uploadgallery')->name('user.car.uploadgallery');
   //------------ USER CAR MANAGEMENT SECTION ENDS ------------
 
 

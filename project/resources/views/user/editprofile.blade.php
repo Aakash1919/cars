@@ -62,32 +62,6 @@
 									</form>
 								</div>
 							</div>
-							<div class="card border-top border-0 border-4 border-primary">
-							<div class="card-body p-5">
-								<div class="card-title d-flex align-items-center">
-									<div><i class="bx bxs-user me-1 font-22 text-primary"></i>
-									</div>
-									<h5 class="mb-0 text-primary">Payment Information</h5>
-								</div>
-								<hr>
-								<form action="{{route('user.profile.stripeUpdate')}}" method="post" id="payment-form">
-									@if($errors->any())
-										<h4>{{$errors->first()}}</h4>
-									@endif
-									<input type="hidden" name="_token" value={{csrf_token()}} />
-									<div class="form-row">
-									  <div id="card-element"></div>
-									  <div id="card-errors" role="alert"></div>
-									</div>
-									<button class="btn btn-success btn-sm mt-2">update</button>
-								</form>
-							</div>
-							@if(isset(Auth::user()->stripe_subscription_id))
-							<div class="card-footer">
-								<a href="{{route('stripe.unsubscribe')}}" class="btn btn-danger">Cancel Subscription</a>
-							</div>
-						@endif
-						</div>
 					</div>
 					<div class="col-lg-8">
 						<div class="card border-top border-0 border-4 border-primary">
@@ -216,6 +190,32 @@
 									</div>
 								</div>
 							</form>
+						</div>
+						<div class="card border-top border-0 border-4 border-primary">
+							<div class="card-body p-5">
+								<div class="card-title d-flex align-items-center">
+									<div><i class="bx bxs-user me-1 font-22 text-primary"></i>
+									</div>
+									<h5 class="mb-0 text-primary">Payment Information</h5>
+								</div>
+								<hr>
+								<form action="{{route('user.profile.stripeUpdate')}}" method="post" id="payment-form">
+									@if($errors->any())
+										<h4>{{$errors->first()}}</h4>
+									@endif
+									<input type="hidden" name="_token" value={{csrf_token()}} />
+									<div class="form-row">
+									  <div id="card-element"></div>
+									  <div id="card-errors" role="alert"></div>
+									</div>
+									<button class="btn btn-success btn-sm mt-2">update</button>
+								</form>
+							</div>
+							@if(isset(Auth::user()->stripe_subscription_id))
+							<div class="card-footer">
+								<a href="{{route('stripe.unsubscribe')}}" class="btn btn-danger">Cancel Subscription</a>
+							</div>
+							@endif
 						</div>
 					</div>
 				</div>

@@ -230,10 +230,10 @@
 		new PerfectScrollbar('.store-metrics');
 		new PerfectScrollbar('.product-list');
 		*/
-		$(document).ready(function () {
-			$('#featuredimg').imageuploadify();
-			$('#gallery').imageuploadify();
-		});
+		// $(document).ready(function () {
+		// 	$('#featuredimg').imageuploadify();
+		// 	$('#gallery').imageuploadify();
+		// });
 	</script>
 			
     </body>

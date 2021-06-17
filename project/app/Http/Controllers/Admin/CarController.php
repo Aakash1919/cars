@@ -247,4 +247,6 @@ class CarController extends Controller
       $models = BrandModel::where('brand_id', $brandid)->where('status', 1)->get();
       return $models;
     }
+
+    
 }
