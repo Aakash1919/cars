@@ -15,6 +15,7 @@ use App\Models\TransmissionType;
 use App\Models\CarImage;
 use App\Models\Payment;
 use App\Models\BrandModel;
+use App\Models\Notifications;
 use App\Models\Plan;
 use App\Models\Bid;
 use Validator;
@@ -145,15 +146,7 @@ class CarController extends Controller
       $in['user_id'] = Auth::user()->id;
       if ($request->filled('featured_image')) {
         $image = $request->featured_image;
-        list($type, $image) = explode(';', $image);
-        list(, $image)      = explode(',', $image);
-        $image = base64_decode($image);
-        $image_name = uniqid().'.jpg';
-
-        $path = 'assets/front/images/cars/featured/'.$image_name;
-        file_put_contents($path, $image);
-
-        $in['featured_image'] = $image_name;
+        $in['featured_image'] = $image;
       }
       if($request->filled('is_auction')) {
         $in['is_auction'] = $request->is_auction;
@@ -168,20 +161,13 @@ class CarController extends Controller
         $imgs = [];
         $imgs = $request->images;
         foreach ($imgs as $key => $img) {
-          list($type, $img) = explode(';', $img);
-          list(, $img)      = explode(',', $img);
-          $img = base64_decode($img);
-          $img_name = uniqid().'.jpg';
-
-          $path = 'assets/front/images/cars/sliders/'.$img_name;
-          file_put_contents($path, $img);
-
           $carimg = new CarImage;
           $carimg->car_id = $car->id;
-          $carimg->image = $img_name;
+          $carimg->image = $$img;
           $carimg->save();
         }
       }
+      
       $boughtPlan = Plan::find(Auth::user()->current_plan);
       $payment = new Payment;
       if(isset($boughtPlan->listing_price) && $boughtPlan->listing_price != 0) {
@@ -237,13 +223,6 @@ class CarController extends Controller
         'brand_model_id' => 'required',
         'condtion_id' => 'required',
         'description' => 'required',
-        'images_helper' => [
-            function ($attribute, $value, $fail) use ($images, $imagesdb) {
-                if (count($images) + count($imagesdb) == 0) {
-                    $fail("Slider image is required");
-                }
-            },
-        ],
         'year' => 'required|integer',
         'mileage' => 'required|numeric',
         'label.*' => 'required',
@@ -262,16 +241,9 @@ class CarController extends Controller
         if ($request->filled('featured_image')) {
           if ($request->featured_image != $car->featured_image) {
             $image = $request->featured_image;
-            list($type, $image) = explode(';', $image);
-            list(, $image)      = explode(',', $image);
-            $image = base64_decode($image);
-            $image_name = uniqid().'.jpg';
-
-            $path = 'assets/front/images/cars/featured/'.$image_name;
-            file_put_contents($path, $image);
             @unlink('assets/front/images/cars/featured/'.$car->featured_image);
 
-            $in['featured_image'] = $image_name;
+            $in['featured_image'] = $image;
           }
         }
       
@@ -289,30 +261,25 @@ class CarController extends Controller
 
 
         // then check whether a filename is missing in imgsdb if it is missing remove it from database and unlink it
-        if($request->has('imagesdb')) {
           foreach($carimgs as $carimg) {
             if(!in_array($carimg->image, $request->imagesdb)) {
                 @unlink('assets/front/images/cars/sliders/'.$carimg->image);
                 $carimg->delete();
             }
           }
-        }
-        if ($request->filled('images')) {
+        if ($request->filled('imagesdb')) {
           $imgs = [];
-          $imgs = $request->images;
+          $imgs = $request->imagesdb;
+          $count =0;
+          DB::table('car_images')->where('car_id', $car->id)->delete();
           foreach ($imgs as $key => $img) {
-            list($type, $img) = explode(';', $img);
-            list(, $img)      = explode(',', $img);
-            $img = base64_decode($img);
-            $img_name = uniqid().'.jpg';
-
-            $path = 'assets/front/images/cars/sliders/'.$img_name;
-            file_put_contents($path, $img);
-
-            $carimg = new CarImage;
-            $carimg->car_id = $car->id;
-            $carimg->image = $img_name;
-            $carimg->save();
+            if($count>0) {
+              $carimg = new CarImage;
+              $carimg->car_id = $car->id;
+              $carimg->image = $img;
+              $carimg->save();
+            }
+            $count++;
           }
         }
         $msg = 'Car Updated Successfully.';
@@ -393,13 +360,14 @@ class CarController extends Controller
     public function placeBids(Request $request) {
       if($request->has('price') && $request->has('car')) {
         $bid = new Bid;
+        $notification = new Notifications;
         $isExisting =Bid::where('car_id', '=', $request->car)->where('user_id', '=', Auth::user()->id)->first();
         if ($isExisting === null) {
           $bid->car_id = $request->car;
           $bid->user_id = Auth::user()->id;
           $bid->bid_price = $request->price;
           $bid->status = 0;
-  
+          
           $bid->save();
           return response()->json(['status'=>200, 'Message' => 'Bid Places Successfully']);
         } else {
@@ -419,26 +387,30 @@ class CarController extends Controller
     }
 
     public function uploadFeatured(Request $request)
-
     {
-        //--- Validation Section
-        $rules = [
-          'image' => 'required',
-        ];
-
-        $validator = Validator::make($request->all(), $rules);
+        $validator = Validator::make($request->all(), [ 'image' => 'required']);
 
         if ($validator->fails()) {
           return response()->json(array('errors' => $validator->getMessageBag()->toArray()));
         }
-
-        $image = $request->image;
-        //$image_name = time().'.png';
         $path = 'assets/front/images/cars/featured/';
+        $tmp_name = $_FILES["image"]["tmp_name"];
+        $name = time().basename($_FILES["image"]["name"]);
+        move_uploaded_file($tmp_name, "$path/$name");
+        return response()->json(['status'=>true,'message'=>$name]);
+
+    }
+
+    public function uploadGallery(Request $request) {
+      $validator = Validator::make($request->all(), [ 'image' => 'required']);
+
+        if ($validator->fails()) {
+          return response()->json(array('errors' => $validator->getMessageBag()->toArray()));
+        }
+        $path = 'assets/front/images/cars/sliders/';
         $tmp_name = $_FILES["image"]["tmp_name"];
         $name = basename($_FILES["image"]["name"]);
         move_uploaded_file($tmp_name, "$path/$name");
         return response()->json(['status'=>true,'message'=>$name]);
-
     }
 }

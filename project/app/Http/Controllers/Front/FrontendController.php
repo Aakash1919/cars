@@ -29,6 +29,7 @@ use App\Classes\GeniusMailer;
 use Carbon\Carbon;
 use Illuminate\Support\Facades\Session;
 use Validator;
+use Auth;
 
 class FrontendController extends Controller
 {
@@ -120,7 +121,7 @@ class FrontendController extends Controller
 			$sort = !empty($request->sort) ? $request->sort : 'desc';
 			$view = !empty($request->view) ? $request->view : 10;
 			$type = !empty($request->type) ? $request->type : 'all';
-
+			$plan = Auth::user()->current_plan;
 			$data['cars'] = Car::when($category, function ($query, $category) {
 					                    return $query->where('category_id', $category);
 					                })
@@ -135,6 +136,11 @@ class FrontendController extends Controller
 									})
 									->when($condition, function ($query, $condition) {
 											return $query->where('condtion_id', $condition);
+									})
+									->when($plan, function($query, $plan) {
+										if($plan==11) {
+											return $query->where('user_id', Auth::user()->id);
+										}
 									})
 									->when($sort, function ($query, $sort) {
 											if ($sort == 'desc') {
