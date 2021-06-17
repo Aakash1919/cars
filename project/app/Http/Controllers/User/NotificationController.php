@@ -25,10 +25,10 @@ class NotificationController extends Controller
          return Datatables::of($datas)->addColumn('message', function(Notifications $data) {
                                  return '<span>'.$data->message.'</span>';
                              })
-                            //  ->editColumn('action', function(Notifications $data) {
-                            //     return '<strong><a href="javascript:void(0)" class="changeStatus btn btn-info btn-sm px-2" title="View Bids"><i class="fas fa-eye"></i>View</a></strong>';
-                            // })
-                            ->rawColumns(['message', 'action'])
+                             ->editColumn('date', function(Notifications $data) {
+                                return '<span>'.date('d M Y h:i', strtotime($data->created_at)).'</span>';
+                            })
+                            ->rawColumns(['message', 'date'])
                             ->toJson(); 
     }
 

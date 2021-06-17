@@ -28,7 +28,7 @@
 									<thead>
 										<tr>
 											<th>Message</th>
-											{{-- <th>Action</th> --}}
+											<th>Date</th>
 										</tr>
 									</thead>
 								</table>
@@ -58,7 +58,7 @@
                ajax: '{{ route('user-notification-datatables') }}',
                columns: [
                     { data: 'message', name: 'message' },
-                    // { data: 'action', name: 'action' },
+                    { data: 'date', name: 'date' },
 				],
                 language : {
                 	processing: '<img src="{{asset('assets/images/spinner.gif')}}">'

@@ -112,19 +112,18 @@
 										</div>
 									</a>
 									<div class="header-notifications-list">
+										@foreach (get_notifications(Auth::user()->id) as $item)
 										<a class="dropdown-item" href="javascript:;">
 											<div class="d-flex align-items-center">
 												<div class="notify bg-light-primary text-primary"><i class="bx bx-group"></i>
 												</div>
-												@foreach (get_notifications(Auth::user()->id) as $item)
-													<div class="flex-grow-1">
-														<h6 class="msg-name"><span class="msg-time float-end">{{date('M d H:i', strtotime($item->created_at))}}</span></h6>
-														<p class="msg-info">{!! ($item->status==0) ? "<strong>".substr($item->message,0,30)."</strong>": substr($item->message,0,30)!!} </p>
-													</div>
-												@endforeach
-												
+												<div class="flex-grow-1">
+													<h6 class="msg-name"><span class="msg-time float-end">{{date('M d H:i', strtotime($item->created_at))}}</span></h6>
+													<p class="msg-info">{!! ($item->status==0) ? "<strong>".substr($item->message,0,30)."</strong>": substr($item->message,0,30)!!} </p>
+												</div>
 											</div>
 										</a>
+										@endforeach
 									</div>
 									<a href="{{route('user-notifications')}}">
 										<div class="text-center msg-footer">View All Notifications</div>
