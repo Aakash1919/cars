@@ -28,9 +28,6 @@ class TransactionController extends Controller
                             ->editColumn('amount', function(Payment $data) {
                                 return '<span>'.$data->plan->currency_code . " " . $data->amount.'</span>';
                             })
-                            ->editColumn('gateway', function(Payment $data) {
-                                return '<span>'.$data->gateway.'</span>';
-                            })
                             ->editColumn('action', function(Payment $data) {
                                 return '<strong><a href="'.route('user-payments-invoice', $data->id).'" class="changeStatus btn btn-primary btn-sm px-2" title="View Invoice"><i class="fadeIn animated bx bx-credit-card"></i>Invoice</a></strong>';
                             })

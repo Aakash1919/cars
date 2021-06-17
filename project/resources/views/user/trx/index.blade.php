@@ -31,7 +31,6 @@
 											<th>Package Name</th>
 											<th>Car</th>
 											<th>Amount</th>
-											<th>Gateway</th>
 											<th>Action</th>
 										</tr>
 									</thead>
@@ -65,7 +64,6 @@
                     { data: 'title', name: 'title' },
                     { data: 'car', name: 'car' },
                     { data: 'amount', name: 'amount', searchable: false, orderable: false },
-                    { data: 'gateway', name: 'gateway' },
                     { data: 'action', name: 'action' },
 
 								],
