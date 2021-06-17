@@ -31,8 +31,11 @@ class TransactionController extends Controller
                             ->editColumn('gateway', function(Payment $data) {
                                 return '<span>'.$data->gateway.'</span>';
                             })
-                            ->rawColumns(['user_name', 'title', 'amount','gateway'])
-                            ->toJson(); //--- Returning Json Data To Client Side
+                            ->editColumn('action', function(Payment $data) {
+                                return '<strong><a href="'.route('user-payments-invoice', $data->id).'" class="changeStatus btn btn-info btn-sm px-2" title="View Invoice"><i class="fas fa-money"></i>Invoce</a></strong>';
+                            })
+                            ->escapeColumns([])
+                            ->make(true); //--- Returning Json Data To Client Side
     }
 
     //*** GET Request
@@ -40,4 +43,11 @@ class TransactionController extends Controller
     {
         return view('user.trx.index');
     }
+
+    public function invoice($id=null) {
+        $paymentInfo = Payment::where('id',$id)->where('user_id', Auth::user()->id)->orderBy('id','desc')->get();
+        $userInfo = Auth::user();
+        return view('user.trx.invoice', compact('paymentInfo', 'userInfo'));
+    }
+
 }
