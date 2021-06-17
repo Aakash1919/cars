@@ -121,7 +121,7 @@ class FrontendController extends Controller
 			$sort = !empty($request->sort) ? $request->sort : 'desc';
 			$view = !empty($request->view) ? $request->view : 10;
 			$type = !empty($request->type) ? $request->type : 'all';
-			$plan = Auth::user()->current_plan;
+			$plan = Auth::user()->current_plan ?? 13;
 			$data['cars'] = Car::when($category, function ($query, $category) {
 					                    return $query->where('category_id', $category);
 					                })
