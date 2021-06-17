@@ -215,9 +215,6 @@
                 <div class="card">
                     <div class="card-body">
                         <h5 class="card-title">Featured Image</h5>
-                        <div class="image">
-                            <img id="myfeaturedcar" src="" alt="" width="200" style="max-height: 100px;max-width:100px;">
-                        </div>
                         <hr>
                         <form id="featuredimg" action="{{ route('user.car.uploadFeatured') }}" class="dropzone"
                             method="post" enctype="multipart/form-data">
