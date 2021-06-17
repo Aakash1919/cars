@@ -32,34 +32,7 @@
                       </div>
                   </div>
               </div>
-              <div class="col-md-12 col-lg-6 col-xl-4">
-                  <div class="mycard bg3">
-                      <div class="left">
-                          <h5 class="title">Total Posts</h5>
-                          <span class="number">{{ \App\Models\Blog::count() }}</span>
-                          <a href="{{ route('admin-blog-index') }}" class="link">View All</a>
-                      </div>
-                      <div class="right d-flex align-self-center">
-                          <div class="icon">
-                              <i class="icofont-newspaper"></i>
-                          </div>
-                      </div>
-                  </div>
-              </div>
-                  <div class="col-md-12 col-lg-6 col-xl-4">
-                  <div class="mycard bg4">
-                      <div class="left">
-                          <h5 class="title">Total Social Links!</h5>
-                          <span class="number">{{ $gs->f_status + $gs->i_status + $gs->g_status + $gs->t_status + $gs->l_status + $gs->d_status }}</span>
-                          <a href="{{ route('admin-gs-socialsetting') }}" class="link">View All</a>
-                      </div>
-                      <div class="right d-flex align-self-center">
-                          <div class="icon">
-                              <i class="fa fa-link" aria-hidden="true"></i>
-                          </div>
-                      </div>
-                  </div>
-              </div>
+             
               <div class="col-md-12 col-lg-6 col-xl-4">
                   <div class="mycard bg6">
                       <div class="left">
@@ -74,20 +47,7 @@
                       </div>
                   </div>
               </div>
-              <div class="col-md-12 col-lg-6 col-xl-4">
-                  <div class="mycard bg5">
-                      <div class="left">
-                          <h5 class="title">Total Testimonials!</h5>
-                          <span class="number">{{ \App\Models\Testimonial::count() }}</span>
-                          <a href="{{ route('admin-tstm-index') }}" class="link">View All</a>
-                      </div>
-                      <div class="right d-flex align-self-center">
-                          <div class="icon">
-                              <i class="fas fa-star-half-alt"></i>
-                          </div>
-                      </div>
-                  </div>
-              </div>
+             
           </div>
 
 

@@ -33,10 +33,10 @@
                             </div>
                             <div class="col company-details">
                                 <h2 class="name">
-                    <a target="_blank" href="javascript:;">
-                    Car Salvage Sales
-                    </a>
-                </h2>
+                                    <a target="_blank" href="/">
+                                        Car Salvage Sales
+                                    </a>
+                                </h2>
                                 {{-- <div>455 Foggy Heights, AZ 85004, US</div>
                                 <div>(123) 456-789</div>
                                 <div>company@example.com</div> --}}
@@ -59,11 +59,13 @@
                                 <div class="date">Date of Invoice: {{ '#'.date('d M Y', strtotime($paymentInfo[0]->updated_at ?? ''))}}</div>
                             </div>
                         </div>
-                        <table>
+                        <table class="">
                             <thead>
                                 <tr>
                                     <th>#</th>
+                                    <th></th>
                                     <th class="text-left">Description</th>
+                                    
                                     <th class="text-right">Date</th>
                                     <th class="text-right">Total</th>
                                 </tr>
@@ -72,9 +74,10 @@
                               
                                 <tr>
                                     <td class="no">01</td>
+                                    <td class="no"></td>
                                     <td class="text-left">
                                         <h3>{{ isset($paymentInfo[0]->car_id) ? 'Car Listing Price' : 'Membership Price'}}</td>
-                                    <td>{{ date('d M Y', strtotime($paymentInfo[0]->created_at ?? ''))}}</td>
+                                    <td class="">{{ date('d M Y', strtotime($paymentInfo[0]->created_at ?? ''))}}</td>
                                     <td class="total">{{ '$'.$paymentInfo[0]->amount ?? ''}}</td>
                                 </tr>
                             </tbody>

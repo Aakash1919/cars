@@ -11,13 +11,28 @@
 @endsection
 
 @section('content')
+<div class="page-breadcrumb d-none d-sm-flex align-items-center mb-3">
+				
+  <div class="ps-3">
+      <nav aria-label="breadcrumb">
+          <ol class="breadcrumb mb-0 p-0">
+              <li class="breadcrumb-item"><a href="javascript:;"><i class="bx bx-home-alt"></i></a></li>
+      <li class="breadcrumb-item"><a href="{{ route('user-dashboard') }}">{{$langg->lang8}} </a></li>
+      <li class="breadcrumb-item active"  aria-current="page"><a href="{{ route('user-package') }}">{{$langg->lang144}}</a></li>
+          </ol>
+      </nav>
+  </div>
+</div>
+<div class="card">
+  <div class="card-body">
+    <div class="card-title">
+      <h3 class="text-center text-uppercase mb-4" style="font-weight: 900;">{{ $langg->lang155 }}</h3>
+      </div>  
   <div class="content-area" id="contentArea">
     <div class="add-product-content py-5">
-
-      <h3 class="text-center text-uppercase mb-4" style="font-weight: 900;">{{ $langg->lang155 }}</h3>
-
+      
       <div class="row mb-4">
-        <div class="col-lg-6 text-right text-uppercase">
+        <div class="col-lg-2 text-right text-uppercase">
           <strong>{{ $langg->lang156 }}:</strong>
         </div>
         <div class="col-lg-6 text-left">
@@ -26,7 +41,7 @@
       </div>
 
       <div class="row mb-4">
-        <div class="col-lg-6 text-right text-uppercase">
+        <div class="col-lg-2 text-right text-uppercase">
           <strong>{{ $langg->lang157 }}:</strong>
         </div>
         <div class="col-lg-6 text-left">
@@ -44,7 +59,7 @@
       </div> --}}
 
       <div class="row mb-4 hidden">
-        <div class="col-lg-6 text-right text-uppercase">
+        <div class="col-lg-2 text-right text-uppercase">
           <strong>{{ $langg->lang159 }}:</strong>
         </div>
         <div class="col-lg-6 text-left">
@@ -64,25 +79,45 @@
 
       @if ($plan->price > 0)
       <div class="row mb-4">
-        <div class="col-lg-6 text-right text-uppercase">
+        <div class="col-lg-2 text-right text-uppercase">
           @if(!isset(Auth::user()->stripe_customer_id))
             <strong>{{ $langg->lang160 }}:</strong>
           @endif
         </div>
         <div class="col-lg-6 text-left">
           <div class="row">
-            <div class="col-lg-6">
+            <div class="col-lg-8">
               <form class="form-horizontal" id="subscribe_form" action="{{route('stripe.subscribe')}}" method="POST">
                 {{ csrf_field() }}
                 <input type="hidden" name="plan_id" value="{{ $plan->id }}">
                   @if(!isset(Auth::user()->stripe_customer_id))
+                    <div>
                     <select class="form-control" name="" onchange="meThods(this)">
                       <option value="">Select a payment method</option>
                       {{-- <option value="Paypal">Paypal</option> --}}
                       <option value="Stripe">Stripe</option>
                     </select>
-
+                  </div>
+                    <div class="card">
+                    </div class="card-body">
                     <div id="stripes" style="display: none;">
+                        <div class="row" style="margin-top:10px;margin-bottom:10px;">
+                          <div class="col-md-12 col-lg-12">
+                        @if($errors->any())
+                          <h4>{{$errors->first()}}</h4>
+                        @endif
+                        <input type="hidden" name="_token" value={{csrf_token()}} />
+                        <div class="form-row">
+                          <div id="card-element"></div>
+                          <div id="card-errors" role="alert"></div>
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+                  </div>
+                        <!--
+                        <button class="btn btn-success btn-sm mt-2">update</button>
+                     
                         <div class="form-group">
                             <div class="col-sm-12 px-0">
                                 <input type="text" class="form-control" id="scard" name="card_no" placeholder="{{ $langg->lang161 }}" autocomplete="off">
@@ -103,6 +138,7 @@
                                 <input type="text" class="form-control" id="syear" name="ccExpiryYear" placeholder="{{ $langg->lang164 }}" autocomplete="off">
                             </div>
                         </div>
+                      -->
                     </div>
                   @endif
                   <div class="text-left" id="stripeSubmit">
@@ -121,7 +157,8 @@
       </div>
 
       @endif
-
+  </div>
+</div>
     </div>
   </div>
 @endsection
@@ -154,8 +191,44 @@
                 $(".paypal-modal").attr("style", "display: none !important");
             }
         }
+        
 </script>
+<script src="https://js.stripe.com/v3/"></script>
+<script>
+	var stripe = Stripe('{{ env('STRIPE_KEY') }}');
+	var elements = stripe.elements();
+	var style = {
+	base: {
+		// Add your base input styles here. For example:
+		fontSize: '16px',
+		color: '#32325d',
+	},
+	};
+	var card = elements.create('card', {style: style});
+	card.mount('#card-element');
+	var form = document.getElementById('payment-form');
+	form.addEventListener('submit', function(event) {
+	event.preventDefault();
+	stripe.createToken(card).then(function(result) {
+		if (result.error) {
+			var errorElement = document.getElementById('card-errors');
+			errorElement.textContent = result.error.message;
+		} else {
+			stripeTokenHandler(result.token);
+		}
+	});
+	});
 
+	function stripeTokenHandler(token) {
+		var form = document.getElementById('payment-form');
+		var hiddenInput = document.createElement('input');
+		hiddenInput.setAttribute('type', 'hidden');
+		hiddenInput.setAttribute('name', 'stripeToken');
+		hiddenInput.setAttribute('value', token.id);
+		form.appendChild(hiddenInput);
+		form.submit();
+	}
+</script>
 {{-- <script src="https://www.paypal.com/sdk/js?client-id={{ $gs->pb }}"></script>
 <script>
 paypal.Buttons({
