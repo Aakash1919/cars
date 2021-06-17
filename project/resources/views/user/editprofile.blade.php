@@ -265,13 +265,14 @@ var myDropzone = new Dropzone("form#profileimg", {
 	var stripe = Stripe('{{ env('STRIPE_KEY') }}');
 	var elements = stripe.elements();
 	var style = {
+		
 	base: {
 		// Add your base input styles here. For example:
 		fontSize: '16px',
 		color: '#32325d',
 	},
 	};
-	var card = elements.create('card', {style: style});
+	var card = elements.create('card', {hidePostalCode: true, style: style});
 	card.mount('#card-element');
 	var form = document.getElementById('payment-form');
 	form.addEventListener('submit', function(event) {
