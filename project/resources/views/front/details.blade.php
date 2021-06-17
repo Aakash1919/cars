@@ -112,7 +112,7 @@
 							<div class="tab-pane fade show active" id="pills-productdetails" role="tabpanel"
 								aria-labelledby="pills-productdetails-tab">
 								<div class="content-product-details">
-									{{ $car->description }}
+									{!! $car->description !!}
 								</div>
 							</div>
 							{{-- <div class="tab-pane fade" id="pills-contact" role="tabpanel" aria-labelledby="pills-contact-tab">
