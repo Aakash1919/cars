@@ -194,8 +194,10 @@ $(document).on('submit','#geniusformdata',function(e){
 
            }
           enablekey();
+           location.reload();
        }
 
+         
       });
 
 });
@@ -304,17 +306,19 @@ $(document).on('submit','#geniusform',function(e){
 						if ($(".add-form .featured-image .span4.cropme img").length > 0) {
 							$(".add-form .featured-image .span4.cropme").html('');
 						}
-						if ($(".add-form .searchable-select").length > 0) {
-							$(".add-form .searchable-select").each(function() {
-								$(this).select2("val", "");
-							});
-						}
+				// 		if ($(".add-form .searchable-select").length > 0) {
+				// 			$(".add-form .searchable-select").each(function() {
+				// 				$(this).select2("val", "");
+				// 			});
+				// 		}
 						if ($(".add-form .searchable-select").length > 0) {
 							$('.add-form .select2-selection__rendered').html("");
 						}
           }
           $('.gocover').hide();
           $('button.addProductSubmit-btn').prop('disabled',false);
+          
+          location.reload();
        }
 
       });
