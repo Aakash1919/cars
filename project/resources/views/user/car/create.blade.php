@@ -177,7 +177,13 @@
                                                     </option>
                                                 </select>
                                             </div>
-
+                                            <div class="col-12">
+                                                <label for="promotion_code" class="form-label">Promotion Code
+                                                </label>
+                                                <input type="text" class="form-control" id="promotion_code" name="promotion_code"
+                                                    placeholder="ABCD">
+                                                </select>
+                                            </div>
                                             <div class="col-12">
                                                 <div class="d-grid">
                                                     <button type="submit"
@@ -194,7 +200,7 @@
 
                             </div>
                             <!--end row-->
-
+                            <input type="hidden" id="myfeaturedcarimg" name="featured_image" value="">
                     </form>
 
                 </div>
@@ -208,14 +214,17 @@
                 <div class="card">
                     <div class="card-body">
                         <h5 class="card-title">Featured Image</h5>
+                        <div class="image">
+                            <img id="myfeaturedcar" src="" alt="" width="200" style="max-height: 100px;max-width:100px;">
+                        </div>
                         <hr>
-                        <form id="featuredimg" action="#" class="dropzone" method="post" enctype="multipart/form-data">
+                        <form id="featuredimg" action="{{ route('user.car.uploadFeatured') }}" class="dropzone"
+                            method="post" enctype="multipart/form-data">
                             <input type="hidden" name="_token" value={{ csrf_token() }}>
                             <div class="dz-message">
                                 <div class="font-22 text-primary"> <i class="lni lni-cloud-upload"></i>
                                 </div>
                                 Drop files here or click to upload.
-
                             </div>
                             <div class="fallback"><input type="file" name="image" /></div>
                         </form>
@@ -227,13 +236,12 @@
                     <div class="card-body">
                         <h5 class="card-title">Gallery Images </h5>
                         <hr>
-                        <form id="galleryimg" action="#" class="dropzone" method="post" enctype="multipart/form-data">
+                        <form id="galleryimg" action="{{ route('user.car.uploadgallery') }}" class="dropzone"
+                            method="post" enctype="multipart/form-data">
                             <input type="hidden" name="_token" value={{ csrf_token() }}>
                             <div class="dz-message">
-                                <div class="font-22 text-primary"> <i class="lni lni-cloud-upload"></i>
-                                </div>
+                                <div class="font-22 text-primary"> <i class="lni lni-cloud-upload"></i></div>
                                 Drop files here or click to upload.
-
                             </div>
                             <div class="fallback"><input type="file" name="image" /></div>
                         </form>
@@ -278,6 +286,48 @@
                 }
             }
         })
+        function removeimg(e) {
+            var id= e.target.getAttribute("data-val");
+            console.log(id)
+            $('#'+id).remove()
+            
+            $( e.target ).parents('.image').remove();
+        }
+        Dropzone.autoDiscover = false;
+        var myDropzone = new Dropzone("form#featuredimg", {
+            paramName: "image",
+            maxFilesize: 10,
+            uploadMultiple: false,
+            acceptedFiles: "image/*",
+            addRemoveLinks: true,
+            forceFallback: false,
+            init: function() {
+                this.on("success", function(file, responseText) {
+                    if (responseText.status == true) {
+                        imgpath = "/assets/front/images/cars/featured/" + responseText.message;
+                        $("img#myfeaturedcar").attr('src', imgpath);
+                        $("input#myfeaturedcarimg").val(responseText.message);
+                    }
+                });
+            }
+        });
 
+        var myDropzone = new Dropzone("form#galleryimg", {
+            paramName: "image",
+            maxFilesize: 10,
+            uploadMultiple: false,
+            acceptedFiles: "image/*",
+            addRemoveLinks: true,
+            forceFallback: false,
+            init: function() {
+                this.on("success", function(file, responseText) {
+                    if (responseText.status == true) {
+                        var html = '<input type="hidden" name="imagesdb[]" value="' + responseText.message + '">'
+                        $(".slider_images").append(html);
+                        $(".dz-remove").attr('data-val', responseText.time)
+                    }
+                });
+            },
+        });
     </script>
 @endsection
