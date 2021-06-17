@@ -71,12 +71,11 @@ class StripeController extends Controller {
 
     public function createSubscription(Request $request) {
         $plan = Plan::find($request->plan_id);
-
         try {
             if(isset(Auth::user()->stripe_customer_id)) {
                 $customerId = Auth::user()->stripe_customer_id;
             }else {
-                $token = $this->createToken($request);
+                $token['id'] = $request->stripeToken;
                 $customerId = $this->createCustomer($token);
             }
             

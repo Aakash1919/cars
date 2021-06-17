@@ -135,7 +135,7 @@
 										<div class="input-group"> <span class="input-group-text bg-transparent"><i class='lni lni-chevron-right-circle' ></i></span>
 											<input type="text" class="form-control border-start-0" id="postal_code" name="postal_code" placeholder="Postal Code" />
 										</div>
-									</div>
+									</div> 
 									<div class="col-12">
 										<label for="postal_code" class="form-label">Select Profile Type</label>
 										<div class="input-group"> <span class="input-group-text bg-transparent"><i class='lni lni-chevron-right-circle' ></i></span>
@@ -243,6 +243,10 @@ var myDropzone = new Dropzone("form#profileimg", {
 			});
 		}
 	});
+	$(window).load(function() {
+      var element = document.getElementById('usertype');
+      meThods(element)
+    });
 	function meThods(val) {
       if(val.value == "business") {
         $('.show-business').show()

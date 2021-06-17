@@ -87,7 +87,7 @@
         <div class="col-lg-6 text-left">
           <div class="row">
             <div class="col-lg-8">
-              <form class="form-horizontal" id="subscribe_form" action="{{route('stripe.subscribe')}}" method="POST">
+              <form class="form-horizontal" id="payment-form" action="{{route('stripe.subscribe')}}" method="POST">
                 {{ csrf_field() }}
                 <input type="hidden" name="plan_id" value="{{ $plan->id }}">
                   @if(!isset(Auth::user()->stripe_customer_id))
@@ -103,14 +103,14 @@
                     <div id="stripes" style="display: none;">
                         <div class="row" style="margin-top:10px;margin-bottom:10px;">
                           <div class="col-md-12 col-lg-12">
-                        @if($errors->any())
-                          <h4>{{$errors->first()}}</h4>
-                        @endif
-                        <input type="hidden" name="_token" value={{csrf_token()}} />
-                        <div class="form-row">
-                          <div id="card-element"></div>
-                          <div id="card-errors" role="alert"></div>
-                        </div>
+                            @if($errors->any())
+                              <h4>{{$errors->first()}}</h4>
+                            @endif
+                            <input type="hidden" name="_token" value={{csrf_token()}} />
+                            <div class="form-row">
+                              <div id="card-element"></div>
+                              <div id="card-errors" role="alert"></div>
+                            </div>
                       </div>
                     </div>
                   </div>

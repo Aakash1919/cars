@@ -27,17 +27,28 @@
                             <ul class="select-list">
                                 <li>
                                     <div class="car-make">
-                                        <input type="text" placeholder="Make" class="form-control">
+                                        <select class="form-control" id="brand_id" name="brand_id"
+                                            onchange="getModels(this.value)">
+                                            <option value="Select a brand" disabled selected>
+                                                {{ $langg->lang115 }}
+                                            </option>
+                                            @foreach ($brands as $key => $brand)
+                                                <option value="{{ $brand->id }}">
+                                                    {{ $brand->name }}</option>
+                                            @endforeach
+                                        </select>
                                     </div>
                                 </li>
                                 <li>
                                     <div class="car-make">
-                                        <input type="text" placeholder="Model" class="form-control">
+                                        <select class="form-control" id="selectModels" name="brand_model_id">
+                                            <option value="">Select a Model</option>
+                                        </select>
                                     </div>
                                 </li>
                                 <li>
                                     <div class="car-make">
-                                        <input type="text" placeholder="Year" class="form-control">
+                                        <input type="number" class="form-control" value="2015">
                                     </div>
                                 </li>
                                 <li>
@@ -764,6 +775,18 @@
 
 @section('scripts')
 <script>
+    function getModels(brandid) {
+            var url = '{{ url('/') }}' + '/car/' + brandid + '/models';
+            // console.log(url);
+            $.get(url, function(data) {
+                // console.log(data);
+                var opts = `<option value="Select a model" disabled="" selected="">Select a model</option>`;
+                for (var i = 0; i < data.length; i++) {
+                    opts += `<option value="${data[i].id}">${data[i].name}</option>`;
+                }
+                $("#selectModels").html(opts);
+            })
+        }
     $(".sel-price").on('change', function () {
         let url = '{{ url(' / ') }}/prices/' + $(this).val();
         // console.log(url);
