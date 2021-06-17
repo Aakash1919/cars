@@ -264,7 +264,7 @@
                         <div class="image">
                             <img id="myfeaturedcar"
                                 src="{{ asset('assets/front/images/cars/featured/' . $car->featured_image) }}"
-                                alt="{{ $car->featured_image }}" width="200" style="max-height: 100px;max-width:100px;">
+                                alt="{{ $car->featured_image }}" width="100" height="100" style="object-fit:cover; max-height: 100px;max-width:100px;">
                         </div>
                         <hr>
                         <form id="featuredimg" action="{{ route('user.car.uploadFeatured') }}" class="dropzone"
