@@ -118,7 +118,7 @@
 												<div class="notify bg-light-primary text-primary"><i class="bx bx-group"></i>
 												</div>
 												<div class="flex-grow-1">
-													<h6 class="msg-name"><span class="msg-time float-end">{{date('M d H:i', strtotime($item->created_at))}}</span></h6>
+													{{-- <h6 class="msg-name"><span class="msg-time float-end">{{date('H:i', strtotime($item->created_at))}}</span></h6> --}}
 													<p class="msg-info">{!! ($item->status==0) ? "<strong>".substr($item->message,0,30)."</strong>": substr($item->message,0,30)!!} </p>
 												</div>
 											</div>

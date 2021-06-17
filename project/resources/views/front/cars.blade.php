@@ -316,7 +316,7 @@
                                     <div class="col-lg-6 col-md-6">
                                         <a class="car-info-box" href="{{ route('front.details', $car->id) }}">
                                             <div class="img-area">
-                                                <img class="light-zoom" src="{{asset('assets/front/images/cars//featured/'.$car->featured_image)}}" alt="">
+                                                <img class="light-zoom" src="{{asset('assets/front/images/cars//featured/'.$car->featured_image)}}" style="max-height: 220px; object-fit: cover;"alt="">
                                             </div>
                                             <div class="content">
                                                 <h4 class="title">
