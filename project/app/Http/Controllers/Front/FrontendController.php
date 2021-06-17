@@ -111,12 +111,7 @@ class FrontendController extends Controller
 			$data['btypes'] = BodyType::where('status', 1)->get();
 			$data['ftypes'] = FuelType::where('status', 1)->get();
 			$data['ttypes'] = TransmissionType::where('status', 1)->get();
-
-			$data['minprice'] = Car::min('regular_price');
-			$data['maxprice'] = Car::max('regular_price');
-
-			$minprice = $request->minprice;
-			$maxprice = $request->maxprice;
+		
 			$category = $request->category_id;
 			$brands = $request->brand_id;
 			$ftype = $request->fuel_type_id;
@@ -129,12 +124,6 @@ class FrontendController extends Controller
 			$data['cars'] = Car::when($category, function ($query, $category) {
 					                    return $query->where('category_id', $category);
 					                })
-									->when($minprice, function($query, $minprice) {
-										return $query->where('search_price', '>=', $minprice);
-									})
-									->when($maxprice, function($query, $maxprice) {
-										return $query->where('search_price', '<=', $maxprice);
-									})
 									->when($brands, function($query, $brands) {
 										return $query->whereIn('brand_id', $brands);
 									})
@@ -152,10 +141,6 @@ class FrontendController extends Controller
 												return $query->orderBy('id', 'DESC');
 											} elseif ($sort == 'asc') {
 												return $query->orderBy('id', 'ASC');
-											} elseif ($sort == 'price_desc') {
-												return $query->orderBy('search_price', 'DESC');
-											} elseif ($sort == 'price_asc') {
-												return $query->orderBy('search_price', 'ASC');
 											}
 									})
 									->when($type, function ($query, $type) {

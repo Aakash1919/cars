@@ -291,8 +291,6 @@
                                         <select class="short-item sel-sort" name="sort">
                                             <option value="desc" {{ request()->input('sort') == 'desc' ? 'selected' : '' }}>{{ $langg->lang24 }}</option>
                                             <option value="asc" {{ request()->input('sort') == 'asc' ? 'selected' : '' }}>{{ $langg->lang25 }}</option>
-                                            <option value="price_desc" {{ request()->input('sort') == 'price_desc' ? 'selected' : '' }}>{{ $langg->lang26 }}</option>
-                                            <option value="price_asc" {{ request()->input('sort') == 'price_asc' ? 'selected' : '' }}>{{ $langg->lang27 }}</option>
                                         </select>
                                     </li>
                                     <li class="viewitem-no-area">
@@ -366,8 +364,6 @@
 	<!-- sub-categori Area End -->
 
 	<form id="searchForm" class="d-none" action="{{ route('front.cars') }}" method="get">
-		<input type="text" name="minprice" value="{{ !empty(request()->input('minprice')) ? request()->input('minprice') : $minprice }}">
-		<input type="hidden" name="maxprice" value="{{ !empty(request()->input('maxprice')) ? request()->input('maxprice') : $maxprice }}">
 		<input type="hidden" name="category_id" value="{{ !empty(request()->input('category_id')) ? request()->input('category_id') : null }}">
 		@if (!empty(request()->input('brand_id')))
 			@php
@@ -390,46 +386,6 @@
 
 
 @section('scripts')
-<script>
-  var minprice = {{ $minprice }};
-  var maxprice = {{ $maxprice }};
-
-  // pricing range
-  $(document).ready(function() {
-      $("#price-range-submit").hide(), $("#min_price,#max_price").on("change", function() {
-          $("#price-range-submit").show();
-          var e = parseInt($("#min_price").val()),
-              i = parseInt($("#max_price").val());
-          e > i && $("#max_price").val(e), $("#slider-range").slider({
-              values: [e, i]
-          })
-      }), $("#min_price,#max_price").on("paste keyup", function() {
-          $("#price-range-submit").show();
-          var e = parseInt($("#min_price").val()),
-              i = parseInt($("#max_price").val());
-          e == i && (i = e + 100, $("#min_price").val(e), $("#max_price").val(i)), $("#slider-range").slider({
-              values: [e, i]
-          })
-      }), $(function() {
-          $("#slider-range").slider({
-              range: !0,
-              orientation: "horizontal",
-              min: minprice,
-              max: maxprice,
-              values: [{{ !empty(request()->input('minprice')) ? request()->input('minprice') : $minprice }}, {{ !empty(request()->input('maxprice')) ? request()->input('maxprice') : $maxprice }}],
-              step: 50,
-              slide: function(e, i) {
-                  if (i.values[0] == i.values[1]) return !1;
-                  $("#min_price").val(i.values[0]), $("#max_price").val(i.values[1])
-              }
-          }), $("#min_price").val($("#slider-range").slider("values", 0)), $("#max_price").val($("#slider-range").slider("values", 1))
-      }), $("#slider-range,#price-range-submit").click(function() {
-          var e = $("#min_price").val(),
-              i = $("#max_price").val();
-          $("#searchResults").text("Here List of products will be shown which are cost between " + e + " and " + i + ".")
-      })
-  });
-  </script>
 
 
   <script>

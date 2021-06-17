@@ -79,34 +79,10 @@
               </div>
               <br>
 
-              <div class="row hidden">
-                <div class="col-lg-7 offset-lg-3">
-                  <div class="row">
-                    <div class="col-lg-6">
-                      <h4 class="heading mb-0">{{$langg->lang105}} *</h4>
-                      <input class="input-field" type="text" name="currency_code" placeholder="{{$langg->lang101}} {{$langg->lang105}}" value="{{ $car->currency_code }}">
-                    </div>
-                    <div class="col-lg-6">
-                      <h4 class="heading mb-0">{{$langg->lang106}} *</h4>
-                      <input class="input-field" type="text" name="currency_symbol" placeholder="{{$langg->lang101}} {{$langg->lang106}}" value="{{ $car->currency_symbol }}">
-                    </div>
-                  </div>
-                </div>
-              </div>
-              <br>
-
               <div class="row">
                 <div class="col-lg-7 offset-lg-3">
                   <div class="row">
-                    <div class="col-lg-3">
-                      <h4 class="heading mb-0">{{$langg->lang107}} *</h4>
-                      <input class="input-field" type="text" name="regular_price" placeholder="{{$langg->lang101}} {{$langg->lang107}}" value="{{ $car->regular_price }}">
-                    </div>
-                    <div class="col-lg-3">
-                      <h4 class="heading mb-0">{{$langg->lang108}} </h4>
-                      <input class="input-field" type="text" name="sale_price" placeholder="{{$langg->lang101}} {{$langg->lang108}}" value="{{ $car->sale_price }}">
-                    </div>
-                    <div class="col-lg-6">
+                    <div class="col-lg-12">
                       <h4 class="heading mb-0">{{$langg->lang112}} *</h4>
                       <input class="input-field" type="text" name="year" placeholder="{{$langg->lang101}} {{$langg->lang112}}" value="{{ $car->year }}">
                     </div>

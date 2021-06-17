@@ -117,17 +117,8 @@ class CarController extends Controller
         'title' => 'required',
         'brand_id' => 'required',
         'brand_model_id' => 'required',
-        'regular_price' => 'required',
         'condtion_id' => 'required',
         'description' => 'required',
-        'featured_image' => 'required',
-        'images_helper' => [
-            function ($attribute, $value, $fail) use ($images, $imagesdb) {
-                if (count($images) + count($imagesdb) == 0) {
-                    $fail("Slider image is required");
-                }
-            },
-        ],
         'year' => 'required|integer',
         'mileage' => 'required|numeric',
         'label.*' => 'required',

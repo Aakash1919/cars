@@ -200,19 +200,6 @@
 									</li>
 								@endif
 								<li>
-									@if (empty($car->sale_price))
-										<p>{{ $langg->lang48 }}:</p>
-										<p>{{ $car->currency_symbol }} {{ $car->regular_price }}</p>
-									@else
-										<p>{{ $langg->lang48 }}:</p>
-										<p><del>{{ $car->currency_symbol }} {{ $car->regular_price }}</del> <span>{{ $car->currency_symbol }} {{ $car->sale_price }}</span></p>
-									@endif
-								</li>
-								<li>
-									<p>{{ $langg->lang49 }}:</p>
-									<p>{{ $car->negotiable == 1 ? 'YES' : 'NO' }}</p>
-								</li>
-								<li>
 									<p>{{ $langg->lang50 }}:</p>
 									<p>{{ $car->condtion->name }}</p>
 								</li>
