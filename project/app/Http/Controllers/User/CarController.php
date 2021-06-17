@@ -126,13 +126,8 @@ class CarController extends Controller
         'title' => 'required',
         'brand_id' => 'required',
         'brand_model_id' => 'required',
-        'currency_code' => 'required|max:20',
-        'currency_symbol' => 'required',
-        'regular_price' => 'required',
         'condtion_id' => 'required',
         'description' => 'required',
-        'featured_image' => 'required',
-        'images' => 'required',
         'year' => 'required|integer',
         'mileage' => 'required|numeric',
         'label.*' => 'required',
@@ -159,11 +154,6 @@ class CarController extends Controller
         file_put_contents($path, $image);
 
         $in['featured_image'] = $image_name;
-      }
-      if ($request->filled('sale_price')) {
-        $in['search_price'] = $request->sale_price;
-      } else {
-        $in['search_price'] = $request->regular_price;
       }
       if($request->filled('is_auction')) {
         $in['is_auction'] = $request->is_auction;
@@ -245,12 +235,8 @@ class CarController extends Controller
         'title' => 'required',
         'brand_id' => 'required',
         'brand_model_id' => 'required',
-        'currency_code' => 'required|max:20',
-        'currency_symbol' => 'required',
-        'regular_price' => 'required',
         'condtion_id' => 'required',
         'description' => 'required',
-        'featured_image' => 'required',
         'images_helper' => [
             function ($attribute, $value, $fail) use ($images, $imagesdb) {
                 if (count($images) + count($imagesdb) == 0) {
@@ -288,17 +274,14 @@ class CarController extends Controller
             $in['featured_image'] = $image_name;
           }
         }
-        if ($request->filled('sale_price')) {
-          $in['search_price'] = $request->sale_price;
-        } else {
-          $in['search_price'] = $request->regular_price;
-        }
+      
         if($request->filled('is_auction')) {
           $in['is_auction'] = $request->is_auction;
           $in['auction_time'] = Crypt::decrypt($request->auction_time);
         }
         $in['label'] = json_encode($request->label);
         $in['value'] = json_encode($request->value);
+       
         $car->fill($in)->save();
 
         // bring all the product images of that product
@@ -306,13 +289,14 @@ class CarController extends Controller
 
 
         // then check whether a filename is missing in imgsdb if it is missing remove it from database and unlink it
-        foreach($carimgs as $carimg) {
-          if(!in_array($carimg->image, $request->imagesdb)) {
-              @unlink('assets/front/images/cars/sliders/'.$carimg->image);
-              $carimg->delete();
+        if($request->has('imagesdb')) {
+          foreach($carimgs as $carimg) {
+            if(!in_array($carimg->image, $request->imagesdb)) {
+                @unlink('assets/front/images/cars/sliders/'.$carimg->image);
+                $carimg->delete();
+            }
           }
         }
-
         if ($request->filled('images')) {
           $imgs = [];
           $imgs = $request->images;

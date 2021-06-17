@@ -51,9 +51,7 @@
 
             <form id="geniusform" action="{{ route('admin.car.update') }}" method="POST" enctype="multipart/form-data" novalidate>
               {{csrf_field()}}
-
               <input type="hidden" name="car_id" value="{{ $car->id }}">
-
               <div class="row">
                 <div class="col-lg-7 offset-lg-3">
                   @include('includes.admin.form-both')

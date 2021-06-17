@@ -1,6 +1,6 @@
 
       <div class="alert alert-success validation alert-dismissible fade show" style="display: none;" role="alert">
-        <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+        <button type="button" class="close btn float-end" data-dismiss="alert" aria-label="Close">
           <span aria-hidden="true">&times;</span>
         </button>
             <p class="text-left"></p>
