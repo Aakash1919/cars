@@ -47,6 +47,7 @@
 					</div>
 					<div class="profile-area">
 						<div class="profile-info">
+							<!--
 							<div class="left">
 								@if (empty($car->user->image))
 									<img src="{{asset('assets/user/blank.png')}}" alt="" style="border-radius: 50%;">
@@ -54,6 +55,7 @@
 									<img src="{{asset('assets/user/propics/'.$car->user->image)}}" alt="" style="border-radius: 50%;">
 								@endif
 							</div>
+						-->
 							<div class="right">
 								{{-- <h4 class="title">
 									{{ $car->user->first_name }} {{ $car->user->last_name }}

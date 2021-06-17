@@ -109,7 +109,7 @@
 										<label for="state" class="form-label">State</label>
 										<div class="input-group"> <span class="input-group-text bg-transparent"><i class='fadeIn animated bx bx-directions' ></i></span>
 											<select class="form-control border-start-0" id="state" placeholder="Confirm Password" name="state">
-												<option value="">Select State</value>
+												<option value="">Select State</option>
 												<option value="Australian Capital Territory">Australian Capital Territory</option>
 												<option value="New South Wales">New South Wales</option>
 												<option value="Northern Territory">Northern Territory</option>

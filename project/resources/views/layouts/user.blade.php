@@ -81,7 +81,7 @@
                 </li>
                  <!--   <li><a href="{{route('user-social-index')}}"><i class="fas fa-link"></i> &nbsp;{{ $langg->lang72 }}</a></li>-->
                     <li><a href="{{route('user-transactions')}}"><i class="fas fa-money-check-alt"></i>&nbsp; Payment History</a></li>
-                    <li><a href="{{route('user-notifications')}}"><i class="fas fa-money-check-alt"></i>&nbsp; Notifications</a></li>
+                    <li><a href="{{route('user-notifications')}}"><i class="fadeIn animated bx bx-message-detail"></i>&nbsp; Notifications</a></li>
 
 
                 @endif

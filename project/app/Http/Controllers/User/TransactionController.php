@@ -32,7 +32,7 @@ class TransactionController extends Controller
                                 return '<span>'.$data->gateway.'</span>';
                             })
                             ->editColumn('action', function(Payment $data) {
-                                return '<strong><a href="'.route('user-payments-invoice', $data->id).'" class="changeStatus btn btn-info btn-sm px-2" title="View Invoice"><i class="fas fa-money"></i>Invoice</a></strong>';
+                                return '<strong><a href="'.route('user-payments-invoice', $data->id).'" class="changeStatus btn btn-primary btn-sm px-2" title="View Invoice"><i class="fadeIn animated bx bx-credit-card"></i>Invoice</a></strong>';
                             })
                             ->escapeColumns([])
                             ->make(true); //--- Returning Json Data To Client Side
