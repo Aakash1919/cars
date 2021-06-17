@@ -287,7 +287,7 @@
                         <div class="imagesuploaded-images d-flex">
                             @foreach ($car->car_images as $key => $ci)
                             <div class="image">
-                               <img src="{{ asset('assets/front/images/cars/sliders/'.$ci->image) }}" alt="" width="100" height="100" style="margin:5px; max-height: 100px;max-width:100px;">
+                               <img src="{{ asset('assets/front/images/cars/sliders/'.$ci->image) }}" alt="" width="100" height="100" style="object-fit: cover; margin:5px; max-height: 100px;max-width:100px;">
                                <div class="image-overlay">
                                  <i class="fas fa-times" data-val="{{ $ci->id }}" onclick="removeimg(event)"></i>
                                </div>
