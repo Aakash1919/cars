@@ -66,7 +66,7 @@
 					<div class="col-lg-8">
 						<div class="card border-top border-0 border-4 border-primary">
 							<div class="card-body p-5">
-								<form class="row g-3" action="{{ route('user.profile.update') }}" method="POST" enctype="multipart/form-data" novalidate>
+								<form id="geniusform" class="row g-3" action="{{ route('user.profile.update') }}" method="POST" enctype="multipart/form-data" novalidate>
 									{{csrf_field()}}
 									<div class="col-md-6">
 										<label for="first_name" class="form-label">First Name</label>
@@ -96,28 +96,28 @@
 									<div class="col-md-6">
 										<label for="inputChoosePassword" class="form-label">Street</label>
 										<div class="input-group"> <span class="input-group-text bg-transparent"><i class='lni lni-apartment' ></i></span>
-											<input type="text" class="form-control border-start-0" id="inputChoosePassword" placeholder="Street Address" />
+											<input type="text" class="form-control border-start-0" id="inputChoosePassword" placeholder="Street Address" value="{{ $user->address }}"/>
 										</div>
 									</div>
 									<div class="col-md-6">
 										<label for="Suburb" class="form-label">Suburb</label>
 										<div class="input-group"> <span class="input-group-text bg-transparent"><i class='fadeIn animated bx bx-directions' ></i></span>
-											<input type="text" class="form-control border-start-0" id="Suburb" placeholder="Suburb" name="Suburb"/>
+											<input type="text" class="form-control border-start-0" id="Suburb" placeholder="Suburb" name="suburb" value="{{ $user->suburb }}"/>
 										</div>
 									</div>
 									<div class="col-md-6">
 										<label for="state" class="form-label">State</label>
 										<div class="input-group"> <span class="input-group-text bg-transparent"><i class='fadeIn animated bx bx-directions' ></i></span>
-											<select class="form-control border-start-0" id="state" placeholder="Confirm Password" name="state">
+											<select class="form-control border-start-0" id="state" placeholder="Confirm Password" name="state" value="{{ $user->phone }}">
 												<option value="">Select State</option>
-												<option value="Australian Capital Territory">Australian Capital Territory</option>
-												<option value="New South Wales">New South Wales</option>
-												<option value="Northern Territory">Northern Territory</option>
-												<option value="Queensland">Queensland</option>
-												<option value="South Australia">South Australia</option>
-												<option value="Tasmania">Tasmania</option>
-												<option value="Victoria">Victoria</option>
-												<option value="Western Australia">Western Australia</option>
+												<option value="Australian Capital Territory" {{ $user->state=='Australian Capital Territory' ? 'selected' : '' }}>Australian Capital Territory</option>
+												<option value="New South Wales" {{ $user->state=='New South Wales' ? 'selected' : '' }}>New South Wales</option>
+												<option value="Northern Territory" {{ $user->state=='Northern Territory' ? 'selected' : '' }}>Northern Territory</option>
+												<option value="Queensland" {{ $user->state=='Queensland' ? 'selected' : '' }}>Queensland</option>
+												<option value="South Australia" {{ $user->state=='South Australia' ? 'selected' : '' }}>South Australia</option>
+												<option value="Tasmania" {{ $user->state=='Tasmania' ? 'selected' : '' }}>Tasmania</option>
+												<option value="Victoria" {{ $user->state=='Victoria' ? 'selected' : '' }}>Victoria</option>
+												<option value="Western Australia" {{ $user->state=='Western Australia' ? 'selected' : '' }}>Western Australia</option>
 											</select>
 										</div>
 									</div>
@@ -126,14 +126,14 @@
 										<div class="input-group"> <span class="input-group-text bg-transparent"><i class='lni lni-chevron-right-circle' ></i></span>
 											<select class="form-control border-start-0" id="inputConfirmPassword" placeholder="Country" name="country">
 												<option value="">Select Country</option>
-												<option value="Australia">Australia</option>
+												<option value="Australia" {{ $user->country=='Australia' ? 'selected' : '' }}>Australia</option>
 											</select>
 										</div>
 									</div>
 									<div class="col-md-6">
 										<label for="postal_code" class="form-label">Postal Code</label>
 										<div class="input-group"> <span class="input-group-text bg-transparent"><i class='lni lni-chevron-right-circle' ></i></span>
-											<input type="text" class="form-control border-start-0" id="postal_code" name="postal_code" placeholder="Postal Code" />
+											<input type="text" class="form-control border-start-0" id="postal_code" name="postal" placeholder="Postal Code" value="{{ $user->postal }}"/>
 										</div>
 									</div> 
 									<div class="col-12">
@@ -186,7 +186,7 @@
 								</div>
 								<div class="card-footer">
 									<div class="col-12">
-										<button type="submit" class="btn btn-primary px-5">Save</button>
+										<button type="submit" class="addProductSubmit-btn btn btn-primary px-5">Save</button>
 									</div>
 								</div>
 							</form>
