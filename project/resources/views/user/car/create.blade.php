@@ -306,7 +306,6 @@
                 this.on("success", function(file, responseText) {
                     if (responseText.status == true) {
                         imgpath = "/assets/front/images/cars/featured/" + responseText.message;
-                        $("img#myfeaturedcar").attr('src', imgpath);
                         $("input#myfeaturedcarimg").val(responseText.message);
                     }
                 });
