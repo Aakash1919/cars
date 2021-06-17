@@ -420,6 +420,10 @@ Route::group(['middleware' => 'auth'], function() {
   Route::get('/package', 'User\PackageController@package')->name('user-package');
   Route::get('/subscription/{id}', 'User\PackageController@selectPayment')->name('user-select-payment');
   Route::get('/user-payment', 'User\TransactionController@index')->name('user-transactions');
+  Route::get('/user-notifications', 'User\NotificationController@index')->name('user-notifications');
+
+  Route::get('/notifications/datatables', 'User\NotificationController@datatables')->name('user-notification-datatables'); //JSON REQUEST
+
   Route::get('/payment/datatables', 'User\TransactionController@datatables')->name('user-payment-datatables'); //JSON REQUEST
 
 

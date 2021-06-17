@@ -81,6 +81,8 @@
                 </li>
                  <!--   <li><a href="{{route('user-social-index')}}"><i class="fas fa-link"></i> &nbsp;{{ $langg->lang72 }}</a></li>-->
                     <li><a href="{{route('user-transactions')}}"><i class="fas fa-money-check-alt"></i>&nbsp; Payment History</a></li>
+                    <li><a href="{{route('user-notifications')}}"><i class="fas fa-money-check-alt"></i>&nbsp; Notifications</a></li>
+
 
                 @endif
                 <li><a href="{{route('user-package')}}"><i class="fas fa-box-open"></i> &nbsp;{{ $langg->lang73 }}</a></li>
@@ -100,14 +102,13 @@
 						<ul class="navbar-nav align-items-center">
 							
 							<li class="nav-item dropdown dropdown-large">
-								<a class="nav-link dropdown-toggle dropdown-toggle-nocaret position-relative" href="#" role="button" data-bs-toggle="dropdown" aria-expanded="false"> <span class="alert-count">7</span>
+								<a class="nav-link dropdown-toggle dropdown-toggle-nocaret position-relative" href="#" role="button" data-bs-toggle="dropdown" aria-expanded="false"> <span class="alert-count">{{count(get_notifications(Auth::user()->id))}}</span>
 									<i class='bx bx-bell'></i>
 								</a>
 								<div class="dropdown-menu dropdown-menu-end">
 									<a href="javascript:;">
 										<div class="msg-header">
 											<p class="msg-header-title">Notifications</p>
-											<p class="msg-header-clear ms-auto">Marks all as read</p>
 										</div>
 									</a>
 									<div class="header-notifications-list">
@@ -115,15 +116,17 @@
 											<div class="d-flex align-items-center">
 												<div class="notify bg-light-primary text-primary"><i class="bx bx-group"></i>
 												</div>
-												<div class="flex-grow-1">
-													<h6 class="msg-name">New Customers<span class="msg-time float-end">14 Sec
-												ago</span></h6>
-													<p class="msg-info">5 new user registered</p>
-												</div>
+												@foreach (get_notifications(Auth::user()->id) as $item)
+													<div class="flex-grow-1">
+														<h6 class="msg-name"><span class="msg-time float-end">{{date('M d H:i', strtotime($item->created_at))}}</span></h6>
+														<p class="msg-info">{!! ($item->status==0) ? "<strong>".substr($item->message,0,30)."</strong>": substr($item->message,0,30)!!} </p>
+													</div>
+												@endforeach
+												
 											</div>
 										</a>
 									</div>
-									<a href="javascript:;">
+									<a href="{{route('user-notifications')}}">
 										<div class="text-center msg-footer">View All Notifications</div>
 									</a>
 								</div>
