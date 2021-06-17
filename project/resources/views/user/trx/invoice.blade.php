@@ -18,7 +18,7 @@
         <div id="invoice">
             <div class="toolbar hidden-print">
                 <div class="text-end">
-                    <button type="button" class="btn btn-dark"><i class="fa fa-print"></i> Print</button>
+                    <button type="button" class="btn btn-dark" onClick="window.print();"><i class="fa fa-print"></i> Print</button>
                 </div>
                 <hr/>
             </div>
@@ -28,7 +28,7 @@
                         <div class="row">
                             <div class="col">
                                 <a href="javascript:;">
-                                    <img src="assets/images/logo-icon.png" width="80" alt="" />
+                                    <img src="/assets/front/images/loader.gif" width="80" alt="" />
                                 </a>
                             </div>
                             <div class="col company-details">
@@ -50,14 +50,13 @@
                                 <div class="text-gray-light">INVOICE TO:</div>
                                 <h2 class="to">{{$userInfo->first_name.' '.$userInfo->last_name}}</h2>
                                 <div class="address">{{$userInfo->address}}</div>
-                                <div class="email"><a href="{{$userInfo->email}}">{{$userInfo->email}}</a>
+                                <div class="email"><a href="{{"mailto:".$userInfo->email}}">{{$userInfo->email}}</a>
                                 </div>
                             </div>
                             
                             <div class="col invoice-details">
                                 <h1 class="invoice-id">INVOICE {{ '#'.$paymentInfo[0]->id ?? ''}}</h1>
                                 <div class="date">Date of Invoice: {{ '#'.date('d M Y', strtotime($paymentInfo[0]->updated_at ?? ''))}}</div>
-                                <div class="date">Due Date:  {{ '#'.date('d M Y', strtotime($paymentInfo[0]->updated_at ?? ''))}}</div>
                             </div>
                         </div>
                         <table>
@@ -76,7 +75,7 @@
                                     <td class="text-left">
                                         <h3>{{ isset($paymentInfo[0]->car_id) ? 'Car Listing Price' : 'Membership Price'}}</td>
                                     <td>{{ date('d M Y', strtotime($paymentInfo[0]->created_at ?? ''))}}</td>
-                                    <td class="text-left">{{ '$'.$paymentInfo[0]->amount ?? ''}}</td>
+                                    <td class="total">{{ '$'.$paymentInfo[0]->amount ?? ''}}</td>
                                 </tr>
                             </tbody>
                             <tfoot>
