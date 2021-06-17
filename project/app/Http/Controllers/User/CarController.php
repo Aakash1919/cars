@@ -132,7 +132,9 @@ class CarController extends Controller
         'year' => 'required|integer',
         'mileage' => 'required|numeric',
         'label.*' => 'required',
+        'auction_time' => 'required',
         'value.*' => 'required',
+        
       ];
 
       $validator = Validator::make($request->all(), $rules, $messages);
@@ -223,6 +225,7 @@ class CarController extends Controller
         'condtion_id' => 'required',
         'description' => 'required',
         'year' => 'required|integer',
+        'auction_time' => 'required',
         'mileage' => 'required|numeric',
         'label.*' => 'required',
         'value.*' => 'required',
