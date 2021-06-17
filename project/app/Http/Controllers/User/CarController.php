@@ -171,6 +171,7 @@ class CarController extends Controller
       }
       $boughtPlan = Plan::find(Auth::user()->current_plan);
       $payment = new Payment;
+      $notification = new Notifications;
       if(isset($boughtPlan->listing_price) && $boughtPlan->listing_price != 0) {
         $response = $this->stripeController->chargeCustomerProfile($request)->getData();
         if(isset($response) && $response->status==400) {
@@ -181,6 +182,11 @@ class CarController extends Controller
           $payment->car_id = $car->id;
           $payment->amount = $boughtPlan->listing_price;
           $payment->save();
+
+          $notification->user_id =  Auth::user()->id;
+          $notification->message =  $request->title.' listed and You are charged '.$boughtPlan->listing_price;
+          $notification->created_at =  date('Y-m-d h:i:s', time());
+          $notification->save();
         }
       }
       $msg = 'Car Added Successfully.';
