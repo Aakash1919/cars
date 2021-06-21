@@ -17,6 +17,10 @@ class RegisterController extends Controller
       code_image();
       return view('front.login');
     }
+    public function showform1() {
+        code_image();
+        return view('front.login1');
+      }
 
     public function refresh_code(){
         code_image();
