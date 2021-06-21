@@ -119,6 +119,9 @@ class FrontendController extends Controller
 		
 			$category = $request->category_id;
 			$brands = $request->brand_id;
+			$brandModel = $request->brand_model_id;
+			$year= $request->year;
+			$location = $request->location;
 			$ftype = $request->fuel_type_id;
 			$ttype = $request->transmission_type_id;
 			$condition = $request->condition_id;
@@ -126,7 +129,7 @@ class FrontendController extends Controller
 			$view = !empty($request->view) ? $request->view : 10;
 			$type = !empty($request->type) ? $request->type : 'all';
 			$plan = Auth::user()->current_plan ?? 0;
-			$data['cars'] = Car::when($category, function ($query, $category) {
+			$data['cars'] = Car::query()->join('users', 'cars.user_id', '=', 'users.id')->when($category, function ($query, $category) {
 					                    return $query->where('category_id', $category);
 					                })
 									->when($brands, function($query, $brands) {
@@ -134,6 +137,15 @@ class FrontendController extends Controller
 									})
 									->when($ftype, function ($query, $ftype) {
 											return $query->where('fuel_type_id', $ftype);
+									})
+									->when($brandModel, function ($query, $brandModel) {
+										return $query->where('brand_model_id', $brandModel);
+									})
+									->when($year, function ($query, $year) {
+										return $query->where('year', $year);
+									})
+									->when($location, function ($query, $location) {
+										return $query->where('address', $location);
 									})
 									->when($ttype, function ($query, $ttype) {
 											return $query->where('transmission_type_id', $ttype);
@@ -148,9 +160,9 @@ class FrontendController extends Controller
 									})
 									->when($sort, function ($query, $sort) {
 											if ($sort == 'desc') {
-												return $query->orderBy('id', 'DESC');
+												return $query->orderBy('cars.id', 'DESC');
 											} elseif ($sort == 'asc') {
-												return $query->orderBy('id', 'ASC');
+												return $query->orderBy('cars.id', 'ASC');
 											}
 									})
 									->when($type, function ($query, $type) {
@@ -158,7 +170,7 @@ class FrontendController extends Controller
 											return $query->where('featured', 1);
 										}
 									})
-									->where('status','!=', 0)->where('admin_status', 1)->paginate($view);
+									->where('cars.status','!=', 0)->where('admin_status', 1)->paginate($view);
 
 			return view('front.cars', $data);
 		}

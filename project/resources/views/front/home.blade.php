@@ -27,7 +27,7 @@
                             <ul class="select-list">
                                 <li>
                                     <div class="car-make">
-                                        <select class="form-control" id="brand_id" name="brand_id"
+                                        <select class="form-control" id="brand_id" name="brand_id[]"
                                             onchange="getModels(this.value)">
                                             <option value="Select a brand" disabled selected>
                                                 {{ $langg->lang115 }}
@@ -48,12 +48,12 @@
                                 </li>
                                 <li>
                                     <div class="car-make">
-                                        <input type="number" class="form-control" value="2015">
+                                        <input type="number" class="form-control" value="2015" name="year">
                                     </div>
                                 </li>
                                 <li>
                                     <div class="car-make">
-                                        <input type="text" placeholder="Location" class="form-control">
+                                        <input type="text" placeholder="Location" class="form-control" name="location">
                                     </div>
                                 </li>
                                 <li>
