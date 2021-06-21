@@ -9,7 +9,13 @@ else {
 }
 
 ?>
-
+html {
+  scroll-behavior: smooth;
+}
+.overflow-y {
+    max-height: 500px;
+    overflow-y: scroll;
+}
 .mainmenu-area .navbar #main_menu .navbar-nav .nav-link.active, .mainmenu-area .navbar #main_menu .navbar-nav .nav-link:hover {
     color: <?php echo $color; ?>;
 }

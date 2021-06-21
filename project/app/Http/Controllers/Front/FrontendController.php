@@ -175,6 +175,15 @@ class FrontendController extends Controller
 			return view('front.cars', $data);
 		}
 
+		public function filter(Request $request) {
+			$param = $request->all();
+			if($request->has('make')) {
+				$cars = Car::where('brand_id', $request->make)->get();
+				$model = BrandModel::where('brand_id', $request->make)->get();
+				return response()->json(['status'=>200, 'data'=>$cars, 'model'=>$model]);
+			}
+		}
+
 		public function details($id) {
 			$car = Car::findOrFail($id);
 

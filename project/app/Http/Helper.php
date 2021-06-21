@@ -1,6 +1,8 @@
 <?php
     use App\Models\Plan;
     use App\Models\Notifications;
+    use App\Models\Car;
+
 
 
 if (! function_exists('code_image')) {
@@ -86,6 +88,13 @@ if(!function_exists('get_notifications')) {
     function get_notifications($userId = null) {
         $notifications = Notifications::where('user_id', $userId)->where('status', 0)->get();
         return $notifications ?? [];
+    }
+}
+
+if(!function_exists('get_car_by_make')) {
+    function get_car_by_make($make = null) {
+        $carCount = Car::where('brand_id', $make)->where('status', 1)->count();
+        return $carCount ?? 0;
     }
 }
 

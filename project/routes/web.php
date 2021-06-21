@@ -447,6 +447,7 @@ Route::group(['middleware' => 'guest'], function() {
   Route::post('/register', 'User\RegisterController@register')->name('user.reg.submit');
   Route::post('/login', 'User\LoginController@login')->name('user.login.submit');
   Route::get('/refresh_code','User\RegisterController@refresh_code');
+
   // USER REGISTRATION ENDS
 
   // Email Verification
@@ -462,6 +463,7 @@ Route::group(['middleware' => 'guest'], function() {
 Route::get('/', 'Front\FrontendController@home')->name('front.index');
 Route::get('/prices/{id}', 'Front\FrontendController@prices')->name('front.prices');
 Route::get('/cars', 'Front\FrontendController@cars')->name('front.cars');
+Route::get('/filter','Front\FrontendController@filter')->name('filter');
 Route::get('/details/{car}', 'Front\FrontendController@details')->middleware('IsPaid')->name('front.details');
 Route::post('/model/sendmail', 'Front\FrontendController@modelsendmail')->name('front.model.sendmail');
 Route::get('/contact', 'Front\FrontendController@contact')->name('front.contact');
