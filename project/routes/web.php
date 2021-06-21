@@ -443,6 +443,7 @@ Route::group(['middleware' => 'auth'], function() {
 Route::group(['middleware' => 'guest'], function() {
   // USER REGISTRATION STARTS
   Route::get('/register', 'User\RegisterController@showform')->name('user.login-signup');
+  Route::get('/register1', 'User\RegisterController@showform1')->name('user.login-signup1');
   Route::post('/register', 'User\RegisterController@register')->name('user.reg.submit');
   Route::post('/login', 'User\LoginController@login')->name('user.login.submit');
   Route::get('/refresh_code','User\RegisterController@refresh_code');

@@ -28,6 +28,7 @@
         <!-- responsive -->
         <link rel="stylesheet" href="{{asset('assets/front/css/responsive.css')}}">
         <script async src = "https://www.googletagmanager.com/gtag/js?id={{ $seo->google_analytics }}" ></script>
+        
         <script>
 window.dataLayer = window.dataLayer || [];
 
@@ -261,6 +262,7 @@ gtag('config', '{{ $seo->google_analytics }}');
         </script>
         <!-- custom -->
         <script src="{{asset('assets/front/js/custom.js')}}"></script>
+        <script src="{{asset('/assets/theme/assets/plugins/smart-wizard/js/jquery.smartWizard.min.js')}}"></script>
         @yield('scripts')
     </body>
 
