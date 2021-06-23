@@ -2,8 +2,9 @@
     use App\Models\Plan;
     use App\Models\Notifications;
     use App\Models\Car;
-
-
+    use App\Models\TransmissionType;
+    use App\Models\Brand;
+    use App\Models\BrandModel;
 
 if (! function_exists('code_image')) {
 
@@ -91,10 +92,28 @@ if(!function_exists('get_notifications')) {
     }
 }
 
-if(!function_exists('get_car_by_make')) {
-    function get_car_by_make($make = null) {
-        $carCount = Car::where('brand_id', $make)->where('status', 1)->count();
+if(!function_exists('get_car_count_by_make')) {
+    function get_car_count_by_make($make = null, $comparingParameter = 'id') {
+        $carCount = Car::where($comparingParameter, $make)->where('status', 1)->count();
         return $carCount ?? 0;
+    }
+}
+
+if(!function_exists('get_car_by_make')) {
+    function get_car_by_make($id = null) {
+        return Brand::where('id', $id)->first()->name;
+    }
+}
+
+if(!function_exists('get_transmission_by_id')) {
+    function get_transmission_by_id($id = null) {
+        return TransmissionType::where('id', $id)->first()->name;
+    }
+}
+if(!function_exists('get_models_by_make')) {
+    function get_models_by_make($id = null) {
+        $models = BrandModel::where('brand_id', $id)->where('status', 1)->get();
+        return $models;
     }
 }
 
