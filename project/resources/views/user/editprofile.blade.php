@@ -137,7 +137,7 @@
 										</div>
 									</div> 
 									<div class="col-12">
-										<label for="postal_code" class="form-label">Select Profile Type</label>
+										<label for="usertype" class="form-label">Select Profile Type</label>
 										<div class="input-group"> <span class="input-group-text bg-transparent"><i class='lni lni-chevron-right-circle' ></i></span>
 										<select class="form-control border-start-0" id="usertype" name="usertype" onchange="meThods(this)" required>
 											<option value="">Please select a type</option>

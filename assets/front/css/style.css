@@ -761,8 +761,7 @@ select:focus {
 /*-------------------------
    Main Menu Area Start
 --------------------------*/
-.mainmenu-area {
-}
+
 .mainmenu-area nav {
     -webkit-box-shadow: none;
     box-shadow: none; }
@@ -776,7 +775,7 @@ select:focus {
     top: 0;
     left: 0;
     width: 100%;
-    z-index: 99;
+    z-index: 100;
     margin-top: 0px;}
 .mainmenu-area.nav-fixed .top-header {
     display: none; }
