@@ -114,15 +114,18 @@ class StripeController extends Controller {
        
     }
 
-    public function createCustomer($token = null) {
+    public function createCustomer($token = null, $email=null) {
         if(isset($token)) {
             $customer = $this->stripe->customers()->create([
-                'email' => Auth::user()->email,
-                'source' => $token['id']
+                'email' => Auth::user()->email ?? $email,
+                'source' => $token['id'] ?? $token
             ]);
-            $user = Auth::user();
-            $user->stripe_customer_id = $customer['id'] ?? null;
-            $user->save();
+            if(Auth::user()) {
+                $user = Auth::user();
+                $user->stripe_customer_id = $customer['id'] ?? null;
+                $user->save();
+            }
+           
             $customerId = $customer['id'];
         }
         return $customerId ?? null;
@@ -136,9 +139,11 @@ class StripeController extends Controller {
     public function createStripeSubscription($customerId = null, $planId = null) {
         if(isset($customerId) && isset($planId)) {
             $subscription = $this->stripe->subscriptions()->create($customerId, ['items' => [['price' => $planId]]]);
-            $user = Auth::user();
-            $user->stripe_subscription_id = $subscription['id'] ?? null;
-            $user->save();
+            if(Auth::user()) {
+                $user = Auth::user();
+                $user->stripe_subscription_id = $subscription['id'] ?? null;
+                $user->save(); 
+            }
             return $subscription;
         }else {
             return null;
