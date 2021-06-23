@@ -6,6 +6,7 @@ use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
 use App\Models\Generalsetting;
 use App\Models\User;
+use App\Models\Plan;
 use App\Classes\GeniusMailer;
 use Auth;
 use Illuminate\Support\Facades\Input;
@@ -18,8 +19,10 @@ class RegisterController extends Controller
       return view('front.login');
     }
     public function showform1() {
+
         code_image();
-        return view('front.login1');
+        $plans = Plan::where('status', 1)->orderBy('id', 'ASC')->get();
+        return view('front.login1',compact('plans'));
       }
 
     public function refresh_code(){

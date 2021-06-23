@@ -32,7 +32,7 @@
        
         <div class="card">
             <div class="card-body">
-                <form id="registerform" class="" action="{{ route('user.reg.submit') }}" method="post">
+                <form id="registerform" class="login-signup " action="{{ route('user.reg.submit') }}" method="post">
                     {{ csrf_field() }}
                
                 <!-- SmartWizard html -->
@@ -51,122 +51,111 @@
                                 <br>Select Package</a>
                         </li>
                         <li class="nav-item">
-                            <a class="nav-link" href="#step-4">	<strong>Step 4</strong> 
+                            <a class="nav-link" href="#step-3">	<strong>Step 4</strong> 
                                 <br>Payment</a>
                         </li>
+                        
                     </ul>
                     <div class="tab-content">
                         <div id="step-1" class="tab-pane" role="tabpanel" aria-labelledby="step-1">
-                            <h3>Step 1 Login Details</h3>
+                            <div class="card " >
+                            <div class="card-body">    
+                            <div class="card-title"><h3>Step 1 Login Details</h3></div>
                             <div class="row">
                                 <div class="col-lg-6">
-                                        <div class="form-input">
-                                                <input name="first_name" type="text" placeholder="{{ $langg->lang402 }}">
-                                                <i class="fas fa-user"></i>
-                                            </div>
+                                    <label for="first_name" class="form-label">First Name</label>
+									<input type="text" class="form-control border-start-0" id="first_name" placeholder="First Name" name="first_name">
+								
                                 </div>
                                 <div class="col-lg-6">
-                                        <div class="form-input">
-                                                <input name="last_name" type="text" placeholder="{{ $langg->lang403 }}">
-                                                <i class="fas fa-user"></i>
-                                            </div>
-                                </div>
-                            </div>
-                            <div class="row">
-                                <div class="col-lg-6">
-                                        <div class="form-input">
-                                                <input name="username" type="text" placeholder="{{ $langg->lang404 }}">
-                                                <i class="fas fa-user"></i>
-                                            </div>
+                                    <label for="last_name" class="form-label">Last Name</label>
+                                    <input name="last_name" class="form-control border-start-0" type="text" placeholder="{{ $langg->lang403 }}" id="last_name">
                                 </div>
                                 <div class="col-lg-6">
-                                        <div class="form-input">
-                                                <input name="email" type="email" placeholder="{{ $langg->lang405 }}">
-                                                <i class="fas fa-envelope"></i>
-                                            </div>
+                                    <label for="username" class="form-label">Username</label>
+                                    <input name="username" class="form-control border-start-0" type="text" placeholder="{{ $langg->lang404 }}" id="username">
+                                </div>
+                                <div class="col-lg-6">
+                                    <label for="email" class="form-label">Email</label>
+                                    <input name="email" class="form-control border-start-0" type="email" placeholder="{{ $langg->lang405 }}" id="email">
+                                </div>
+                                <div class="col-lg-6">
+                                    <label for="password" class="form-label">Password</label>
+                                    <input name="password" class="form-control border-start-0" type="password" placeholder="{{ $langg->lang406 }}" id="password">
+                                </div>
+                                <div class="col-lg-6">
+                                    <label for="password_confirmation" class="form-label">Confirm Password</label>
+                                    <input name="password_confirmation" class="form-control border-start-0" type="password" placeholder="{{ $langg->lang407 }}" id="password_confirmation">
+                                </div>
+                                <div class="col-lg-6">
+                                    <label for="code" class="form-label">{{ $langg->lang408 }}</label>
+                                    <input name="code" class="form-control border-start-0" type="password" placeholder="{{ $langg->lang408 }}" id="code" autocomplete="off">
+                                </div>
+                                <div class="col-lg-6">
+                                    <label for="code" class="form-label">Captcha</label>
+                                    <div class="img">
+                                        <img id="codeimg" src="{{asset('assets/images/capcha_code.png?time='.time())}}" alt="">
+                                    </div>
+                                    <div class="icon">
+                                        <i class="fas fa-sync refresh_code"></i>
+                                </div>
                                 </div>
                             </div>
-                            <div class="row">
-                                <div class="col-lg-12">
-                                        <div class="form-input">
-                                                <input name="password" type="password" class="Password" placeholder="{{ $langg->lang406 }}">
-                                                <i class="fas fa-key"></i>
-                                            </div>
-                                </div>
                             </div>
-                            <div class="row">
-                                <div class="col-lg-12">
-                                        <div class="form-input">
-                                                <input name="password_confirmation" type="password" class="Password" placeholder="{{ $langg->lang407 }} {{ $langg->lang406 }}">
-                                                <i class="fas fa-key"></i>
-                                            </div>
-                                </div>
-                            </div>
-                            <div class="row">
-                                <div class="col-lg-12">
-                                        <div class="form-input">
-                                                <input type="text" name="code" class="Password" placeholder="{{ $langg->lang408 }}" autocomplete="off">
-                                                <i class="fas fa-code"></i>
-                                            </div>
-                                </div>
-                            </div>
-                            <div class="row">
-                                <div class="col-lg-12">
-                                        <div class="captcha-area">
-                                            <div class="img">
-                                                <img id="codeimg" src="{{asset('assets/images/capcha_code.png?time='.time())}}" alt="">
-                                            </div>
-                                            <div class="icon">
-                                                    <i class="fas fa-sync refresh_code"></i>
-                                            </div>
-                                        </div>
-                                </div>
                             </div>
                         
                         </div>
                         <div id="step-2" class="tab-pane" role="tabpanel" aria-labelledby="step-2">
                             <h3>Step 2 User Profile</h3>
-                            <div>
-                                <div class="col-md-6">
+                            <div class="card">
+                                <div class="card-body">
+                                <div class="row">
+                                <div class="col-lg-6">
                                     <label for="first_name" class="form-label">First Name</label>
-                                    <div class="input-group"> <span class="input-group-text bg-transparent"><i class='bx bxs-user'></i></span>
+                                    
                                         <input type="text" class="form-control border-start-0" id="first_name" name="first_name" placeholder="Enter First Name" value="" />
-                                    </div>
+                                   
                                 </div>
-                                <div class="col-md-6">
+                                <div class="col-lg-6">
                                     <label for="last_name" class="form-label">Last Name</label>
-                                    <div class="input-group"> <span class="input-group-text bg-transparent"><i class='bx bxs-user'></i></span>
+                                    
                                         <input type="text" class="form-control border-start-0" id="last_name" name="last_name" placeholder="Enter Last Name" value="" />
-                                    </div>
+
                                 </div>
-                                <div class="col-12">
+                                </div>
+                                <div class="row">
+                                <div class="col-lg-12">
                                     <label for="email" class="form-label">Email Address</label>
-                                    <div class="input-group"> <span class="input-group-text bg-transparent"><i class='bx bxs-message' ></i></span>
-                                        <input type="email" class="form-control border-start-0" id="email" name="email" placeholder="Enter E-mail Address" value="" readonly />
-                                    </div>
+                                    
+                                        <input type="email" class="form-control border-start-0" id="email" name="email" placeholder="Enter E-mail Address" value="" />
+                                    
                                 </div>
-                                <div class="col-md-6">
+                                </div>
+                                <div class="row">
+                                <div class="col-lg-6">
                                     <label for="phone" class="form-label">Phone No</label>
-                                    <div class="input-group"> <span class="input-group-text bg-transparent"><i class='bx bxs-microphone' ></i></span>
+                                    
                                         <input type="text" class="form-control border-start-0" id="phone" name="phone" placeholder="Enter Phone Numbers" value="" />
-                                    </div>
+                                    
                                 </div>
                                 
-                                <div class="col-md-6">
+                                <div class="col-lg-6">
                                     <label for="inputChoosePassword" class="form-label">Street</label>
-                                    <div class="input-group"> <span class="input-group-text bg-transparent"><i class='lni lni-apartment' ></i></span>
+                                   
                                         <input type="text" class="form-control border-start-0" id="inputChoosePassword" placeholder="Street Address" value=""/>
-                                    </div>
+
                                 </div>
-                                <div class="col-md-6">
+                                </div>
+                                <div class="row">
+                                <div class="col-lg-6">
                                     <label for="Suburb" class="form-label">Suburb</label>
-                                    <div class="input-group"> <span class="input-group-text bg-transparent"><i class='fadeIn animated bx bx-directions' ></i></span>
+                                    
                                         <input type="text" class="form-control border-start-0" id="Suburb" placeholder="Suburb" name="suburb" value=""/>
-                                    </div>
+
                                 </div>
-                                <div class="col-md-6">
+                                <div class="col-lg-6">
                                     <label for="state" class="form-label">State</label>
-                                    <div class="input-group"> <span class="input-group-text bg-transparent"><i class='fadeIn animated bx bx-directions' ></i></span>
+                                    
                                         <select class="form-control border-start-0" id="state" placeholder="Confirm Password" name="state" value="">
                                             <option value="">Select State</option>
                                             <option value="Australian Capital Territory">Australian Capital Territory</option>
@@ -178,79 +167,117 @@
                                             <option value="Victoria" >Victoria</option>
                                             <option value="Western Australia" >Western Australia</option>
                                         </select>
-                                    </div>
+
                                 </div>
-                                <div class="col-md-6">
+                                <div class="col-lg-6">
                                     <label for="country" class="form-label">Country</label>
-                                    <div class="input-group"> <span class="input-group-text bg-transparent"><i class='lni lni-chevron-right-circle' ></i></span>
+                                    
                                         <select class="form-control border-start-0" id="inputConfirmPassword" placeholder="Country" name="country">
                                             <option value="">Select Country</option>
                                             <option value="Australia">Australia</option>
                                         </select>
-                                    </div>
+                                   
                                 </div>
-                                <div class="col-md-6">
+                                <div class="col-lg-6">
                                     <label for="postal_code" class="form-label">Postal Code</label>
-                                    <div class="input-group"> <span class="input-group-text bg-transparent"><i class='lni lni-chevron-right-circle' ></i></span>
+                                    
                                         <input type="text" class="form-control border-start-0" id="postal_code" name="postal" placeholder="Postal Code" value=""/>
-                                    </div>
+                                    
                                 </div> 
-                                <div class="col-12">
+                                <div class="col-lg-12">
                                     <label for="postal_code" class="form-label">Select Profile Type</label>
-                                    <div class="input-group"> <span class="input-group-text bg-transparent"><i class='lni lni-chevron-right-circle' ></i></span>
+                                    
                                     <select class="form-control border-start-0" id="usertype" name="usertype" onchange="meThods(this)" required>
                                         <option value="">Please select a type</option>
                                         <option value="personal" >Personal</option>
                                         <option value="business">Business</option>
                                         <option value="dealer">Dealer</option>
                                         </select>
-                                    </div>
+
                                 </div>
                                 <div class="show-business" style="display:none">
                                     <div class="row">
-                                        <div class="col-md-6">
+                                        <div class="col-lg-4">
                                             <label for="trading_name" class="form-label">Trading Name</label>
-                                            <div class="input-group"> <span class="input-group-text bg-transparent"><i class='lni lni-chevron-right-circle' ></i></span>
+                                            
                                                 <input type="text" class="form-control border-start-0" id="trading_name" name="trading_name" placeholder="Enter Trading Name" value="" />
-                                            </div>
+
                                         </div>
-                                        <div class="col-md-6">
+                                        <div class="col-lg-4">
                                             <label for="business_address" class="form-label">Business Address </label>
-                                            <div class="input-group"> <span class="input-group-text bg-transparent"><i class='lni lni-chevron-right-circle' ></i></span>
+                                           
                                                 <input type="text" class="form-control border-start-0" id="business_address" name="business_address" placeholder="Enter Business Address" value="" />
-                                            </div>
+
                                         </div>
-                                        <div class="col-md-6">
+                                        <div class="col-lg-4">
                                         <label for="abn" class="form-label">ABN</label>
-                                        <div class="input-group"> <span class="input-group-text bg-transparent"><i class='lni lni-chevron-right-circle' ></i></span>
+                                        
                                             <input type="text" class="form-control border-start-0" id="abn" name="abn" placeholder="Enter ABN" value="" />
-                                        </div>
+
                                         </div>
                                     </div>	
                                 </div>
                                 <div class="show-dealer" style="display:none">
                                 <div class="row">
-                                    <div class="col-md-6">
+                                    <div class="col-lg-12" style="margin-left:10px;">
                                             <label for="licence" class="form-label">Licence Number</label>
-                                            <div class="input-group"> <span class="input-group-text bg-transparent"><i class='lni lni-chevron-right-circle' ></i></span>
+                                            
                                                 <input type="text" class="form-control border-start-0" id="licence" name="licence" placeholder="Enter Licence" value="" />
-                                            </div>
+                                            
                                         </div>
                                     </div>
                                 </div>
-                                <div class="col-12">
+                                <div class="col-lg-12">
                                     <label for="about" class="form-label">About</label>
                                     <textarea  class="form-control border-start-0" name="about" id="about"></textarea>
                                 </div>
+                                </div>
                             </div>
                         </div>
+                        </div>
                         <div id="step-3" class="tab-pane" role="tabpanel" aria-labelledby="step-3">
-                            Plan pricing table
+                            <div class="card">
+        
+                                <div class="card-body">
+                                <div class="pricing-table">
+                                    <div class="row">
+                                       
+                                            @foreach ($plans as $key => $plan)
+                        
+                                            <div class="col">
+                                                <div class="card <?php if($plan->title=="Seller"){echo "bg-info";} ?><?php if($plan->title=="Buyer/Seller"){echo "bg-success";} ?><?php if($plan->title=="Wholesaler"){echo "bg-primary";} ?>">
+                                                <div class="card-body">
+                                                    <h5 class="card-title grey-text text-uppercase text-center">{{$plan->title ?? 'Lorem'}}</h5>
+                                                    <h6 class="card-price text-center">${{ number_format($plan->price,0) ?? 0}}<span class="term">/week</span></h6>
+                                                    <hr class="my-4">
+                                                    <div class="pricing-detail">
+                                                        {!!  $plan->details ?? 'No Detail Dound' !!}
+                                                    </div>
+                                                    
+                                                    
+                                                </div>
+                                                <div class="card-footer">
+
+                                                    <a href="{{ route('user-select-payment', $plan->id) }}" class="btn btn-warning my-2 radius-30">{{$langg->lang148}}</a>
+
+                                                </div>
+                                                </div>
+                                            </div>
+                                            @endforeach                                       
+                                    </div>
+                                </div>
+                        </div>
+                            </div>
                         </div>
                         <div id="step-4" class="tab-pane" role="tabpanel" aria-labelledby="step-4">
-                            <h3>Step 4 Payment</h3>
-                             Payment    
+                            <div class="card">
+        
+                                <div class="card-body">
+                                     payment here
+                                </div>
+                            </div>
                         </div>
+
                     </div>
                 </div>
             </div>
@@ -352,7 +379,29 @@
 				return true;
 			});
 		});
+        $(window).load(function() {
+      var element = document.getElementById('usertype');
+      meThods(element)
+    });
+	function meThods(val) {
+      if(val.value == "business") {
+        $('.show-business').show()
+      }else if(val.value == "dealer"){
+        $('.show-business').show()
+        $('.show-dealer').show()
+
+      }else {
+        $('.show-business').hide()
+        $('.show-dealer').hide()
+     }
+    }
 </script>
+<style>
+    .col-lg-6{margin-top:5px;margin-bottom:5px;}
+    .col-lg-12{margin-top:5px;margin-bottom:5px;}
+    .col-lg-4{margin-top:5px;margin-bottom:5px;}
+    ul.list li{color:white;}
+</style>
 @stop
 
 
