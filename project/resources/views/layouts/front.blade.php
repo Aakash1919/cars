@@ -71,9 +71,9 @@ gtag('config', '{{ $seo->google_analytics }}');
                                     <li class="nav-item">
                                         <a class="nav-link" href="/buyer-seller">Buyer/Seller</a>
                                     </li>
-                                    <li class="nav-item">
+                                    {{-- <li class="nav-item">
                                         <a class="nav-link" href="/wholesaler">Wholesaler</a>
-                                    </li>
+                                    </li> --}}
                                 </ul>
                                 <a href="{{ route('user.login-signup') }}" class="mybtn1 ml-4">
                                     @auth
