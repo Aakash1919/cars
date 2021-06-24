@@ -86,6 +86,8 @@
 
                 @endif
                 <li><a href="{{route('user-package')}}"><i class="fas fa-box-open"></i> &nbsp;{{ $langg->lang73 }}</a></li>
+				<li><a href="{{ route('front.index') }}"><i class='fas fa-home'></i>&nbsp;Return To Home</a>
+				</li>
                 <li><a href="{{route('user-logout')}}"><i class="fas fa-sign-out-alt"></i>&nbsp; {{ $langg->lang74 }}</a></li>
 			</ul>
 			<!--end navigation-->
