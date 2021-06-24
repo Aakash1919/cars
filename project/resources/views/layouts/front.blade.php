@@ -62,12 +62,6 @@ gtag('config', '{{ $seo->google_analytics }}');
                             </button>
                             <div class="collapse navbar-collapse fixed-height" id="main_menu">
                                 <ul class="navbar-nav ml-auto">
-<!--                                    <li class="nav-item">
-                                        <a class="nav-link @if(request()->path() == '/') active @endif" href="{{ route('front.index') }}">{{ $langg->lang1 }}</a>
-                                    </li>-->
-<!--                                    <li class="nav-item">
-                                        <a class="nav-link">Auctions</a>
-                                    </li>-->
                                     <li class="nav-item">
                                         <a class="nav-link @if(request()->path() == 'cars') active @endif" href="{{ route('front.cars') }}">{{ $langg->lang2 }}</a>
                                     </li>
@@ -80,33 +74,6 @@ gtag('config', '{{ $seo->google_analytics }}');
                                     <li class="nav-item">
                                         <a class="nav-link" href="/wholesaler">Wholesaler</a>
                                     </li>
-<!--                                    @if (!empty($menus))
-                                    <li class="nav-item dropdown">
-                                        <a class="nav-link dropdown-toggle @if (request()->is('*/pages')) active	@endif" href="#" role="button" data-toggle="dropdown"
-                                           aria-haspopup="true" aria-expanded="false">
-                                            {{ $langg->lang3 }}
-                                        </a>
-                                        <div class="dropdown-menu">
-                                            @foreach ($menus as $key => $menu)
-                                            <a class="dropdown-item @if (request()->is("$menu->slug/pages")) active	@endif" href="{{route('front.dynamicPage', $menu->slug)}}">{{$menu->title}}</a>
-                                            @endforeach
-                                        </div>
-                                    </li>
-                                    @endif-->
-<!--                                    @if ($gs->is_faq == 1)
-                                    <li class="nav-item">
-                                        <a class="nav-link @if(request()->path() == 'faq') active @endif" href="{{ route('front.faq') }}">{{ $langg->lang4 }}</a>
-                                    </li>
-                                    @endif-->
-
-<!--                                    <li class="nav-item">
-                                        <a class="nav-link @if(request()->path() == 'blog') active @endif" href="{{ route('front.blog') }}">{{ $langg->lang5 }}</a>
-                                    </li>-->
-<!--                                    @if ($ps->is_contact == 1)
-                                    <li class="nav-item">
-                                        <a class="nav-link @if(request()->path() == 'contact') active @endif" href="{{ route('front.contact') }}">{{ $langg->lang6 }} </a>
-                                    </li>
-                                    @endif-->
                                 </ul>
                                 <a href="{{ route('user.login-signup') }}" class="mybtn1 ml-4">
                                     @auth
@@ -139,7 +106,7 @@ gtag('config', '{{ $seo->google_analytics }}');
                             </div>
                             <div class="text">
                                 <p>
-                                    {{ $gs->footer }}
+                                    {!! $gs->footer !!}
                                 </p>
                             </div>
                         </div>

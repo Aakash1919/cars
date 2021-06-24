@@ -343,7 +343,7 @@ class CarController extends Controller
                             return '<strong>'.$title.'</strong>';
                         })
                         ->editColumn('user', function(Bid $data) {
-                            return '<span>'.$data->user->email.'</span>';
+                            return $data->status==1 ? '<span>'.$data->user->email.'</span>' : '****.com';
                         })
                         ->editColumn('price', function(Bid $data) {
                           return '<span>$'.$data->bid_price.'</span>';
@@ -388,9 +388,16 @@ class CarController extends Controller
     public function acceptBids(Request $request) {
       if($request->has('bid') && $request->has('status')) {
         $bid = Bid::findOrFail($request->bid);
-        $bid->status = $request->status=="accept" ? 1 : 0;
-        $bid->update();
-        return response()->json(['status'=>200, 'Message' => 'Bid Accepted']);
+        $car_id = $bid->car_id;
+        $isAcceptedCount = Bid::select('status')->where('car_id', $car_id)->where('status',1)->count();
+        if($isAcceptedCount > 0) {
+          $response =['status'=>400, 'Message' => "You have already accepted the bid"];
+        }else {
+          $bid->status = $request->status=="accept" ? 1 : 0;
+          $bid->update();
+          $response =['status'=>200, 'Message' => "Bid Accepted"];
+        }
+        return response()->json($response);
       }
     }
 

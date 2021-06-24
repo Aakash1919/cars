@@ -18,7 +18,7 @@
             </div>
             <div class="card">
                 <div class="card-body p-4">
-                    <h5 class="card-title">Add New Car</h5>
+                    <h5 class="card-title">Selling a car</h5>
                     <hr />
                     <form class="add-form" id="geniusform" action="{{ route('user.car.store') }}" method="POST"
                         enctype="multipart/form-data" novalidate>
@@ -40,7 +40,7 @@
                                         <div class="mb-3">
                                             <label for="nicDesc" class="form-label">{{ $langg->lang126 }} *</label>
                                             <textarea id="nicDesc" name="description" class="form-control nic-edit" rows="8"
-                                                cols="80"></textarea>
+                                                cols="80">Please detail any issues with vehicle and any damaged or parts removed here</textarea>
                                         </div>
                                     </div>
                                     <hr />
@@ -80,7 +80,7 @@
                                                 <label for="category_id" class="form-label">{{ $langg->lang103 }}</label>
                                                 <select id="category_id" class="searchable-select input-field form-select"
                                                     name="category_id">
-                                                    <option value="Select a brand" disabled selected>{{ $langg->lang104 }}
+                                                    <option value="Select a Category" disabled selected>{{ $langg->lang104 }}
                                                     </option>
                                                     @foreach ($cats as $key => $cat)
                                                         <option value="{{ $cat->id }}">{{ $cat->name }}</option>
@@ -91,7 +91,7 @@
                                                 <label for="brand_id" class="form-label">{{ $langg->lang114 }} *</label>
                                                 <select class="form-select" id="brand_id" name="brand_id"
                                                     onchange="getModels(this.value)">
-                                                    <option value="Select a brand" disabled selected>{{ $langg->lang115 }}
+                                                    <option value="Select a Make" disabled selected>{{ $langg->lang115 }}
                                                     </option>
                                                     @foreach ($brands as $key => $brand)
                                                         <option value="{{ $brand->id }}">{{ $brand->name }}</option>
@@ -108,15 +108,49 @@
                                                 </select>
                                             </div>
                                             <div class="col-md-6">
-                                                <label for="mileage" class="form-label">{{ $langg->lang113 }} (km)
+                                                <label for="mileage" class="form-label">{{ $langg->lang113 }} (kml or Unknown)
                                                     *</label>
                                                 <input type="bumber" class="form-control" id="mileage" name="mileage"
                                                     placeholder="1234">
+                                            </div>
+                                            
+                                            <div class="col-md-12">
+                                                <label for="chassis" class="form-label">VIN/Chassis *</label>
+                                                <input type="text" class="form-control" id="chassis" name="chassis"
+                                                    placeholder="VIN/Chassis">
                                             </div>
                                             <div class="col-md-6">
                                                 <label for="year" class="form-label">{{ $langg->lang112 }} *</label>
                                                 <input type="number" class="form-control" id="year" name="year"
                                                     placeholder="e.g. 1999" min="1990">
+                                            </div>
+                                            <div class="col-md-6">
+                                                <label for="wovr_option" class="form-label">Is The Vehicle Listed On WOVR
+                                                    *</label>
+                                                <select for="wovr_option" class="searchable-select form-control" name="wovr_option">
+                                                    <option value="0" disabled selected>No</option>
+                                                    <option value="1" disabled >Yes</option>
+                                                </select>
+                                            </div>
+                                            <div class="col-md-6">
+                                                <label for="statutory_option" class="form-label">Statutory Or Repairable
+                                                    *</label>
+                                                <select for="statutory_option" class="searchable-select form-control" name="statutory_option">
+                                                    <option value="0" disabled selected>No</option>
+                                                    <option value="1" disabled >Yes</option>
+                                                </select>
+                                            </div>
+                                            <div class="col-md-6">
+                                                <label for="key" class="form-label">Key</label>
+                                                <select for="key" class="searchable-select form-control" name="car_key">
+                                                    <option value="0" disabled selected>No</option>
+                                                    <option value="1" disabled >Yes</option>
+                                                </select>
+                                            </div>
+                                            <div class="col-md-6">
+                                                <label for="cylender" class="form-label">Cylender</label>
+                                                <input type="text" class="form-control" id="cylender" name="cylender"
+                                                    placeholder="cylenders">
                                             </div>
                                             <div class="col-md-6">
                                                 <label for="body_type_id" class="form-label">{{ $langg->lang118 }}
@@ -178,7 +212,7 @@
                                                 </select>
                                             </div>
                                             <div class="col-12">
-                                                <label for="promotion_code" class="form-label">Promotion Code
+                                                <label for="promotion_code" class="form-label">Promotional Code
                                                 </label>
                                                 <input type="text" class="form-control" id="promotion_code" name="promotion_code"
                                                     placeholder="ABCD">

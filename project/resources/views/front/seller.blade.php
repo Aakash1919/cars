@@ -40,13 +40,13 @@
                     <article class="section-heading">
                         <h4>Happy Selling</h4>
                         <h2 class="title">Get The Best Value Out of Your Sale</h2>
-                        <p>At car salvage sales we are connecting sellers of vehicles that are damaged, un-road worthy, unregistered or just unwanted, with hundreds of potential buyers for their vehicles, that in the past would have gone to a scrap or salvage yard, for a fraction of their value. </p>
-                        <p><strong>Dont think that your vehicle has no value left in it and accept a fraction of its true value. </strong></p>
+                        <p>At car salvage sales we are connecting sellers of vehicles that are damaged, un-road worthy, unregistered or just unwanted, with hundreds of potential buyers for their vehicles, in the past these vehicles would have gone to scrap yards or metal recyclers for a fraction of their value. </p>
+                        <p><strong>Dont think that your vehicle has no value left in it and accept a fraction of its true value.</strong></p>
                         <ul class="icon-list">
                             <li><i class="fa fa-check"></i> 
-                                <span>While your listing is running you will directly receive offers, live from registered buyers for your vehicle.</span></li>
+                                <span>While your add is running you will directly receive offers from registered professional buyers.</span></li>
                             <li><i class="fa fa-check"></i> 
-                                <span>There is no option to put a reserve price on your vehicle, as it is totally up to you if you accept an offer and contact the buyer.</span></li>
+                                <span>There is no option or need to put a reserve price on your vehicle, as it is totally up to you if you choose to accept an offer and contact the buyer.</span></li>
                         </ul>
 
                         <a href="#" class="btn btn-md btn-custom">Get Started</a>
@@ -78,7 +78,7 @@
                         </div>
                         <div class="media-body ml-5">
                             <h5 class="mt-0">Recieve Offers</h5>
-                           Lorem ipsum dolor sit amet, consectetuer adipiscing elit. Aenean commodo ligula eget dolor. Aenean massa. 
+                            Once you have listed your vehicle it will be seen by professional buyers who will value your vehicle and make genuine offers on it, buyers can not see what their competitors have offered giving you the upper hand 
                         </div>
                     </div>
                 </div>
@@ -94,7 +94,7 @@
                         </div>
                         <div class="media-body ml-5">
                             <h5 class="mt-0">No Commission</h5>
-                            Lorem ipsum dolor sit amet, consectetuer adipiscing elit. Aenean commodo ligula eget dolor. Aenean massa. 
+                            Buyers do not get charged buyers fees or commissions if they successfully make you a winning offer allowing them to pass these savings on and offer you more for your vehicle 
                         </div>
                     </div>
                 </div>
@@ -110,7 +110,7 @@
                         </div>                   
                         <div class="media-body ml-5">
                             <h5 class="mt-0">Private Contact Details</h5>
-                            Lorem ipsum dolor sit amet, consectetuer adipiscing elit. Aenean commodo ligula eget dolor. Aenean massa.
+                            Your privacy is of the upmost importance to us and for that reason at no time will we give prospective buyers your contact details, you will receive offers through our private messaging system and it is totally up to you if you choose to contact a buyer that has made an offer on your vehicle 
                         </div>
                     </div>
                 </div>
@@ -126,7 +126,7 @@
                         </div>
                         <div class="media-body ml-5">
                             <h5 class="mt-0">End Anytime</h5>
-                           Lorem ipsum dolor sit amet, consectetuer adipiscing elit. Aenean commodo ligula eget dolor. Aenean massa. 
+                            Wether you choose for you vehicle to listed for 24hrs, 72hrs or 7days you a free to end your add at anytime. Again we recommend you allow your add to run as long as possible cause you never know the next offer could be the best offer 
                         </div>
                     </div>
                 </div>

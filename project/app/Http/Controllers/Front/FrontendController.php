@@ -41,8 +41,8 @@ class FrontendController extends Controller
         $data['brands'] = Brand::where('status', 1)->get();
         $data['conditions'] = Condtion::where('status', 1)->get();
         $data['pricings'] = Pricing::all();
-        $data['lcars'] = Car::where('admin_status', 1)->where('status', 1)->orderBy('id', 'DESC')->limit(6)->get();
-        $data['fcars'] = Car::where('admin_status', 1)->where('status', 1)->where('featured', 1)->orderBy('id', 'DESC')->limit(6)->get();
+        $data['lcars'] = Car::query()->join('users', 'cars.user_id', '=', 'users.id')->where('admin_status', 1)->where('cars.status', 1)->orderBy('cars.id', 'DESC')->limit(6)->get();
+        $data['fcars'] = Car::query()->join('users', 'cars.user_id', '=', 'users.id')->where('admin_status', 1)->where('cars.status', 1)->where('featured', 1)->orderBy('cars.id', 'DESC')->limit(6)->get();
         return view('front.home', $data);
     }
 

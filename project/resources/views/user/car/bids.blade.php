@@ -148,6 +148,8 @@
       $.post( "{{route('user.car.acceptBids')}}", {bid: bid, _token : csrf, status : 'accept'}, function( data ) {
          if(data.status==200) {
           location.reload()
+         }else {
+            alert(data.Message)
          }
       });
       }

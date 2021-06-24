@@ -40,15 +40,15 @@
                     <article class="section-heading">
                         <!--<h4>Happy Buying & Selling</h4>-->
                         <h2 class="title">Start Buying & Selling</h2>
-                        <p>As a buyer we give you access to vehicles listed by private sellers, smash repairers, tow truck operators, motor dealers, motor vehicle recyclers, scrap dealers and more. Once you have paid your membership fees, there are no additional fees or charges such as charged at normal auctions: the price you bid is the price you pay. </p>
-                        <p><strong>Additionally, you will also be able to list vehicles on this site at a discounted rate.</strong></p>
+                        <p>As a buyer we give you access to vehicles listed by private sellers, smash repairers, tow truck operators, motor dealers, motor vehicle recyclers, scrap dealers and more. Once your membership is active there are no additional fees or charges that regular auctions charge, the price you offer if accepted by the seller is the price you pay. </p>
+                        <p><strong>Additionally, you will also be able to list vehicles on this site at a discounted rate of $4.95 per vehicle, If you choose to be a premium member you may list unlimited vehicles for sale at no additional cost</strong></p>
                         <ul class="icon-list">
                             <li><i class="fa fa-check"></i> 
-                                <span>It is your responsibility and we highly recommend you do your own REVS check on any vehicle you are purchasing prior to exchanging money. </span></li>
+                                <span>It is your responsibility and we highly recommend you do your own REVS check on any vehicle you are purchasing prior to exchanging money.</span></li>
                             <li><i class="fa fa-check"></i> 
-                                <span>It is also your responsibility to organise transport for any vehicle you are purchasing and any cost that it incurs. </span></li>
+                                <span>•	It is also your responsibility to organise transport for any vehicle you are purchasing at your own expense. </span></li>
                             <li><i class="fa fa-check"></i> 
-                                <span>As a premium member you may list unlimited vehicles for sale at no additional cost.</span></li>
+                                <span>•	You can cancel your membership at Anytime without additional charges.</span></li>
                             <li><i class="fa fa-check"></i> 
                                 <span>Cancel Anytime</span></li>
                         </ul>
@@ -147,7 +147,7 @@
                     <div class="pricing-head">
                         <span class="price">
                             <sup>$ </sup>
-                            <span class="price-digit">60</span><br>
+                            <span class="price-digit">66</span><br>
                             <span class="price-month">/ week</span>
                         </span>
                     </div>

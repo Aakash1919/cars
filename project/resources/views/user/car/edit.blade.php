@@ -146,15 +146,48 @@
                                                 </select>
                                             </div>
                                             <div class="col-md-6">
-                                                <label for="mileage" class="form-label">{{ $langg->lang113 }} (km)
+                                                <label for="mileage" class="form-label">{{ $langg->lang113 }} (kml or Unknown)
                                                     *</label>
                                                 <input type="bumber" class="form-control" id="mileage" name="mileage"
                                                     placeholder="1234" value="{{ $car->mileage }}">
+                                            </div>
+                                            <div class="col-md-12">
+                                                <label for="chassis" class="form-label">VIN/Chassis *</label>
+                                                <input type="text" class="form-control" id="chassis" name="chassis"
+                                                    placeholder="VIN/Chassis" value="{{ $car->chassis }}">
                                             </div>
                                             <div class="col-md-6">
                                                 <label for="year" class="form-label">{{ $langg->lang112 }} *</label>
                                                 <input type="number" class="form-control" id="year" name="year"
                                                     placeholder="e.g. 1999" min="1990" value="{{ $car->year }}">
+                                            </div>
+                                            <div class="col-md-6">
+                                                <label for="wovr_option" class="form-label">Is The Vehicle Listed On WOVR
+                                                    *</label>
+                                                <select for="wovr_option" class="searchable-select form-control" name="wovr_option">
+                                                    <option value="0"  {{ $car->wovr_option == 0 ? 'selected' : '' }}>No</option>
+                                                    <option value="1"  {{ $car->wovr_option == 1 ? 'selected' : '' }}>Yes</option>
+                                                </select>
+                                            </div>
+                                            <div class="col-md-6">
+                                                <label for="statutory_option" class="form-label">Statutory Or Repairable
+                                                    *</label>
+                                                <select for="statutory_option" class="searchable-select form-control" name="statutory_option">
+                                                    <option value="0"  {{ $car->statutory_option == 0 ? 'selected' : '' }}>No</option>
+                                                    <option value="1"  {{ $car->statutory_option == 1 ? 'selected' : '' }}>Yes</option>
+                                                </select>
+                                            </div>
+                                            <div class="col-md-6">
+                                                <label for="key" class="form-label">Key</label>
+                                                <select for="key" class="searchable-select form-control" name="car_key">
+                                                    <option value="0" {{ $car->car_key == 0 ? 'selected' : '' }}>No</option>
+                                                    <option value="1" {{ $car->car_key == 1 ? 'selected' : '' }}>Yes</option>
+                                                </select>
+                                            </div>
+                                            <div class="col-md-6">
+                                                <label for="cylender" class="form-label">Cylender</label>
+                                                <input type="text" class="form-control" id="cylender" name="cylender"
+                                                    placeholder="cylenders" value="{{ $car->cylender }}">
                                             </div>
                                             <div class="col-md-6">
                                                 <label for="body_type_id" class="form-label">{{ $langg->lang118 }}
