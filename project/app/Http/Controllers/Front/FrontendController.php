@@ -155,7 +155,7 @@ class FrontendController extends Controller
                                         return $query->where('year', '<=', $yearTo);
                                     })
                                     ->when($location, function ($query, $location) {
-                                        return $query->where('address', $location);
+                                        return $query->where('address','like','%'.$location.'%');
                                     })
                                     ->when($ttype, function ($query, $ttype) {
                                         return $query->whereIn('transmission_type_id', $ttype);
