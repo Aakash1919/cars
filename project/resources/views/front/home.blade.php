@@ -42,7 +42,7 @@
                                 <li>
                                     <div class="car-make">
                                         <select class="form-control" id="selectModels" name="brand_model_id[]">
-                                            <option value="">Select a Model</option>
+                                            <option value="" disabled selected>Select a Model</option>
                                         </select>
                                     </div>
                                 </li>
