@@ -1,51 +1,56 @@
 <!DOCTYPE html>
 <html lang="en">
 
-    <head>
-        <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
-        <meta http-equiv="X-UA-Compatible" content="IE=edge" />
-        @if (request()->is('blog/*'))
+<head>
+    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    @if (request()->is('blog/*'))
         @yield('meta-infos')
-        @else
+    @else
         <meta name="keywords" content="{{ $seo->meta_keys }}">
-        @endif
-        <meta name="viewport" content="width=device-width, initial-scale=1.0">
-        <title>{{ $gs->title }}</title>
-        <!-- favicon -->
-        <link rel="shortcut icon" href="{{asset('assets/front/images/favicon.png')}}" type="image/x-icon">
-        <!-- bootstrap -->
-        <link rel="stylesheet" href="{{asset('assets/front/css/bootstrap.min.css')}}">
-        <!-- Plugin css -->
-        <link rel="stylesheet" href="{{asset('assets/front/css/plugin.css')}}">
-        <!--fontawesome-->
-        <link rel="stylesheet" href="https://pro.fontawesome.com/releases/v5.10.0/css/all.css" integrity="sha384-AYmEC3Yw5cVb3ZcuHtOA93w35dYTsvhLPVnYs9eStHfGJvOvKxVfELGroGkvsg+p" crossorigin="anonymous"/>
-        <!-- stylesheet -->
-        <link rel="stylesheet" href="{{asset('assets/front/css/style.css')}}">
-        <!-- custom -->
-        <link rel="stylesheet" href="{{asset('assets/front/css/custom.css')}}">
-        <!-- base color -->
-        <link rel="stylesheet" href="{{ asset('assets/front/css/styles.php?color='.str_replace('#','',$gs->colors)) }}">
-        <!-- responsive -->
-        <link rel="stylesheet" href="{{asset('assets/front/css/responsive.css')}}">
-        <script async src = "https://www.googletagmanager.com/gtag/js?id={{ $seo->google_analytics }}" ></script>
-        
-        <script>
-window.dataLayer = window.dataLayer || [];
+    @endif
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>{{ $gs->title }}</title>
+    <!-- favicon -->
+    <link rel="shortcut icon" href="{{ asset('assets/front/images/favicon.png') }}" type="image/x-icon">
+    <!-- bootstrap -->
+    <link rel="stylesheet" href="{{ asset('assets/front/css/bootstrap.min.css') }}">
+    <!-- Plugin css -->
+    <link rel="stylesheet" href="{{ asset('assets/front/css/plugin.css') }}">
+    <!--fontawesome-->
+    <link rel="stylesheet" href="https://pro.fontawesome.com/releases/v5.10.0/css/all.css"
+        integrity="sha384-AYmEC3Yw5cVb3ZcuHtOA93w35dYTsvhLPVnYs9eStHfGJvOvKxVfELGroGkvsg+p" crossorigin="anonymous" />
+    <!-- stylesheet -->
+    <link rel="stylesheet" href="{{ asset('assets/front/css/style.css') }}">
+    <!-- custom -->
+    <link rel="stylesheet" href="{{ asset('assets/front/css/custom.css') }}">
+    <!-- base color -->
+    <link rel="stylesheet" href="{{ asset('assets/front/css/styles.php?color=' . str_replace('#', '', $gs->colors)) }}">
+    <!-- responsive -->
+    <link rel="stylesheet" href="{{ asset('assets/front/css/responsive.css') }}">
+    <script async src="https://www.googletagmanager.com/gtag/js?id={{ $seo->google_analytics }}"></script>
 
-function gtag() {
-    dataLayer.push(arguments);
-}
-gtag('js', new Date());
+    <script>
+        window.dataLayer = window.dataLayer || [];
 
-gtag('config', '{{ $seo->google_analytics }}');
-        </script>
-    </head>
-    <body>
-        @if($gs->is_loader == 1)
-        <div class="preloader" id="preloader" style="background: url({{asset('assets/front/images/loader.gif')}}) no-repeat scroll center center #FFF;"></div>
-        @endif
+        function gtag() {
+            dataLayer.push(arguments);
+        }
+        gtag('js', new Date());
+
+        gtag('config', '{{ $seo->google_analytics }}');
+    </script>
+</head>
+
 <body>
-		
+    @if ($gs->is_loader == 1)
+        <div class="preloader" id="preloader"
+            style="background: url({{ asset('assets/front/images/loader.gif') }}) no-repeat scroll center center #FFF;">
+        </div>
+    @endif
+
+    <body>
+
 
         <!--Main-Menu Area Start-->
         <div class="mainmenu-area">
@@ -54,16 +59,17 @@ gtag('config', '{{ $seo->google_analytics }}');
                     <div class="col-lg-12">
                         <nav class="navbar navbar-expand-lg navbar-light">
                             <a class="navbar-brand" href="{{ route('front.index') }}">
-                                <img src="{{asset('assets/front/images/logo.png')}}" alt="">
+                                <img src="{{ asset('assets/front/images/logo.png') }}" alt="">
                             </a>
-                            <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#main_menu" aria-controls="main_menu"
-                                    aria-expanded="false" aria-label="Toggle navigation">
+                            <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#main_menu"
+                                aria-controls="main_menu" aria-expanded="false" aria-label="Toggle navigation">
                                 <span class="navbar-toggler-icon"></span>
                             </button>
                             <div class="collapse navbar-collapse fixed-height" id="main_menu">
                                 <ul class="navbar-nav ml-auto">
                                     <li class="nav-item">
-                                        <a class="nav-link @if(request()->path() == 'cars') active @endif" href="{{ route('front.cars') }}">{{ $langg->lang2 }}</a>
+                                        <a class="nav-link @if (request()->path() == 'cars') active @endif"
+                                            href="{{ route('front.cars') }}">{{ $langg->lang2 }}</a>
                                     </li>
                                     <li class="nav-item">
                                         <a class="nav-link" href="/seller">Seller</a>
@@ -71,17 +77,16 @@ gtag('config', '{{ $seo->google_analytics }}');
                                     <li class="nav-item">
                                         <a class="nav-link" href="/buyer-seller">Buyer/Seller</a>
                                     </li>
-                                    {{-- <li class="nav-item">
-                                        <a class="nav-link" href="/wholesaler">Wholesaler</a>
-                                    </li> --}}
                                 </ul>
-                                <a href="{{ route('user.login-signup') }}" class="mybtn1 ml-4">
-                                    @auth
-                                    {{ $langg->lang8 }}
-                                    @endauth
-                                    @guest
-                                    {{ $langg->lang7 }}
-                                    @endguest
+                                @auth
+                                    <a href="{{ route('user.login-signup') }}"
+                                        class="mybtn1 ml-4">{{ $langg->lang8 }}</a>
+                                @endauth
+                                @guest
+                                    <a href="{{ route('user.login-signup') }}" class="mybtn1 ml-2">Login</a>
+                                    <a href="{{ route('user.login-signup1') }}" class="mybtn1 ml-2">Register</a>
+                                @endguest
+
                                 </a>
                             </div>
                         </nav>
@@ -90,7 +95,6 @@ gtag('config', '{{ $seo->google_analytics }}');
             </div>
         </div>
         <!--Main-Menu Area Start-->
-        @include('includes.form-success')
         @yield('content')
 
         <!-- Footer Area Start -->
@@ -101,7 +105,7 @@ gtag('config', '{{ $seo->google_analytics }}');
                         <div class="footer-widget about-widget">
                             <div class="footer-logo">
                                 <a href="{{ route('front.index') }}">
-                                    <img src="{{ asset('assets/front/images/footer-logo.png')}}" alt="">
+                                    <img src="{{ asset('assets/front/images/footer-logo.png') }}" alt="">
                                 </a>
                             </div>
                             <div class="text">
@@ -130,13 +134,13 @@ gtag('config', '{{ $seo->google_analytics }}');
                     <div class="col-md-6 col-lg-4">
                         <div class="footer-widget  footer-newsletter-widget">
                             <h4 class="title">
-                               Support
+                                Support
                             </h4>
                             <ul class="foot-list">
                                 <li><a href="#"><i class="fas fa-phone"></i> 123456789</a></li>
                                 <li><a href="#"><i class="fas fa-envelope"></i> support@carsalvagesales.com</a></li>
                             </ul>
-                          
+
                             <div class="social-links">
                                 <h4 class="title">
                                     {{ $langg->lang20 }} :
@@ -144,46 +148,46 @@ gtag('config', '{{ $seo->google_analytics }}');
                                 <div class="fotter-social-links">
                                     <ul>
                                         @if ($gs->f_status == 1)
-                                        <li>
-                                            <a href="{{$gs->facebook}}" target="_blank">
-                                                <i class="fab fa-facebook-f"></i>
-                                            </a>
-                                        </li>
+                                            <li>
+                                                <a href="{{ $gs->facebook }}" target="_blank">
+                                                    <i class="fab fa-facebook-f"></i>
+                                                </a>
+                                            </li>
                                         @endif
                                         @if ($gs->t_status == 1)
-                                        <li>
-                                            <a href="{{$gs->twitter}}" target="_blank">
-                                                <i class="fab fa-twitter"></i>
-                                            </a>
-                                        </li>
+                                            <li>
+                                                <a href="{{ $gs->twitter }}" target="_blank">
+                                                    <i class="fab fa-twitter"></i>
+                                                </a>
+                                            </li>
                                         @endif
                                         @if ($gs->i_status == 1)
-                                        <li>
-                                            <a href="{{$gs->instagram}}" target="_blank">
-                                                <i class="fab fa-instagram"></i>
-                                            </a>
-                                        </li>
+                                            <li>
+                                                <a href="{{ $gs->instagram }}" target="_blank">
+                                                    <i class="fab fa-instagram"></i>
+                                                </a>
+                                            </li>
                                         @endif
                                         @if ($gs->g_status == 1)
-                                        <li>
-                                            <a href="{{$gs->gplus}}" target="_blank">
-                                                <i class="fab fa-google-plus-g"></i>
-                                            </a>
-                                        </li>
+                                            <li>
+                                                <a href="{{ $gs->gplus }}" target="_blank">
+                                                    <i class="fab fa-google-plus-g"></i>
+                                                </a>
+                                            </li>
                                         @endif
                                         @if ($gs->l_status == 1)
-                                        <li>
-                                            <a href="{{$gs->linkedin}}" target="_blank">
-                                                <i class="fab fa-linkedin-in"></i>
-                                            </a>
-                                        </li>
+                                            <li>
+                                                <a href="{{ $gs->linkedin }}" target="_blank">
+                                                    <i class="fab fa-linkedin-in"></i>
+                                                </a>
+                                            </li>
                                         @endif
                                         @if ($gs->d_status == 1)
-                                        <li>
-                                            <a href="{{$gs->dribble}}" target="_blank">
-                                                <i class="fas fa-basketball-ball"></i>
-                                            </a>
-                                        </li>
+                                            <li>
+                                                <a href="{{ $gs->dribble }}" target="_blank">
+                                                    <i class="fas fa-basketball-ball"></i>
+                                                </a>
+                                            </li>
                                         @endif
                                     </ul>
                                 </div>
@@ -215,21 +219,22 @@ gtag('config', '{{ $seo->google_analytics }}');
         <!-- Back to Top End -->
 
         <!-- jquery -->
-        <script src="{{asset('assets/front/js/jquery.js')}}"></script>
+        <script src="{{ asset('assets/front/js/jquery.js') }}"></script>
         <!-- bootstrap -->
-        <script src="{{asset('assets/front/js/bootstrap.min.js')}}"></script>
+        <script src="{{ asset('assets/front/js/bootstrap.min.js') }}"></script>
         <!-- popper -->
-        <script src="{{asset('assets/front/js/popper.min.js')}}"></script>
+        <script src="{{ asset('assets/front/js/popper.min.js') }}"></script>
         <!-- plugin js-->
-        <script src="{{asset('assets/front/js/plugin.js')}}"></script>
-        <script src="{{asset('assets/front/js/toltip.js')}}"></script>
+        <script src="{{ asset('assets/front/js/plugin.js') }}"></script>
+        <script src="{{ asset('assets/front/js/toltip.js') }}"></script>
         <!-- main -->
-        <script src="{{asset('assets/front/js/main.js')}}"></script>
-        <script>
-        </script>
+        <script src="{{ asset('assets/front/js/main.js') }}"></script>
+        <script src="https://unpkg.com/sweetalert/dist/sweetalert.min.js"></script>
+        
+        @include('includes.form-success')
         <!-- custom -->
-        <script src="{{asset('assets/front/js/custom.js')}}"></script>
-        <script src="{{asset('/assets/theme/assets/plugins/smart-wizard/js/jquery.smartWizard.min.js')}}"></script>
+        <script src="{{ asset('assets/front/js/custom.js') }}"></script>
+        <script src="{{ asset('/assets/theme/assets/plugins/smart-wizard/js/jquery.smartWizard.min.js') }}"></script>
         @yield('scripts')
     </body>
 

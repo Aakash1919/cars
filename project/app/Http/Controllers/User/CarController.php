@@ -18,6 +18,7 @@ use App\Models\BrandModel;
 use App\Models\Notifications;
 use App\Models\Plan;
 use App\Models\Bid;
+use App\Models\CarsAccessories;
 use Validator;
 use Auth;
 use Datatables;
@@ -99,6 +100,7 @@ class CarController extends Controller
       }
       $data['brands'] = Brand::where('status', 1)->get();
       $data['cats'] = Category::where('status', 1)->get();
+      $data['CarsAccessories'] = CarsAccessories::get();
       $data['conditions'] = Condtion::where('status', 1)->get();
       $data['btypes'] = BodyType::where('status', 1)->get();
       $data['ftypes'] = FuelType::where('status', 1)->get();
@@ -155,8 +157,17 @@ class CarController extends Controller
         $in['auction_date'] = date('y-m-d h:i:s');
         $in['auction_time'] =  Crypt::decrypt($request->auction_time);
       }
-      $in['label'] = json_encode($request->label);
-      $in['value'] = json_encode($request->value);
+      $labelArray = array();
+      $valueArray =array();
+      if($request->has('value')) {
+        foreach($request->value as $acc => $accVal) {
+          array_push($labelArray, $acc);
+          $accessoryValue = !empty($accVal) ? 'Yes' : 'No';
+          array_push($valueArray, $accessoryValue);
+        }
+        $in['label'] = json_encode($labelArray);
+        $in['value'] = json_encode($valueArray);
+      }
       $car = Car::create($in);
 
       if ($request->filled('images')) {
@@ -202,6 +213,7 @@ class CarController extends Controller
         $data['btypes'] = BodyType::where('status', 1)->get();
         $data['ftypes'] = FuelType::where('status', 1)->get();
         $data['ttypes'] = TransmissionType::where('status', 1)->get();
+        $data['CarsAccessories'] = CarsAccessories::get();
         $car = Car::findOrFail($id);
         $data['car']  = $car;
         $data['labels'] = json_decode($car->label, true);
@@ -259,8 +271,21 @@ class CarController extends Controller
           $in['is_auction'] = $request->is_auction;
           $in['auction_time'] = Crypt::decrypt($request->auction_time);
         }
-        $in['label'] = json_encode($request->label);
-        $in['value'] = json_encode($request->value);
+        
+        $labelArray = array();
+        $valueArray =array();
+        if($request->has('value')) {
+          foreach($request->value as $acc => $accVal) {
+            array_push($labelArray, $acc);
+            $accessoryValue = !empty($accVal) ? 'Yes' : 'No';
+            array_push($valueArray, $accessoryValue);
+          }
+         
+
+          $in['label'] = json_encode($labelArray);
+          $in['value'] = json_encode($valueArray);
+        }
+       
        
         $car->fill($in)->save();
 

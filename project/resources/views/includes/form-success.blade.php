@@ -1,17 +1,21 @@
 @if (Session::has('success'))
-      <div class="alert alert-success alert-dismissible">
-            <button type="button" class="close" data-dismiss="alert">&times;</button>
-            {{ Session::get('success') }}
-      </div>
-
-
+<script>
+swal({
+  title: "Good job!",
+  text: "{{ Session::get('success') }}",
+  icon: "success",
+});
+</script>
 @endif
 
 @if (Session::has('unsuccess'))
-      <div class="alert alert-danger alert-dismissible">
-            <button type="button" class="close" data-dismiss="alert">&times;</button>
-            {{ Session::get('unsuccess') }}
-      </div>
+<script>
+swal({
+  title: "Sorry!",
+  text: "{{ Session::get('unsuccess') }}",
+  icon: "error",
+});
+</script>
 @endif
 
 @if(session('message')==='f')

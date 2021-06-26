@@ -7,7 +7,7 @@
             <div class="row">
                 <div class="col-lg-12">
                     <h1 class="title">
-                        {{ $langg->lang7 }}
+                        Login
                     </h1>
                     <ul class="pages">
                         <li>
@@ -17,7 +17,7 @@
                         </li>
                         <li class="active">
                             <a href="#">
-                                {{ $langg->lang7 }}
+                                Login
                             </a>
                         </li>
                     </ul>
@@ -36,16 +36,16 @@
                         <div class="log-reg-tab-menu">
                             <ul class="nav" id="pills-tab" role="tablist">
 
-                                <li class="nav-item">
+                                {{-- <li class="nav-item">
                                     <a class="nav-link active" id="pills-profile-tab" data-toggle="pill"
                                         href="#pills-profile" role="tab" aria-controls="pills-profile" aria-selected="true">
                                         {{ $langg->lang400 }}
                                     </a>
-                                </li>
-                                <li class="nav-item">
+                                </li> --}}
+                                {{-- <li class="nav-item">
                                     <a class="nav-link"
                                         href="{{ route('user.login-signup1') }}">{{ $langg->lang401 }}</a>
-                                </li>
+                                </li> --}}
                             </ul>
                         </div>
                         <div class="tab-content" id="pills-tabContent">

@@ -9,7 +9,7 @@
             <div class="row">
                 <div class="col-lg-12">
                     <h1 class="title">
-                        {{ $langg->lang7 }}
+                       Register
                     </h1>
                     <ul class="pages">
                         <li>
@@ -19,7 +19,7 @@
                         </li>
                         <li class="active">
                             <a href="#">
-                                {{ $langg->lang7 }}
+                                Register
                             </a>
                         </li>
                     </ul>
@@ -56,9 +56,8 @@
                                     <a class="nav-link" href="#step-4"> <strong>Step 4</strong>
                                         <br>Payment</a>
                                 </li>
-
                             </ul>
-                            <div class="tab-content">
+                            <div class="tab-content" style="min-height:512px;">
                                 <div id="step-1" class="tab-pane" role="tabpanel" aria-labelledby="step-1">
                                     <div class="card ">
                                         <div class="card-body">

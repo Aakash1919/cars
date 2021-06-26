@@ -45,29 +45,19 @@
                                     </div>
                                     <hr />
                                     <div class="border border-3 p-4 rounded">
-                                        <div class="col-12" id="app">
-                                            <label class="form-label">{{ $langg->lang130 }} </label>
-
-                                            <div id="'spec'+n" class="row specs" v-for="n in count"
-                                                style="margin-top:10px;margin-bottom:10px;">
-                                                <div class="col-lg-5">
-                                                    <input type="text" class="form-control" name="label[]"
-                                                        placeholder="{{ $langg->lang131 }}" required="" value="">
-                                                </div>
-                                                <div class="col-lg-5">
-                                                    <input type="text" class="form-control" name="value[]"
-                                                        placeholder="{{ $langg->lang132 }}" required="" value="">
-                                                </div>
-                                                <div class="col-lg-2">
-                                                    <button type="button" class="btn btn-danger btn-sm"
-                                                        @click="subspec(n)"><i class="fas fa-minus-square"></i></button>
-                                                </div>
-                                            </div>
-                                            <div class="row">
-                                                <div class="col-lg-12">
-                                                    <button type="button" class="btn btn-primary btn-sm"
-                                                        @click="addspec()"><i class="fas fa-plus-square"></i>&nbsp;
-                                                        {{ $langg->lang133 }}</button>
+                                        <div class="border border-3 p-4 rounded">
+                                            <div class="col-12" id="app">
+                                                <label class="form-label">{{ $langg->lang130 }} </label>
+                                                <div class="row">
+                                                    @foreach ($CarsAccessories as $accessory)
+                                                        <div class="form-check col-md-6">
+                                                            
+                                                            <input class="form-check-input" type="checkbox" name="value[{{$accessory->name ?? ''}}]" id="{{$accessory->name ?? ''}}">
+                                                            <label class="form-check-label" for="{{$accessory->name ?? ''}}">
+                                                                {{$accessory->name ?? ''}}
+                                                            </label>
+                                                        </div>
+                                                    @endforeach
                                                 </div>
                                             </div>
                                         </div>

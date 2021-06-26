@@ -45,56 +45,6 @@
 							@endforeach
 						</ul>
 					</div>
-					<div class="profile-area">
-						<div class="profile-info">
-							<!--
-							<div class="left">
-								@if (empty($car->user->image))
-									<img src="{{asset('assets/user/blank.png')}}" alt="" style="border-radius: 50%;">
-								@else
-									<img src="{{asset('assets/user/propics/'.$car->user->image)}}" alt="" style="border-radius: 50%;">
-								@endif
-							</div>
-						-->
-							<div class="right">
-								{{-- <h4 class="title">
-									{{ $car->user->first_name }} {{ $car->user->last_name }}
-								</h4> --}}
-								<ul class="profile-meta">
-									<li>
-										<p>
-											<i class="fas fa-map-marker-alt"></i> {{ $car->user->address }}
-										</p>
-									</li>
-								</ul>
-							</div>
-						</div>
-						<div class="solial-links">
-							<ul>
-								@if (isset($car->user->socialsetting->f_status) && $car->user->socialsetting->f_status == 1)
-								<li>
-									 <a href="{{$car->user->socialsetting->facebook}}" target="_blank">
-									 <i class="fab fa-facebook-f"></i>
-									 </a>
-								</li>
-								@endif
-								@if (isset($car->user->socialsetting->t_status) && $car->user->socialsetting->t_status == 1)
-								<li>
-									 <a href="{{$car->user->socialsetting->twitter}}" target="_blank">
-									 <i class="fab fa-twitter"></i>
-									 </a>
-								</li>
-								@endif
-								@if (isset($car->user->socialsetting->l_status) && $car->user->socialsetting->l_status == 1)
-								<li>
-									 <a href="{{$car->user->socialsetting->linkedin}}" target="_blank">
-									 <i class="fab fa-linkedin-in"></i>
-									 </a>
-								</li>
-								@endif
-							</ul>
-						</div>
-					</div>
 					<div class="product-details-tab">
 						<div class="prouct-details-tab-menu">
 							<ul class="nav" role="tablist">
@@ -102,10 +52,6 @@
 									<a class="nav-link active" id="pills-productdetails-tab" data-toggle="pill" href="#pills-productdetails"
 										role="tab" aria-controls="pills-productdetails" aria-selected="false">{{ $langg->lang60 }}</a>
 								</li>
-								{{-- <li class="nav-item">
-									<a class="nav-link" id="pills-contact-tab" data-toggle="pill" href="#pills-contact" role="tab"
-										aria-controls="pills-contact" aria-selected="false">{{ $langg->lang61 }}</a>
-								</li> --}}
 							</ul>
 						</div>
 						<div class="tab-content" id="pills-tabContent">
@@ -115,53 +61,6 @@
 									{!! $car->description !!}
 								</div>
 							</div>
-							{{-- <div class="tab-pane fade" id="pills-contact" role="tabpanel" aria-labelledby="pills-contact-tab">
-									<div class="contact-area">
-										<p>{{ $car->user->about }}</p>
-											<div class="row">
-												<div class="col-lg-4">
-													<div class="info-box">
-														<h4 class="title">
-															{{ $langg->lang62 }}:
-														</h4>
-														<p class="text">
-															{{ $car->user->first_name }} {{ $car->user->last_name }}
-														</p>
-													</div>
-													<div class="info-box">
-														<h4 class="title">
-															{{ $langg->lang63 }}:
-														</h4>
-														<p class="text">
-															{{ $car->user->address }}
-														</p>
-													</div>
-													<div class="info-box">
-														<h4 class="title">
-															{{ $langg->lang64 }}:
-														</h4>
-														<p class="text">
-															{{ $car->user->phone }}
-														</p>
-													</div>
-													<div class="info-box">
-														<h4 class="title">
-															{{ $langg->lang65 }}:
-														</h4>
-														<p class="text">
-															{{ $car->user->email }}
-														</p>
-													</div>
-												</div>
-												<div class="col-lg-8">
-													<div class="google_map_wrapper">
-														<div id="map"></div>
-													</div>
-												</div>
-											</div>
-
-									</div>
-							</div> --}}
 						</div>
 					</div>
 				</div>
@@ -205,15 +104,11 @@
 									<p>{{ $car->condtion->name }}</p>
 								</li>
 								<li>
-									<p>{{ $langg->lang51 }}:</p>
-									<p>{{ $car->top_speed }} KM/H</p>
-								</li>
-								<li>
 									<p>{{ $langg->lang52 }}:</p>
 									<p>{{ $car->year }}</p>
 								</li>
 								<li>
-									<p>{{ $langg->lang53 }}:</p>
+									<p>Odometer:</p>
 									<p>{{ $car->mileage }}</p>
 								</li>
 								<li>
@@ -242,6 +137,13 @@
 									<p>{{ $car->transmission_type->name }}</p>
 								</li>
 								@endif
+								@if(!empty($car->cylender))
+								<li>
+									<p>Cylender:</p>
+									<p>{{ $car->cylender }}</p>
+								</li>
+								@endif
+
 								@php
 									$labels = json_decode($car->label, true);
 									$values = json_decode($car->value, true);
