@@ -130,9 +130,9 @@ class RegisterController extends Controller
         $userId = User::create($input)->id;
         if ($request->has('plan') && isset($userId)) {
             $temporaryUser = User::findOrFail($userId);
-            $token = $request->stripeToken;
-            if ($request->plan!==11 && isset($token)) {
-                $customerId = $this->stripeController->createCustomer($token, $request->email);
+            $stoken = $request->stripeToken;
+            if ($request->plan!==11 && isset($stoken)) {
+                $customerId = $this->stripeController->createCustomer($stoken, $request->email);
                 $plan = Plan::find($request->plan);
                 $subscriptionId = $this->stripeController->createStripeSubscription($customerId, $plan->stripe_plan_id);
                 $temporaryUser->stripe_customer_id = $customerId;

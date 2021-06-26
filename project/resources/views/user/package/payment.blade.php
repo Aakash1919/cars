@@ -58,14 +58,14 @@
         </div>
       </div> --}}
 
-      <div class="row mb-4 hidden">
-        <div class="col-lg-2 text-right text-uppercase">
-          <strong>{{ $langg->lang159 }}:</strong>
-        </div>
-        <div class="col-lg-6 text-left">
-          {{ $plan->days ? $plan->days . ' Days(s)' : 'Lifetime' }}
-        </div>
-      </div>
+      <!--<div class="row mb-4 hidden">-->
+      <!--  <div class="col-lg-2 text-right text-uppercase">-->
+      <!--    <strong>{{ $langg->lang159 }}:</strong>-->
+      <!--  </div>-->
+      <!--  <div class="col-lg-6 text-left">-->
+      <!--    {{ $plan->days ? $plan->days . ' Days(s)' : 'Lifetime' }}-->
+      <!--  </div>-->
+      <!--</div>-->
 
       @if ($plan->price == 0)
         <form class="" action="{{ route('user.freepublish') }}" method="post">
@@ -95,7 +95,7 @@
                     <select class="form-control" name="" onchange="meThods(this)">
                       <option value="">Select a payment method</option>
                       {{-- <option value="Paypal">Paypal</option> --}}
-                      <option value="Stripe">Stripe</option>
+                      <option value="Stripe">Credit Card</option>
                     </select>
                   </div>
                     <div class="card">
