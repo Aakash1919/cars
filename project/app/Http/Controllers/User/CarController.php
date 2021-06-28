@@ -3,6 +3,7 @@
 namespace App\Http\Controllers\User;
 
 use Illuminate\Http\Request;
+use App\Classes\GeniusMailer;
 use App\Http\Controllers\Controller;
 use App\Http\Controllers\User\StripeController;
 use App\Models\Car;
@@ -15,8 +16,10 @@ use App\Models\TransmissionType;
 use App\Models\CarImage;
 use App\Models\Payment;
 use App\Models\BrandModel;
+use App\Models\Generalsetting;
 use App\Models\Notifications;
 use App\Models\Plan;
+use App\Models\User;
 use App\Models\Bid;
 use App\Models\CarsAccessories;
 use Validator;
@@ -29,9 +32,12 @@ class CarController extends Controller
 {
 
   protected $stripeController;
+  protected $geniusMail;
 
   public function __construct() {
     $this->stripeController = new StripeController();
+    $this->geniusMail = new GeniusMailer();
+
   }
 
     //*** JSON Request
@@ -111,11 +117,6 @@ class CarController extends Controller
 
     public function store(Request $request)
     {
-      // if (Auth()->user()->ads == 0) {
-      //   $msg = 'You have to buy a package to post ad.';
-      //   return response()->json($msg);
-      // }
-
       $messages = [
         'label.*.required' => 'Specification label cannot be blank',
         'value.*.required' => 'Specification value cannot be blank',
@@ -200,6 +201,14 @@ class CarController extends Controller
           $notification->save();
         }
       }
+
+      $to = $user->email;
+      $subject = 'CARSALVAGESALES : New Ad Publishing Email';
+      $msg = "Hi $user->first_name,<br>";
+      $msg .= 'There seems to be an issue with your listing (LISTING NUMBER), Your add has been sent for review and a member of our team will be in contact soon to fix the issue and get it active.';
+      $msg.='<br><br>From<br>CarSalvageSales.com';
+      $this->sendCustomEmail($to, $subject, $msg);
+
       $msg = 'Car Added Successfully.';
       return response()->json($msg);
     }
@@ -395,6 +404,7 @@ class CarController extends Controller
         $bid = new Bid;
         $notification = new Notifications;
         $isExisting =Bid::where('car_id', '=', $request->car)->where('user_id', '=', Auth::user()->id)->first();
+        $car = Car::where('id', '=', $request->car)->first();
         if ($isExisting === null) {
           $bid->car_id = $request->car;
           $bid->user_id = Auth::user()->id;
@@ -402,12 +412,27 @@ class CarController extends Controller
           $bid->status = 0;
           
           $bid->save();
-          return response()->json(['status'=>200, 'Message' => 'Bid Places Successfully']);
+          $msg = 'Bid Placed Successfully';
         } else {
           $isExisting->bid_price = $request->price;
           $isExisting->update();
-          return response()->json(['status'=>200, 'Message' => 'Bid Updated Successfully']);
+          $msg = 'Bid Updated Successfully';
         }
+        $senderEmail = User::where('id', $car->user_id)->first()->email;
+        $senderSubject = 'CarSalvageSales : Recieved an Offer';
+        $senderMsg = "CONGRATULATIONS!!!,<br>";
+        $senderMsg .= 'Your offer of '.$request->price.' for '.$car->title.' has been successfully sent, here are some more vehicles we have found you may be interested in.';
+        $senderMsg.='<br><br>From<br>CarSalvageSales.com';
+        $this->sendCustomEmail($senderEmail, $senderSubject, $senderMsg);
+
+        $receiverEmail = User::where('id', $isExisting->user_id)->first()->email;
+        $receiverSubject = 'CarSalvageSales : Recieved an Offer';
+        $receiverMsg = "CONGRATULATIONS!!!,<br>";
+        $receiverMsg .= 'You’ve received an offer of '.$request->price.' for '.$car->title.', You can view all offers and buyers details on your dashboard by logging into your CarSalvageSales.com account. ';
+        $receiverMsg.='<br><br>From<br>CarSalvageSales.com';
+        $this->sendCustomEmail($receiverEmail, $receiverSubject, $receiverMsg);
+        
+        return response()->json(['status'=>200, 'Message' => $msg]);
       }
     }
     public function acceptBids(Request $request) {
@@ -452,5 +477,25 @@ class CarController extends Controller
         $name = basename($_FILES["image"]["name"]);
         move_uploaded_file($tmp_name, "$path/$name");
         return response()->json(['status'=>true,'message'=>$name]);
+    }
+
+    public function sendCustomEmail($to=null, $subject=null, $msg=null) {
+       if(isset($to)) {
+        $gs = Generalsetting::findOrFail(1);
+        if ($gs->is_smtp == 1) {
+            $data = array(
+                'to' => $to,
+                'subject' => $subject,
+                'body' => $msg,
+            );
+            $this->geniusMail->sendCustomMail($data);
+        } else {
+            $headers = "From: $gs->title <$gs->from_email> \r\n";
+            $headers .= "Reply-To: $gs->title <$gs->from_email> \r\n";
+            $headers .= "MIME-Version: 1.0\r\n";
+            $headers .= "Content-Type: text/html; charset=ISO-8859-1\r\n";
+            mail($to, $subject, $msg, $headers);
+        }
+       }
     }
 }

@@ -16,15 +16,17 @@ use Validator;
 class RegisterController extends Controller
 {
     protected $stripeController;
-
+    protected $geniusMail;
     public function __construct()
     {
         $this->stripeController = new StripeController();
+        $this->geniusMail = new GeniusMailer();
     }
 
     public function showform()
     {
-        code_image(); $plans = Plan::where('status', 1)->orderBy('id', 'ASC')->get();
+        code_image();
+        $plans = Plan::where('status', 1)->orderBy('id', 'ASC')->get();
         return view('front.login', compact('plans'));
     }
     public function showform1()
@@ -83,8 +85,7 @@ class RegisterController extends Controller
                 'body' => $msg,
             ];
 
-            $mailer = new GeniusMailer();
-            $mailer->sendCustomMail($data);
+            $this->geniusMail->sendCustomMail($data);
         } else {
             $headers = "From: $gs->title <$gs->from_email> \r\n";
             $headers .= "Reply-To: $gs->title <$gs->from_email> \r\n";
@@ -131,19 +132,19 @@ class RegisterController extends Controller
         if ($request->has('plan') && isset($userId)) {
             $temporaryUser = User::findOrFail($userId);
             $stoken = $request->stripeToken;
-            if(isset($stoken)) {
+            if (isset($stoken)) {
                 $customerId = $this->stripeController->createCustomer($stoken, $request->email);
                 $temporaryUser->stripe_customer_id = $customerId;
-                if($request->plan!=="11") {
+                if ($request->plan!=="11") {
                     $plan = Plan::find($request->plan);
                     $subscriptionId = $this->stripeController->createStripeSubscription($customerId, $plan->stripe_plan_id);
                     $temporaryUser->stripe_subscription_id = $subscriptionId['id'];
                 }
             }
-            if(isset($customerId) && isset($subscriptionId)) {
-              $currentPlan = $request->plan;
-            }else {
-             $currentPlan = 11;
+            if (isset($customerId) && isset($subscriptionId)) {
+                $currentPlan = $request->plan;
+            } else {
+                $currentPlan = 11;
             }
             $temporaryUser->current_plan = $currentPlan;
             $temporaryUser->save();
@@ -161,8 +162,8 @@ class RegisterController extends Controller
           'body' => $msg,
       ];
 
-            $mailer = new GeniusMailer();
-            $mailer->sendCustomMail($data);
+            
+            $this->geniusMail->sendCustomMail($data);
         } else {
             $headers = "From: $gs->title <$gs->from_email> \r\n";
             $headers .= "Reply-To: $gs->title <$gs->from_email> \r\n";
@@ -180,6 +181,26 @@ class RegisterController extends Controller
             $user->email_verified = 1;
             $user->update();
             Auth::login($user);
+            $gs = Generalsetting::findOrFail(1);
+            $to = $user->email;
+            $subject = 'WELCOME TO CARSALVAGESALES.COM';
+            $msg = 'Your account is now active on <a href="'.env('APP_URL').'">CarSalvageSales.com</a>, you can view and edit all your details anytime on your dashboard and upgrade or change your membership type anytime, for any assistance our team is here to help just drop us an email and we will get right back to you';
+            $msg.='<br><br>From<br>CarSalvageSales.com';
+            if ($gs->is_smtp == 1) {
+               
+                $data = array(
+                    'to' => $to,
+                    'subject' => $subject,
+                    'body' => $msg,
+                );
+                $this->geniusMail->sendCustomMail($data);
+            } else {
+                $headers = "From: $gs->title <$gs->from_email> \r\n";
+                $headers .= "Reply-To: $gs->title <$gs->from_email> \r\n";
+                $headers .= "MIME-Version: 1.0\r\n";
+                $headers .= "Content-Type: text/html; charset=ISO-8859-1\r\n";
+                mail($to, $subject, $msg, $headers);
+            }
             return redirect()->route('user-dashboard')->with('success', 'Email Verified Successfully');
         }
     }
