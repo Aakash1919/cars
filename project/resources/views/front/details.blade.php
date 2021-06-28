@@ -75,7 +75,7 @@
 										<P id="countDownTimer"></P>
 									</li>
 									@auth
-										<li>
+										<li id="bidArea">
 											<p><input type ="number" name="bid_price" id="bid_price" placeholder="Bid Price"></input></p>
 											<P><button id = "bid" class="btn btn-sm btn-success">Bid</button></P>
 										</li>
@@ -212,6 +212,7 @@
 			if (distance < 0) {
 				clearInterval(x);
 				document.getElementById("countDownTimer").innerHTML = "EXPIRED";
+				document.getElementById("bidArea").remove();
 			}
 		}, 1000);
 
