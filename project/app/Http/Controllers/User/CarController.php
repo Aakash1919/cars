@@ -424,7 +424,7 @@ class CarController extends Controller
         $senderMsg = "CONGRATULATIONS!!!<br><br>";
         $senderMsg .= 'Your offer of $'.$request->price.' for '.$car->title.' has been successfully sent, here are some more vehicles we have found you may be interested in.';
         foreach($simCars as $simCar => $simValue) {
-        $senderMsg." <a href=".env('APP_URL')."'/details/".$simCar->id."'><img src=".public_path().'assets/front/images/cars/featured/'.$simCar->featured_image." alt='' width='200'></a>";
+         $senderMsg.=" <a href='".env('APP_URL')."/details/".$simValue->id."'><img src=".env('APP_URL').'/assets/front/images/cars/featured/'.$simValue->featured_image." alt=''></a>";
         }
         $senderMsg.='<br><br>From<br>CarSalvageSales.com';
         $this->sendCustomEmail($senderEmail, $senderSubject, $senderMsg);
