@@ -184,7 +184,7 @@ class RegisterController extends Controller
             $gs = Generalsetting::findOrFail(1);
             $to = $user->email;
             $subject = 'WELCOME TO CARSALVAGESALES.COM';
-            $msg = 'Your account is now active on <a href="'.env('APP_URL').'">CarSalvageSales.com</a>, you can view and edit all your details anytime on your dashboard and upgrade or change your membership type anytime, for any assistance our team is here to help just drop us an email and we will get right back to you';
+            $msg = 'WELCOME TO CARSALVAGESALES.COM<br><br>Your account is now active on <a href="'.env('APP_URL').'">CarSalvageSales.com</a>, you can view and edit all your details anytime on your dashboard and upgrade or change your membership type anytime, for any assistance our team is here to help just drop us an email and we will get right back to you';
             $msg.='<br><br>From<br>CarSalvageSales.com';
             if ($gs->is_smtp == 1) {
                
