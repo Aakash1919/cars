@@ -419,19 +419,23 @@ class CarController extends Controller
           $msg = 'Bid Updated Successfully';
         }
         $senderEmail = User::where('id', $car->user_id)->first()->email;
+        $simCars = Car::where('category_id', $car->category_id)->where('status', 1)->where('admin_status', 1)->limit(3)->get();
         $senderSubject = 'CarSalvageSales : Recieved an Offer';
-        $senderMsg = "CONGRATULATIONS!!!,<br>";
-        $senderMsg .= 'Your offer of '.$request->price.' for '.$car->title.' has been successfully sent, here are some more vehicles we have found you may be interested in.';
+        $senderMsg = "CONGRATULATIONS!!!<br><br>";
+        $senderMsg .= 'Your offer of $'.$request->price.' for '.$car->title.' has been successfully sent, here are some more vehicles we have found you may be interested in.';
+        foreach($simCars as $simCar => $simValue) {
+        $senderMsg." <a href=".env('APP_URL')."'/details/".$simCar->id."'><img src=".public_path().'assets/front/images/cars/featured/'.$simCar->featured_image." alt=''></a>";
+        }
         $senderMsg.='<br><br>From<br>CarSalvageSales.com';
         $this->sendCustomEmail($senderEmail, $senderSubject, $senderMsg);
 
         $receiverEmail = User::where('id', $isExisting->user_id)->first()->email;
         $receiverSubject = 'CarSalvageSales : Recieved an Offer';
-        $receiverMsg = "CONGRATULATIONS!!!,<br>";
-        $receiverMsg .= 'You’ve received an offer of '.$request->price.' for '.$car->title.', You can view all offers and buyers details on your dashboard by logging into your CarSalvageSales.com account. ';
+        $receiverMsg = "CONGRATULATIONS!!!<br><br>";
+        $receiverMsg .= 'You\'ve received an offer of $'.$request->price.' for '.$car->title.', You can view all offers and buyers details on your dashboard by logging into your CarSalvageSales.com account. ';
         $receiverMsg.='<br><br>From<br>CarSalvageSales.com';
         $this->sendCustomEmail($receiverEmail, $receiverSubject, $receiverMsg);
-        
+
         return response()->json(['status'=>200, 'Message' => $msg]);
       }
     }
