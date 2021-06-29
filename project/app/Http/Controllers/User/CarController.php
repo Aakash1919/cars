@@ -223,7 +223,7 @@ class CarController extends Controller
         $data['ftypes'] = FuelType::where('status', 1)->get();
         $data['ttypes'] = TransmissionType::where('status', 1)->get();
         $data['CarsAccessories'] = CarsAccessories::get();
-        $car = Car::findOrFail($id);
+        $car = Car::where('id', $id)->where('user_id', Auth::user()->id)->firstOrFail();
         $data['car']  = $car;
         $data['labels'] = json_decode($car->label, true);
         $data['values'] = json_decode($car->value, true);
