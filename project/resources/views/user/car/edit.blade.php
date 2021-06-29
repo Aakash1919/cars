@@ -59,7 +59,7 @@
                                                 @foreach ($CarsAccessories as $accessory)
                                                     <div class="form-check col-md-6">
                                                         
-                                                        <input class="form-check-input" type="checkbox" name="value[{{$accessory->name ?? ''}}]" id="{{$accessory->name ?? ''}}" @if (in_array($accessory->name, $accessoryArray)) checked @endif>
+                                                        <input class="form-check-input" type="checkbox" name="value[{{$accessory->name ?? ''}}]" id="{{$accessory->name ?? ''}}" @if (is_array($accessoryArray) && in_array($accessory->name, $accessoryArray)) checked @endif>
                                                         <label class="form-check-label" for="{{$accessory->name ?? ''}}">
                                                             {{$accessory->name ?? ''}}
                                                         </label>
