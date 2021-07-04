@@ -427,14 +427,14 @@ class CarController extends Controller
         //  $senderMsg.=" <a href='".env('APP_URL')."/details/".$simValue->id."'><img src=".env('APP_URL').'/assets/front/images/cars/featured/'.$simValue->featured_image." alt=''></a>";
         // }
         // $senderMsg.='<br><br>From<br>CarSalvageSales.com';
-        $this->sendCustomEmail($senderEmail, $senderSubject, $senderMsg, 'Congratulations!!!', $car);
+        $this->sendDesignedEmail($senderEmail, $senderSubject, $senderMsg, 'Congratulations!!!', $car);
 
         $receiverEmail = User::where('id', $isExisting->user_id)->first()->email;
         $receiverSubject = 'CarSalvageSales : Recieved an Offer';
         // $receiverMsg = "CONGRATULATIONS!!!<br><br>";
         $receiverMsg = 'You\'ve received an offer of $'.$request->price.' for '.$car->title.', You can view all offers and buyers details on your dashboard by logging into your CarSalvageSales.com account. ';
         // $receiverMsg.='<br><br>From<br>CarSalvageSales.com';
-        $this->sendCustomEmail($receiverEmail, $receiverSubject, $receiverMsg, 'Congratulations!!!', $car);
+        $this->sendDesignedEmail($receiverEmail, $receiverSubject, $receiverMsg, 'Congratulations!!!', $car);
 
 
         return response()->json(['status'=>200, 'Message' => $msg]);
@@ -484,7 +484,7 @@ class CarController extends Controller
         return response()->json(['status'=>true,'message'=>$name]);
     }
 
-    public function sendCustomEmail($to=null, $subject=null, $msg=null, $tagLine = null, $car =null) {
+    public function sendDesignedEmail($to=null, $subject=null, $msg=null, $tagLine = null, $car =null) {
        if(isset($to)) {
         $gs = Generalsetting::findOrFail(1);
         if ($gs->is_smtp == 1) {
