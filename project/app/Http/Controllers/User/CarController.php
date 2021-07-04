@@ -432,7 +432,7 @@ class CarController extends Controller
         $receiverEmail = User::where('id', $isExisting->user_id)->first()->email;
         $receiverSubject = 'CarSalvageSales : Recieved an Offer';
         // $receiverMsg = "CONGRATULATIONS!!!<br><br>";
-        $receiverMsg .= 'You\'ve received an offer of $'.$request->price.' for '.$car->title.', You can view all offers and buyers details on your dashboard by logging into your CarSalvageSales.com account. ';
+        $receiverMsg = 'You\'ve received an offer of $'.$request->price.' for '.$car->title.', You can view all offers and buyers details on your dashboard by logging into your CarSalvageSales.com account. ';
         // $receiverMsg.='<br><br>From<br>CarSalvageSales.com';
         $this->sendCustomEmail($receiverEmail, $receiverSubject, $receiverMsg, 'Congratulations!!!', $car);
 
