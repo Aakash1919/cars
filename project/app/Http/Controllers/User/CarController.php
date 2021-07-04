@@ -419,22 +419,23 @@ class CarController extends Controller
           $msg = 'Bid Updated Successfully';
         }
         $senderEmail = User::where('id', $car->user_id)->first()->email;
-        $simCars = Car::where('category_id', $car->category_id)->where('status', 1)->where('admin_status', 1)->limit(3)->get();
-        $senderSubject = 'CarSalvageSales : Recieved an Offer';
-        $senderMsg = "CONGRATULATIONS!!!<br><br>";
-        $senderMsg .= 'Your offer of $'.$request->price.' for '.$car->title.' has been successfully sent, here are some more vehicles we have found you may be interested in.';
-        foreach($simCars as $simCar => $simValue) {
-         $senderMsg.=" <a href='".env('APP_URL')."/details/".$simValue->id."'><img src=".env('APP_URL').'/assets/front/images/cars/featured/'.$simValue->featured_image." alt=''></a>";
-        }
-        $senderMsg.='<br><br>From<br>CarSalvageSales.com';
-        $this->sendCustomEmail($senderEmail, $senderSubject, $senderMsg);
+        // $simCars = Car::where('category_id', $car->category_id)->where('status', 1)->where('admin_status', 1)->limit(1)->get();
+        $senderSubject = 'CarSalvageSales : Send an Offer';
+        // $senderMsg = "CONGRATULATIONS!!!<br><br>";
+        $senderMsg = 'Your offer of $'.$request->price.' for '.$car->title.' has been successfully sent, here are some more vehicles we have found you may be interested in.';
+        // foreach($simCars as $simCar => $simValue) {
+        //  $senderMsg.=" <a href='".env('APP_URL')."/details/".$simValue->id."'><img src=".env('APP_URL').'/assets/front/images/cars/featured/'.$simValue->featured_image." alt=''></a>";
+        // }
+        // $senderMsg.='<br><br>From<br>CarSalvageSales.com';
+        $this->sendCustomEmail($senderEmail, $senderSubject, $senderMsg, 'Congratulations!!!', $car);
 
         $receiverEmail = User::where('id', $isExisting->user_id)->first()->email;
         $receiverSubject = 'CarSalvageSales : Recieved an Offer';
-        $receiverMsg = "CONGRATULATIONS!!!<br><br>";
+        // $receiverMsg = "CONGRATULATIONS!!!<br><br>";
         $receiverMsg .= 'You\'ve received an offer of $'.$request->price.' for '.$car->title.', You can view all offers and buyers details on your dashboard by logging into your CarSalvageSales.com account. ';
-        $receiverMsg.='<br><br>From<br>CarSalvageSales.com';
-        $this->sendCustomEmail($receiverEmail, $receiverSubject, $receiverMsg);
+        // $receiverMsg.='<br><br>From<br>CarSalvageSales.com';
+        $this->sendCustomEmail($receiverEmail, $receiverSubject, $receiverMsg, 'Congratulations!!!', $car);
+
 
         return response()->json(['status'=>200, 'Message' => $msg]);
       }
@@ -483,7 +484,7 @@ class CarController extends Controller
         return response()->json(['status'=>true,'message'=>$name]);
     }
 
-    public function sendCustomEmail($to=null, $subject=null, $msg=null) {
+    public function sendCustomEmail($to=null, $subject=null, $msg=null, $tagLine = null, $car =null) {
        if(isset($to)) {
         $gs = Generalsetting::findOrFail(1);
         if ($gs->is_smtp == 1) {
@@ -491,14 +492,17 @@ class CarController extends Controller
                 'to' => $to,
                 'subject' => $subject,
                 'body' => $msg,
+                'tagLine' => $tagLine,
+                'car' => $car
             );
-            $this->geniusMail->sendCustomMail($data);
+            $this->geniusMail->sendDesignedMail($data);
         } else {
             $headers = "From: $gs->title <$gs->from_email> \r\n";
             $headers .= "Reply-To: $gs->title <$gs->from_email> \r\n";
             $headers .= "MIME-Version: 1.0\r\n";
             $headers .= "Content-Type: text/html; charset=ISO-8859-1\r\n";
             mail($to, $subject, $msg, $headers);
+          
         }
        }
     }

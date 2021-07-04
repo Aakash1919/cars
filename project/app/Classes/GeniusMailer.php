@@ -55,7 +55,9 @@ class GeniusMailer
         $setup = Generalsetting::find(1);
 
         $data = [
-            'email_body' => $mailData['body']
+            'email_body' => $mailData['body'],
+            'tagLine' => isset($mailData['tagLine']) ? $mailData['tagLine'] : 'Thanks',
+            'car' => isset($mailData['car']) ? $mailData['car'] : null
         ];
 
         $objDemo = new \stdClass();
@@ -76,5 +78,32 @@ class GeniusMailer
         }
         return true;
     }
+    public function sendDesignedMail(array $mailData)
+    {
+        $setup = Generalsetting::find(1);
 
+        $data = [
+            'email_body' => $mailData['body'],
+            'tagLine' => isset($mailData['tagLine']) ? $mailData['tagLine'] : 'Thanks',
+            'car' => isset($mailData['car']) ? $mailData['car'] : null
+        ];
+
+        $objDemo = new \stdClass();
+        $objDemo->to = $mailData['to'];
+        $objDemo->from = $setup->from_email;
+        $objDemo->title = $setup->from_name;
+        $objDemo->subject = $mailData['subject'];
+
+        try{
+            Mail::send('admin.email.sendBid',$data, function ($message) use ($objDemo) {
+                $message->from($objDemo->from,$objDemo->title);
+                $message->to($objDemo->to);
+                $message->subject($objDemo->subject);
+            });
+        }
+        catch (\Exception $e){
+            //die("Not sent");
+        }
+        return true;
+    }
 }
