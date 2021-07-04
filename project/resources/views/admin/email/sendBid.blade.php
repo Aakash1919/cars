@@ -93,9 +93,6 @@
                 </tr>
             </table>
             @if (isset($car))
-                @foreach ($car as $key => $value)
-
-
                     <p class=MsoNormal><span style='display:none'>
                             <o:p>&nbsp;</o:p>
                         </span></p>
@@ -143,7 +140,7 @@
                                                                                                     <img width=130
                                                                                                         height=87
                                                                                                         style='width:1.3541in;height:.9062in'
-                                                                                                        src="{{ env('APP_URL') . '/assets/front/images/cars/featured/' . $value->featured_image }}"
+                                                                                                        src="{{ env('APP_URL') . '/assets/front/images/cars/featured/' . $car->featured_image }}"
                                                                                                         align=left
                                                                                                         alt="car valuations"
                                                                                                         v:shapes="Picture_x0020_7">
@@ -168,7 +165,7 @@
                                                                                                 <p class=MsoNormal
                                                                                                     style='line-height:15.0pt'>
                                                                                                     <b><span
-                                                                                                            style='font-size:10.5pt;font-family:"Arial",sans-serif;color:#4A4A4A'>{{ $value->title }}
+                                                                                                            style='font-size:10.5pt;font-family:"Arial",sans-serif;color:#4A4A4A'>{{ $car->title }}
                                                                                                             <o:p>
                                                                                                             </o:p>
                                                                                                         </span></b>
@@ -193,7 +190,7 @@
                                                                                                                 <b><span
                                                                                                                         style='font-size:9.0pt;font-family:"Arial",sans-serif;color:#9B9B9B'>●</span></b><b><span
                                                                                                                         style='font-size:9.0pt;font-family:"Arial",sans-serif;color:#4A4A4A'>&nbsp;&nbsp;&nbsp;{
-                                                                                                                        {{ $value->year }}
+                                                                                                                        {{ $car->year }}
                                                                                                                     </span></b>
                                                                                                             </p>
                                                                                                         </td>
@@ -204,7 +201,7 @@
                                                                                                                 <b><span
                                                                                                                         style='font-size:9.0pt;font-family:"Arial",sans-serif;color:#9B9B9B'>●</span></b><b><span
                                                                                                                         style='font-size:9.0pt;font-family:"Arial",sans-serif;color:#4A4A4A'>&nbsp;&nbsp;&nbsp;{
-                                                                                                                        {{ $value->year }}
+                                                                                                                        {{ $car->year }}
                                                                                                                     </span></b>
                                                                                                             </p>
                                                                                                         </td>
@@ -238,8 +235,6 @@
                     <p class=MsoNormal><span style='display:none'>
                             <o:p>&nbsp;</o:p>
                         </span></p>
-                @endforeach
-
             @endif
 
             <table class=MsoNormalTable border=0 cellspacing=0 cellpadding=0 width="100%"

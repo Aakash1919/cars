@@ -93,7 +93,6 @@ class GeniusMailer
         $objDemo->from = $setup->from_email;
         $objDemo->title = $setup->from_name;
         $objDemo->subject = $mailData['subject'];
-
         try{
             Mail::send('admin.email.sendBid',$data, function ($message) use ($objDemo) {
                 $message->from($objDemo->from,$objDemo->title);
