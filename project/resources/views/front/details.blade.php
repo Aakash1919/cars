@@ -212,7 +212,7 @@
 			if (distance < 0) {
 				clearInterval(x);
 				document.getElementById("countDownTimer").innerHTML = "EXPIRED";
-				document.getElementById("bidArea").remove();
+				// document.getElementById("bidArea").remove();
 			}
 		}, 1000);
 

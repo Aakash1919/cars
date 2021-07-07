@@ -161,9 +161,7 @@ class RegisterController extends Controller
           'subject' => $subject,
           'body' => $msg,
       ];
-
-            
-            $this->geniusMail->sendCustomMail($data);
+        $this->sendDesignedEmail($to, $subject, $msg, 'Email Verification',null);
         } else {
             $headers = "From: $gs->title <$gs->from_email> \r\n";
             $headers .= "Reply-To: $gs->title <$gs->from_email> \r\n";
@@ -193,7 +191,7 @@ class RegisterController extends Controller
                     'subject' => $subject,
                     'body' => $msg,
                 );
-                $this->geniusMail->sendCustomMail($data);
+                $this->sendDesignedEmail($to, $subject, $msg, 'Welcome To CarSalvageSales',null);
             } else {
                 $headers = "From: $gs->title <$gs->from_email> \r\n";
                 $headers .= "Reply-To: $gs->title <$gs->from_email> \r\n";
@@ -204,4 +202,28 @@ class RegisterController extends Controller
             return redirect()->route('user-dashboard')->with('success', 'Email Verified Successfully');
         }
     }
+    public function sendDesignedEmail($to=null, $subject=null, $msg=null, $tagLine = null, $car =null) {
+     
+        if(isset($to)) {
+         $gs = Generalsetting::findOrFail(1);
+         if ($gs->is_smtp == 1) {
+             $data = array(
+                 'to' => $to,
+                 'subject' => $subject,
+                 'body' => $msg,
+                 'tagLine' => $tagLine,
+                 'car' => $car,
+                 'type' => 'new_user'
+             );
+             $this->geniusMail->sendDesignedMail($data);
+         } else {
+             $headers = "From: $gs->title <$gs->from_email> \r\n";
+             $headers .= "Reply-To: $gs->title <$gs->from_email> \r\n";
+             $headers .= "MIME-Version: 1.0\r\n";
+             $headers .= "Content-Type: text/html; charset=ISO-8859-1\r\n";
+             mail($to, $subject, $msg, $headers);
+           
+         }
+        }
+     }
 }

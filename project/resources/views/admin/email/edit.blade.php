@@ -9,7 +9,7 @@
                     <div class="product-description">
                       <div class="body-area">
                       @include('includes.admin.form-error')
-                                      <div class="row" >
+                                      {{-- <div class="row" >
                                         <div class="col-md-6 offset-md-5">
                                         <p>Use the BB codes, it show the data dynamically in your emails.</p>
                                         <br>
@@ -40,7 +40,7 @@
                                             </tbody>
                                         </table>
                                         </div>
-                                        </div>
+                                        </div> --}}
                       <form id="geniusformdata" action="{{route('admin-mail-update',$data->id)}}" method="POST" enctype="multipart/form-data">
                         {{csrf_field()}}
 

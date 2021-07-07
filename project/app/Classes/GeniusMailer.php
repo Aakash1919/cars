@@ -81,11 +81,28 @@ class GeniusMailer
     public function sendDesignedMail(array $mailData)
     {
         $setup = Generalsetting::find(1);
-
+        
+        $header = EmailTemplate::where('email_type','=','email_comman_header')->first();
+        $central = EmailTemplate::where('email_type','=',$mailData['type'])->first();
+        $footer = EmailTemplate::where('email_type','=','html_email_footer')->first();
+        
+        $headerBody = preg_replace("/{base_url}/", env('APP_URL') ,$header->email_body);
+        $footerBody = $footer->email_body;
+       
+        $centralContent = preg_replace("/{header}/",$headerBody ,$central->email_body);
+        $centralContent = preg_replace("/{tagLine}/",$mailData['tagLine'] ,$centralContent);
+        $centralContent = preg_replace("/{content}/",$mailData['body'] ,$centralContent);
+        if(isset($mailData['car'])) {
+            $centralContent = preg_replace("/{carImage}/",env('APP_URL') . '/assets/front/images/cars/featured/' . $mailData['car']->featured_image ,$centralContent);
+            $centralContent = preg_replace("/{carTitle}/",$mailData['car']->title ,$centralContent);
+            $centralContent = preg_replace("/{carMileage}/",$mailData['car']->mileage ,$centralContent);
+            $centralContent = preg_replace("/{carYear}/",$mailData['car']->year ,$centralContent);
+        }
+       
+        $centralContent = preg_replace("/{footer}/",$footerBody ,$centralContent);
+        
         $data = [
-            'email_body' => $mailData['body'],
-            'tagLine' => isset($mailData['tagLine']) ? $mailData['tagLine'] : 'Thanks',
-            'car' => isset($mailData['car']) ? $mailData['car'] : null
+            'email_body' => $centralContent
         ];
 
         $objDemo = new \stdClass();
@@ -93,16 +110,19 @@ class GeniusMailer
         $objDemo->from = $setup->from_email;
         $objDemo->title = $setup->from_name;
         $objDemo->subject = $mailData['subject'];
-        try{
+        // try{
             Mail::send('admin.email.sendBid',$data, function ($message) use ($objDemo) {
                 $message->from($objDemo->from,$objDemo->title);
                 $message->to($objDemo->to);
                 $message->subject($objDemo->subject);
+
+                
             });
-        }
-        catch (\Exception $e){
-            //die("Not sent");
-        }
+        // }
+        // catch (\Exception $e){
+        //     //die("Not sent");
+        // }
+        
         return true;
     }
 }
