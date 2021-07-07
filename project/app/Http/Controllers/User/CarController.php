@@ -494,7 +494,8 @@ class CarController extends Controller
                 'subject' => $subject,
                 'body' => $msg,
                 'tagLine' => $tagLine,
-                'car' => $car
+                'car' => $car,
+                'type' => 'Send_bid_html'
             );
             $this->geniusMail->sendDesignedMail($data);
         } else {

@@ -83,7 +83,7 @@ class GeniusMailer
         $setup = Generalsetting::find(1);
         
         $header = EmailTemplate::where('email_type','=','email_comman_header')->first();
-        $central = EmailTemplate::where('email_type','=','Send_bid_html')->first();
+        $central = EmailTemplate::where('email_type','=',$mailData['type'])->first();
         $footer = EmailTemplate::where('email_type','=','html_email_footer')->first();
         
         $headerBody = preg_replace("/{base_url}/", env('APP_URL') ,$header->email_body);
