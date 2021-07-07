@@ -91,7 +91,7 @@ class GeniusMailer
        
         $centralContent = preg_replace("/{header}/",$headerBody ,$central->email_body);
         $centralContent = preg_replace("/{tagLine}/",$mailData['tagLine'] ,$central->email_body);
-        $centralContent = preg_replace("/{content}/",$mailData['email_body'] ,$central->email_body);
+        $centralContent = preg_replace("/{content}/",$mailData['body'] ,$central->email_body);
         if(isset($mailData['car'])) {
             $centralContent = preg_replace("/{carImage}/",env('APP_URL') . '/assets/front/images/cars/featured/' . $mailData['car']->featured_image ,$central->email_body);
             $centralContent = preg_replace("/{carTitle}/",$mailData['car']->title ,$central->email_body);
