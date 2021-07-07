@@ -485,6 +485,7 @@ class CarController extends Controller
     }
 
     public function sendDesignedEmail($to=null, $subject=null, $msg=null, $tagLine = null, $car =null) {
+     
        if(isset($to)) {
         $gs = Generalsetting::findOrFail(1);
         if ($gs->is_smtp == 1) {

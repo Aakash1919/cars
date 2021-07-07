@@ -82,11 +82,27 @@ class GeniusMailer
     {
         $setup = Generalsetting::find(1);
         
-
+        $header = EmailTemplate::where('email_type','=','email_comman_header')->first();
+        $central = EmailTemplate::where('email_type','=','Send_bid_html')->first();
+        $footer = EmailTemplate::where('email_type','=','html_email_footer')->first();
+        
+        $headerBody = preg_replace("/{base_url}/", env('APP_URL') ,$header->email_body);
+        $footerBody = $footer->email_body;
+       
+        $centralContent = preg_replace("/{header}/",$headerBody ,$central->email_body);
+        $centralContent = preg_replace("/{tagLine}/",$mailData['tagLine'] ,$central->email_body);
+        $centralContent = preg_replace("/{content}/",$mailData['email_body'] ,$central->email_body);
+        if(isset($mailData['car'])) {
+            $centralContent = preg_replace("/{carImage}/",env('APP_URL') . '/assets/front/images/cars/featured/' . $mailData['car']->featured_image ,$central->email_body);
+            $centralContent = preg_replace("/{carTitle}/",$mailData['car']->title ,$central->email_body);
+            $centralContent = preg_replace("/{carMileage}/",$mailData['car']->mileage ,$central->email_body);
+            $centralContent = preg_replace("/{carYear}/",$mailData['car']->year ,$central->email_body);
+        }
+       
+        $centralContent = preg_replace("/{footer}/",$footerBody ,$central->email_body);
+        
         $data = [
-            'email_body' => $mailData['body'],
-            'tagLine' => isset($mailData['tagLine']) ? $mailData['tagLine'] : 'Thanks',
-            'car' => isset($mailData['car']) ? $mailData['car'] : null
+            'email_body' => $centralContent
         ];
 
         $objDemo = new \stdClass();
