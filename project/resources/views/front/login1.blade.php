@@ -68,7 +68,7 @@
                                                 <div class="col-lg-6">
                                                     <label for="first_name" class="form-label">First Name</label>
                                                     <input type="text" class="form-control border-start-0" id="first_name"
-                                                        placeholder="First Name" name="first_name">
+                                                        placeholder="First Name" name="first_name" required="required">
 
                                                 </div>
                                                 <div class="col-lg-6">
@@ -154,7 +154,7 @@
                                                 <div class="col-lg-6">
                                                     <label for="country" class="form-label">Country</label>
 
-                                                    <select class="form-control border-start-0" id="inputConfirmPassword"
+                                                    <select class="form-control border-start-0" id="country"
                                                         placeholder="Country" name="country">
                                                         <option value="">Select Country</option>
                                                         <option value="Australia">Australia</option>
@@ -270,10 +270,13 @@
                                     </div>
                                 </div>
                                 <div id="step-4" class="tab-pane" role="tabpanel" aria-labelledby="step-4">
-                                    <div class="card">
+                                    <div class="col-md-6 col-lg-6 col-sm-12 col-xs-12">
+                                        <div class="card">
                                         <div class="card-body">
+                                            
                                             <div id="card-element"></div>
                                             <div id="card-errors" role="alert"></div>
+                                            </div>
                                         </div>
                                     </div>
                                 </div>
@@ -298,27 +301,38 @@
         })
         $(document).ready(function() {
             // Toolbar extra buttons
-            var btnFinish = $('<button></button>').text('Finish').addClass('btn btn-success').on('click', function(
+            var btnFinish = $('<button id="finish-btn"></button>').text('Finish').addClass('btn btn-success').on('click', function(
                 e) {
             });
             var btnCancel = $('<button></button>').text('Cancel').addClass('btn btn-danger').on('click',
                 function() {
                     $('#smartwizard').smartWizard("reset");
                 });
-            // Step show event
+
             $("#smartwizard").on("showStep", function(e, anchorObject, stepNumber, stepDirection, stepPosition) {
+                console.log(stepNumber);
+                if(stepNumber==1){
+                    validatestep1();
+                }
+                if(stepNumber==2){
+                    validatestep2();
+                }
                 $("#prev-btn").removeClass('disabled');
                 $("#next-btn").removeClass('disabled');
+                $("#finish-btn").attr('disabled',true);
                 if (stepPosition === 'first') {
                     $("#prev-btn").addClass('disabled');
                 } else if (stepPosition === 'last') {
                     $("#next-btn").addClass('disabled');
+                    $("#finish-btn").attr('disabled',false);
                 } else {
                     $("#prev-btn").removeClass('disabled');
                     $("#next-btn").removeClass('disabled');
+                    $("#finish-btn").attr('disabled',true);
                 }
             });
             // Smart Wizard
+            
             $('#smartwizard').smartWizard({
                 selected: 0,
                 theme: 'dots',
@@ -326,65 +340,159 @@
                     animation: 'slide-horizontal', // Effect on navigation, none/fade/slide-horizontal/slide-vertical/slide-swing
                 },
                 toolbarSettings: {
-                    toolbarPosition: 'both', // both bottom
+                    toolbarPosition: 'bottom', // both bottom
                     toolbarExtraButtons: [btnFinish, btnCancel]
                 }
             });
-            // External Button Events
-            $("#reset-btn").on("click", function() {
-                // Reset wizard
-                $('#smartwizard').smartWizard("reset");
-                return true;
-            });
-            $("#prev-btn").on("click", function() {
-                // Navigate previous
-                $('#smartwizard').smartWizard("prev");
-                return true;
-            });
-            $("#next-btn").on("click", function() {
-                // Navigate next
-                $('#smartwizard').smartWizard("next");
-                return true;
-            });
-            // Demo Button Events
-            $("#got_to_step").on("change", function() {
-                // Go to step
-                var step_index = $(this).val() - 1;
-                $('#smartwizard').smartWizard("goToStep", step_index);
-                return true;
-            });
-            $("#is_justified").on("click", function() {
-                // Change Justify
-                var options = {
-                    justified: $(this).prop("checked")
-                };
-                $('#smartwizard').smartWizard("setOptions", options);
-                return true;
-            });
-            $("#animation").on("change", function() {
-                // Change theme
-                var options = {
-                    transition: {
-                        animation: $(this).val()
-                    },
-                };
-                $('#smartwizard').smartWizard("setOptions", options);
-                return true;
-            });
-            $("#theme_selector").on("change", function() {
-                // Change theme
-                var options = {
-                    theme: $(this).val()
-                };
-                $('#smartwizard').smartWizard("setOptions", options);
-                return true;
-            });
+           
         });
         $(window).load(function() {
             var element = document.getElementById('usertype');
             meThods(element)
         });
+        function validatestep2(){
+            var Suburb = $("#Suburb").val();
+            if(Suburb.length == 0){
+                $('#smartwizard').smartWizard("goToStep", 1);
+                $("#Suburb").addClass('bad'); 
+                return false;
+            }else{
+                $("#Suburb").removeClass('bad'); 
+                $("#Suburb").addClass('good'); 
+            }
+            var state = $("#state").val();
+            if(state.length == 0){
+                $('#smartwizard').smartWizard("goToStep", 1);
+                $("#state").addClass('bad'); 
+                return false;
+            }else{
+                $("#state").removeClass('bad'); 
+                $("#state").addClass('good'); 
+            }
+            var state = $("#state").val();
+            if(state.length == 0){
+                $('#smartwizard').smartWizard("goToStep", 1);
+                $("#state").addClass('bad'); 
+                return false;
+            }else{
+                $("#state").removeClass('bad'); 
+                $("#state").addClass('good'); 
+            }
+            var country = $("#country").val();
+            if(country.length == 0){
+                $('#smartwizard').smartWizard("goToStep", 1);
+                $("#country").addClass('bad'); 
+                return false;
+            }else{
+                $("#country").removeClass('bad'); 
+                $("#country").addClass('good'); 
+            }
+            var postal_code = $("#postal_code").val();
+            if(postal_code.length == 0){
+                $('#smartwizard').smartWizard("goToStep", 1);
+                $("#postal_code").addClass('bad'); 
+                return false;
+            }else{
+                $("#postal_code").removeClass('bad'); 
+                $("#postal_code").addClass('good'); 
+            }
+            var phone = $("#phone").val();
+            if(phone.length == 0){
+                $('#smartwizard').smartWizard("goToStep", 1);
+                $("#phone").addClass('bad'); 
+                return false;
+            }else{
+                $("#phone").removeClass('bad'); 
+                $("#phone").addClass('good'); 
+            }
+            var usertype = $("#usertype").val();
+            if(usertype.length == 0){
+                $('#smartwizard').smartWizard("goToStep", 1);
+                $("#usertype").addClass('bad'); 
+                return false;
+            }else{
+                $("#usertype").removeClass('bad'); 
+                $("#usertype").addClass('good'); 
+            }
+        }
+        function validatestep1(){
+            var first_name = $("#first_name").val();
+            if(first_name.length == 0){
+                $('#smartwizard').smartWizard("goToStep", 0);
+                $("#first_name").addClass('bad'); 
+                return false;
+            }else{
+                $("#first_name").removeClass('bad'); 
+                $("#first_name").addClass('good'); 
+            }
 
+            var last_name = $("#last_name").val();
+            if(last_name.length == 0){
+                $('#smartwizard').smartWizard("goToStep", 0);
+                $("#last_name").addClass('bad'); 
+                return false;
+            }else{
+                $("#last_name").removeClass('bad'); 
+                $("#last_name").addClass('good'); 
+            }
+            var username = $("#username").val();
+            if(username.length == 0){
+                $('#smartwizard').smartWizard("goToStep", 0);
+                $("#username").addClass('bad'); 
+                return false;
+            }else{
+                $("#username").removeClass('bad'); 
+                $("#username").addClass('good'); 
+            }
+
+            var email = $("#email").val();
+            if(email.length == 0){
+                $('#smartwizard').smartWizard("goToStep", 0);
+                $("#email").addClass('bad'); 
+                return false;
+            }else{
+                $("#email").removeClass('bad'); 
+                $("#email").addClass('good'); 
+            }
+
+            var password = $("#password").val();
+            if(password.length == 0){
+                $('#smartwizard').smartWizard("goToStep", 0);
+                $("#password").addClass('bad'); 
+                return false;
+            }else{
+                $("#password").removeClass('bad'); 
+                $("#password").addClass('good'); 
+            }
+
+            var password_confirmation = $("#password_confirmation").val();
+            if(password_confirmation.length == 0){
+                $('#smartwizard').smartWizard("goToStep", 0);
+                $("#password_confirmation").addClass('bad'); 
+                return false;
+            }else{
+                $("#password_confirmation").removeClass('bad'); 
+                $("#password_confirmation").addClass('good'); 
+            }
+
+            if(password_confirmation.length !== password.length){
+                $('#smartwizard').smartWizard("goToStep", 0);
+                $("#password_confirmation").addClass('bad'); 
+                return false;
+            }else{
+                $("#password_confirmation").removeClass('bad'); 
+                $("#password_confirmation").addClass('good'); 
+            }
+            var code = $("#code").val();
+            if(code.length == 0){
+                $('#smartwizard').smartWizard("goToStep", 0);
+                $("#code").addClass('bad'); 
+                return false;
+            }else{
+                $("#code").removeClass('bad'); 
+                $("#code").addClass('good'); 
+            }
+        }
         function meThods(val) {
             if (val.value == "business") {
                 $('.show-business').show()
@@ -398,8 +506,12 @@
                 $('.show-dealer').hide()
             }
         }
+       
     </script>
-
+    <style>
+        .good{border:1px solid green;}
+        .bad{border:1px solid red;}
+    </style>
     <script src="https://js.stripe.com/v3/"></script>
     <script>
         var stripe = Stripe('{{ env('STRIPE_KEY') }}');

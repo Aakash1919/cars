@@ -210,22 +210,29 @@
         <script src="{{asset('assets/admin/js/load.js')}}"></script>
         <script src="{{asset('assets/admin/js/select2.min.js')}}"></script>
 		<script src="{{asset('assets/theme/dropzone/dropzone.js')}}"></script>
-	<script src="{{asset('assets/theme/assets/js/app.js')}}"></script>
-	<script src="{{asset('assets/admin/js/custom.js')}}"></script>
-        <!-- AJAX Js-->
-        <script src="{{asset('assets/admin/js/myscript.js')}}"></script>
-        @if (session()->has('success'))
-        <script>
-            $.notify("{{ session('success') }}", "success");
-        </script>
-        @endif
-        @if (session()->has('error'))
-        <script>
-            $.notify("{{ session('error') }}", "error");
-        </script>
-        @endif
-        @yield('scripts')
-	<script>
+		<script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf/1.5.3/jspdf.min.js"></script>
+		{{-- <script src="{{asset('assets/theme/tableexport/tableExport.js')}}"></script>
+		<script src="{{asset('assets/theme/tableexport/html2canvas.js')}}"></script>
+		<script src="{{asset('assets/theme/tableexport/jquery.base64.js')}}"></script>
+		<script src="{{asset('assets/theme/tableexport/jspdf/libs/sprintf.js')}}"></script>
+		<script src="{{asset('assets/theme/tableexport/jspdf/jspdf.js')}}"></script>
+		<script src="{{asset('assets/theme/tableexport/jspdf/libs/base64.js')}}"></script> --}}
+		<script src="{{asset('assets/theme/assets/js/app.js')}}"></script>
+		<script src="{{asset('assets/admin/js/custom.js')}}"></script>
+			<!-- AJAX Js-->
+			<script src="{{asset('assets/admin/js/myscript.js')}}"></script>
+			@if (session()->has('success'))
+			<script>
+				$.notify("{{ session('success') }}", "success");
+			</script>
+			@endif
+			@if (session()->has('error'))
+			<script>
+				$.notify("{{ session('error') }}", "error");
+			</script>
+			@endif
+			@yield('scripts')
+		<script>
 		/*	
 		new PerfectScrollbar('.customers-list');
 		new PerfectScrollbar('.store-metrics');

@@ -15,10 +15,16 @@
 </div>
 <div class="card">
     <div class="card-body">
+        <button style="float: right; width:100px;" type="button" class="btn btn-dark" onClick="printDiv('pdfexport');"><i class="fa fa-print"></i> Print</button>
+    </div>
+</div>
+<div class="card" id="pdfexport">
+    <div class="card-body">
         <div id="invoice">
             <div class="toolbar hidden-print">
                 <div class="text-end">
-                    <button type="button" class="btn btn-dark" onClick="window.print();"><i class="fa fa-print"></i> Print</button>
+                    
+                    
                 </div>
                 <hr/>
             </div>
@@ -100,7 +106,7 @@
                             <div class="notice">A finance charge of 1.5% will be made on unpaid balances after 30 days.</div>
                         </div> --}}
                     </main>
-                    <footer>Invoice was created on a computer and is valid without the signature and seal.</footer>
+                    
                 </div>
                 <!--DO NOT DELETE THIS div. IT is responsible for showing footer always at the bottom-->
                 <div></div>
@@ -109,3 +115,14 @@
     </div>
 </div>
 @endSection
+@section('scripts')
+<script type="text/javascript">
+ function printDiv(divId) {
+       var printContents = document.getElementById(divId).innerHTML;
+       var originalContents = document.body.innerHTML;
+       document.body.innerHTML = "<html><head><title></title></head><body>" + printContents + "</body>";
+       window.print();
+       document.body.innerHTML = originalContents;
+   }
+</script>
+@endsection
