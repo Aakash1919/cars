@@ -23,7 +23,7 @@
                                     <p class=MsoNormal align=center style='text-align:center'><span
                                             style='font-family:"Arial",sans-serif'><img width=154 height=53
                                                 style='width:1.6041in;height:auto' id="Picture_x0020_26"
-                                                src="http://cars.local/assets/front/images/logo.png"
+                                                src="{{base_url}}assets/front/images/logo.png"
                                                 alt="Car Salvage Sales"></span><span
                                             style='font-family:"Arial",sans-serif'>
                                         
@@ -76,7 +76,7 @@
                                                     <p class=MsoNormal align=center
                                                         style='text-align:center;line-height:18.0pt'><span
                                                             style='font-size:10.5pt;font-family:"Arial",sans-serif'>
-                                                            >{{ $email_body }}
+                                                            {{ $email_body }}
                                                     </p>
                                                 </td>
                                             </tr>
@@ -388,7 +388,7 @@
                                 </o:p></span></p>
                     </td>
                 </tr>
-            </table>>
+            </table>
         </div>
     </blockquote>
 </div>
