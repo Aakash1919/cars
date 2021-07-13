@@ -53,6 +53,12 @@ class FrontendController extends Controller
         $specs = Specification::all();
         return view('front.about', compact('skills', 'specs', 'aboutimgs'));
     }
+    public function terms(){
+        return view('front.terms');
+    }
+    public function policies(){
+        return view('front.policies');
+    }
     public function getModels($brandid)
     {
         return get_models_by_make($brandid);

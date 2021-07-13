@@ -23,7 +23,23 @@
       </nav>
   </div>
 </div>
-
+<div class="card">
+      <div class="card-body">
+      <div class="col-lg-12">
+                @if (empty(Auth::user()->current_plan))
+                    <div class="alert alert-warning" role="alert">
+                        <p class="mb-0">You haven't bought any package yet. <strong>To publish your ad</strong> please buy a package from below options.</p>
+                    </div>
+                @else
+                    <div class="alert alert-warning" role="alert">
+                        <p class="mb-0">{{$langg->lang145}} <strong>{{ $data['boughtPlan']->title }}</strong>.
+                        </p>
+                    </div>
+                @endif
+            </div>
+      </div>
+      
+  </div>
 <div class="card">
   <div class="card-body">
     <div class="card-title">

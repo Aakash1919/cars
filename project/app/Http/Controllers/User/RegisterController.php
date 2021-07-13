@@ -10,8 +10,10 @@ use App\Http\Controllers\User\StripeController;
 use App\Models\Generalsetting;
 use App\Models\User;
 use App\Models\Plan;
+use App\Models\Payment;
 use Auth;
 use Validator;
+use App\Models\Notifications;
 
 class RegisterController extends Controller
 {
@@ -107,6 +109,7 @@ class RegisterController extends Controller
         'password' => 'required|confirmed',
         'usertype'=> 'required',
         'plan'=>'required',
+        'terms' => 'required'
         // 'code' => [
         //   'required',
         //     function ($attribute, $value, $fail) {
@@ -140,6 +143,18 @@ class RegisterController extends Controller
                     $plan = Plan::find($request->plan);
                     $subscriptionId = $this->stripeController->createStripeSubscription($customerId, $plan->stripe_plan_id);
                     $temporaryUser->stripe_subscription_id = $subscriptionId['id'];
+                    
+                    $notification = new Notifications;
+                    $notification->user_id =  $temporaryUser->id;
+                    $notification->message =  'You are charged '.$plan->price.' for membership';
+                    $notification->created_at =  date('Y-m-d h:i:s', time());
+                    $notification->save();
+                    
+                    $payment = new Payment;
+                    $payment->plan_id = $plan->id;
+                    $payment->user_id = $temporaryUser->id;
+                    $payment->amount = $plan->price;
+                    $payment->save();
                 }
             }
             if (isset($customerId) && isset($subscriptionId)) {

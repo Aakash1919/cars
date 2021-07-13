@@ -177,6 +177,21 @@
 			<p class="mb-0">Copyright © 2021. All right reserved.</p>
 		</footer>
 	</div>
+	<div class="modal fade" id="ResponseModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+        <div class="modal-dialog" role="document">
+            <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title" id="responsetitle">Modal title</h5>
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                <span aria-hidden="true">&times;</span>
+                </button>
+            </div>
+            <div class="modal-body" id="responsebody">
+               
+            </div>
+            </div>
+        </div>
+        </div>
 	<!--end wrapper-->
 	
 	<!-- Bootstrap JS -->
@@ -242,8 +257,16 @@
 		// 	$('#featuredimg').imageuploadify();
 		// 	$('#gallery').imageuploadify();
 		// });
+		
 	</script>
-			
+		        <script>
+        function showpopup(status,title,message){
+            $("#responsetitle").html(title);
+            var ResponseMessage = '<div class="alert alert-' + status + '" role="alert">'+ message +'</div>';
+            $("#responsebody").html(ResponseMessage);
+            $('#ResponseModal').modal('toggle');
+            }
+        </script>	
     </body>
 
 </html>

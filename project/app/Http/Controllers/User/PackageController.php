@@ -34,7 +34,7 @@ class PackageController extends Controller
         }
         $plan = Plan::findOrFail($id);
         $user = Auth::user();
-        return view('user.package.payment',compact('user','plan'));
+        return view('user.package.payment',compact('user','plan','data'));
     }
 
     public function freePublish(Request $request) {

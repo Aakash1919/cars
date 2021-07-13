@@ -96,7 +96,7 @@
 									<div class="col-md-6">
 										<label for="inputChoosePassword" class="form-label">Street</label>
 										<div class="input-group"> <span class="input-group-text bg-transparent"><i class='lni lni-apartment' ></i></span>
-											<input type="text" class="form-control border-start-0" id="inputChoosePassword" placeholder="Street Address" value="{{ $user->address }}"/>
+											<input type="text" class="form-control border-start-0" id="inputChoosePassword" placeholder="Street Address" value="{{ $user->street }}"/>
 										</div>
 									</div>
 									<div class="col-md-6">
@@ -213,7 +213,7 @@
 							</div>
 							@if(isset(Auth::user()->stripe_subscription_id))
 							<div class="card-footer">
-								<a href="{{route('stripe.unsubscribe')}}" class="btn btn-danger">Cancel Subscription</a>
+								<a href="{{route('stripe.unsubscribe')}}" class="btn btn-danger">Cancel Membership</a>
 							</div>
 							@endif
 						</div>

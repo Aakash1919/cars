@@ -463,6 +463,8 @@ Route::group(['middleware' => 'guest'], function() {
 
 // ************************************ FRONT SECTION **********************************************
 Route::get('/', 'Front\FrontendController@home')->name('front.index');
+Route::get('/termsandconditions', 'Front\FrontendController@terms')->name('front.terms');
+Route::get('/privacy', 'Front\FrontendController@policies')->name('front.privacy');
 Route::get('/prices/{id}', 'Front\FrontendController@prices')->name('front.prices');
 Route::get('/cars', 'Front\FrontendController@cars')->name('front.cars');
 Route::get('/filter','Front\FrontendController@filter')->name('filter');

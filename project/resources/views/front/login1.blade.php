@@ -284,6 +284,14 @@
                                             <div id="card-element"></div>
                                             <div id="card-errors" role="alert"></div>
                                             </div>
+                                            
+                                       
+                                        <div class="card-footer">
+                                        <div class="form-check">
+                                            <input type="checkbox" class="form-check-input" id="terms" name="terms" required>
+                                            <label class="form-check-label" for="terms">I agree with <a href="/termsandconditions">terms and conditions</a></label>
+                                            </div>
+                                        </div>
                                         </div>
                                     </div>
                                 </div>
@@ -348,6 +356,7 @@
             $('#smartwizard').smartWizard({
                 selected: 0,
                 theme: 'dots',
+                autoAdjustHeight: true,
                 transition: {
                     animation: 'slide-horizontal', // Effect on navigation, none/fade/slide-horizontal/slide-vertical/slide-swing
                 },
@@ -509,13 +518,15 @@
             if (val.value == "business") {
                 $('.show-business').show()
                 $('.show-dealer').hide()
+                $('.tab-content').css('height',"auto");
             } else if (val.value == "dealer") {
                 $('.show-business').show()
                 $('.show-dealer').show()
-
+                $('.tab-content').css('height',"auto");
             } else {
                 $('.show-business').hide()
                 $('.show-dealer').hide()
+                $('.tab-content').css('height',"auto");
             }
         }
        
@@ -581,10 +592,10 @@
                 processData: false,
                 success: function(data) {
                     if ((data.errors)) {
-                        $('#pills-signup .alert-success').hide();
-                        $('#pills-signup .alert-info').hide();
-                        $('#pills-signup .alert-danger').show();
-                        $('#pills-signup .alert-danger ul').html(''); 
+                        // $('#pills-signup .alert-success').hide();
+                        // $('#pills-signup .alert-info').hide();
+                        // $('#pills-signup .alert-danger').show();
+                        // $('#pills-signup .alert-danger ul').html(''); 
                        
                         for (var error in data.errors) {
                             $('#pills-signup .alert-danger p').html(data.errors[error]);
@@ -595,14 +606,14 @@
                         
                         $('#pills-signup button.submit-btn').prop('disabled', false);
                     } else {
-                        $('#pills-signup .alert-info').hide();
-                        $('#pills-signup .alert-danger').hide();
-                        $('#pills-signup .alert-success').show();
-                        $('#pills-signup .alert-success p').html(data);
+                        // $('#pills-signup .alert-info').hide();
+                        // $('#pills-signup .alert-danger').hide();
+                        // $('#pills-signup .alert-success').show();
+                        // $('#pills-signup .alert-success p').html(data);
                         $('#pills-signup button.submit-btn').prop('disabled', false);
 
                         $('#registerform1').trigger("reset");
-                        showpopup('sucess','Thank you for registering with us.',data);
+                        showpopup('success','Thank you for registering with us.',data);
                     }
                 }
             });

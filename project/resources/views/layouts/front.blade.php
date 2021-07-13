@@ -123,11 +123,11 @@
                             <ul class="foot-list">
                                 <li><a href="#"><i class="fas fa-angle-right"></i> How It Works</a></li>
                                 <li><a href="#"><i class="fas fa-angle-right"></i> Rev Checks</a></li>
-                                <li><a href="#"><i class="fas fa-angle-right"></i> Sign In </a></li>
-                                <li><a href="#"><i class="fas fa-angle-right"></i> Regiter</a></li>
+                                <li><a href="/login"><i class="fas fa-angle-right"></i> Sign In </a></li>
+                                <li><a href="/register1"><i class="fas fa-angle-right"></i> Register</a></li>
                                 <li><a href="#"><i class="fas fa-angle-right"></i> Support</a></li>
-                                <li><a href="#"><i class="fas fa-angle-right"></i> Terms & Conditions</a></li>
-                                <li><a href="#"><i class="fas fa-angle-right"></i> Privacy Policy</a></li>
+                                <li><a href="/termsandconditions"><i class="fas fa-angle-right"></i> Terms & Conditions</a></li>
+                                <li><a href="/privacy"><i class="fas fa-angle-right"></i> Privacy Policy</a></li>
                             </ul>
                         </div>
                     </div>
@@ -253,7 +253,7 @@
         <script>
         function showpopup(status,title,message){
             $("#responsetitle").html(title);
-            var ResponseMessage = '<div class="alert alert-'+status+'" role="alert">'+ message +'</div>';
+            var ResponseMessage = '<div class="alert alert-' + status + '" role="alert">'+ message +'</div>';
             $("#responsebody").html(ResponseMessage);
             $('#ResponseModal').modal('toggle');
             }
