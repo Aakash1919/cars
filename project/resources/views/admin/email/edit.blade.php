@@ -77,7 +77,7 @@
                             </div>
                           </div>
                           <div class="col-lg-7">
-                              <textarea class="nic-edit" name="email_body" placeholder="Email Body">{{ $data->email_body }}</textarea>
+                              <textarea class="summernote" name="email_body" placeholder="Email Body">{{ $data->email_body }}</textarea>
                           </div>
                         </div>
 
@@ -100,5 +100,9 @@
                 </div>
               </div>
             </div>
-
+<script>
+$(document).ready(function() {
+  $('.summernote').summernote();
+}); 
+</script>
 @endsection

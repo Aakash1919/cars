@@ -236,6 +236,7 @@ var myDropzone = new Dropzone("form#profileimg", {
 		forceFallback: false,
 		init: function() {
 			this.on("success", function(file, responseText) {
+				console.log(responseText);
 				if(responseText.status==true){
 					$("#myprofileimage").attr('src',responseText.message);
 					$(".user-img").attr('src',responseText.message);
@@ -243,7 +244,7 @@ var myDropzone = new Dropzone("form#profileimg", {
 			});
 		}
 	});
-	$(window).load(function() {
+	$(window).on('load',function() {
       var element = document.getElementById('usertype');
       meThods(element)
     });

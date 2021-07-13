@@ -169,7 +169,7 @@
                                                     <div class="img-area">
                                                         <img class="light-zoom"
                                                             src="{{ asset('assets/front/images/cars//featured/' . $car->featured_image) }}"
-                                                            style="max-height: 220px; object-fit: cover;" alt="">
+                                                            style="max-height: 220px; object-fit: cover; min-height: 220px;" alt="">
                                                     </div>
                                                     <div class="content">
                                                         <h4 class="title">

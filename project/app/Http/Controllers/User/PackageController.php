@@ -27,6 +27,11 @@ class PackageController extends Controller
         //   Session::flash('error', 'Please fill up your inforamtions first!');
         //   return back();
         // }
+        $data['plans'] = Plan::where('status', 1)->orderBy('id', 'ASC')->get();
+        $data['boughtPlan'] = '';
+        if (!empty(Auth::user()->current_plan)) {
+          $data['boughtPlan'] = Plan::find(Auth::user()->current_plan);
+        }
         $plan = Plan::findOrFail($id);
         $user = Auth::user();
         return view('user.package.payment',compact('user','plan'));

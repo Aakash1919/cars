@@ -15,26 +15,31 @@
 </div>
 <div class="card">
     <div class="card-body">
-        <button style="float: right; width:100px;" type="button" class="btn btn-dark" onClick="printDiv('pdfexport');"><i class="fa fa-print"></i> Print</button>
+        <button style="float: right; width:100px;" type="button" class="btn btn-dark" onClick="printDiv('invoice');"><i class="fa fa-print"></i> Print</button>
     </div>
 </div>
+<style>
+    @media print {
+
+html, body {
+  height:100vh; 
+  margin: 0 !important; 
+  padding: 0 !important;
+  overflow: hidden;
+}
+
+}
+</style>
 <div class="card" id="pdfexport">
     <div class="card-body">
         <div id="invoice">
-            <div class="toolbar hidden-print">
-                <div class="text-end">
-                    
-                    
-                </div>
-                <hr/>
-            </div>
             <div class="invoice overflow-auto">
                 <div style="min-width: 600px">
                     <header>
                         <div class="row">
                             <div class="col">
                                 <a href="javascript:;">
-                                    <img src="/assets/front/images/loader.gif" width="80" alt="" />
+                                    <img src="{{asset('/assets/front/images/loader.gif')}}" width="80" alt="" />
                                 </a>
                             </div>
                             <div class="col company-details">
@@ -43,9 +48,6 @@
                                         Car Salvage Sales
                                     </a>
                                 </h2>
-                                {{-- <div>455 Foggy Heights, AZ 85004, US</div>
-                                <div>(123) 456-789</div>
-                                <div>company@example.com</div> --}}
                             </div>
                         </div>
                     </header>
@@ -101,15 +103,8 @@
                             </tfoot>
                         </table>
                         <div class="thanks">Thank you!</div>
-                        {{-- <div class="notices">
-                            <div>NOTICE:</div>
-                            <div class="notice">A finance charge of 1.5% will be made on unpaid balances after 30 days.</div>
-                        </div> --}}
                     </main>
-                    
                 </div>
-                <!--DO NOT DELETE THIS div. IT is responsible for showing footer always at the bottom-->
-                <div></div>
             </div>
         </div>
     </div>
@@ -120,7 +115,7 @@
  function printDiv(divId) {
        var printContents = document.getElementById(divId).innerHTML;
        var originalContents = document.body.innerHTML;
-       document.body.innerHTML = "<html><head><title></title></head><body>" + printContents + "</body>";
+       document.body.innerHTML = "<html><head><title></title></head><body style='padding:0px;margin:0px;'>" + printContents + "</body>";
        window.print();
        document.body.innerHTML = originalContents;
    }

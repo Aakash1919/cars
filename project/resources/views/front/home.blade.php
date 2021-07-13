@@ -159,7 +159,7 @@
                     <div class="col-lg-4 col-md-6">
                         <a class="car-info-box" href="{{ route('front.details', $fcar->id) }}">
                             <div class="img-area">
-                                <img class="light-zoom" src="{{asset('assets/front/images/cars//featured/'.$fcar->featured_image)}}" alt="">
+                                <img style="min-height: 230px; object-fit: cover;" class="light-zoom" src="{{asset('assets/front/images/cars//featured/'.$fcar->featured_image)}}" alt="{{$fcar->featured_image}}">
                             </div>
                             <div class="content">
                                 <h4 class="title">
@@ -224,7 +224,7 @@
                    <div class="col-lg-4 col-md-6">
                 <a class="car-info-box" href="{{ route('front.details', $lcar->id) }}">
                     <div class="img-area">
-                        <img class="light-zoom" src="{{asset('assets/front/images/cars//featured/'.$lcar->featured_image)}}" alt="">
+                        <img style="min-height: 230px; object-fit: cover;" class="light-zoom" src="{{asset('assets/front/images/cars//featured/'.$lcar->featured_image)}}" alt="{{$lcar->featured_image}}">
                     </div>
                     <div class="content">
                         <h4 class="title">

@@ -57,7 +57,7 @@
                                         <br>Payment</a>
                                 </li>
                             </ul>
-                            <div class="tab-content" style="min-height:512px;">
+                            <div class="tab-content">
                                 <div id="step-1" class="tab-pane" role="tabpanel" aria-labelledby="step-1">
                                     <div class="card ">
                                         <div class="card-body">
@@ -74,12 +74,12 @@
                                                 <div class="col-lg-6">
                                                     <label for="last_name" class="form-label">Last Name</label>
                                                     <input name="last_name" class="form-control border-start-0" type="text"
-                                                        placeholder="{{ $langg->lang403 }}" id="last_name">
+                                                        placeholder="{{ $langg->lang403 }}" id="last_name" onchange="makeid();">
                                                 </div>
                                                 <div class="col-lg-6">
-                                                    <label for="username" class="form-label">Username</label>
+                                                    <label for="username" class="form-label">Customer Number</label>
                                                     <input name="username" class="form-control border-start-0" type="text"
-                                                        placeholder="{{ $langg->lang404 }}" id="username">
+                                                        placeholder="Customer Number" id="username" readonly>
                                                 </div>
                                                 <div class="col-lg-6">
                                                     <label for="email" class="form-label">Email</label>
@@ -99,22 +99,22 @@
                                                         type="password" placeholder="{{ $langg->lang407 }}"
                                                         id="password_confirmation">
                                                 </div>
-                                                <div class="col-lg-6">
-                                                    <label for="code" class="form-label">{{ $langg->lang408 }}</label>
-                                                    <input name="code" class="form-control border-start-0 Password" type="text"
-                                                        placeholder="{{ $langg->lang408 }}" id="code" autocomplete="off">
-                                                </div>
-                                                <div class="col-lg-6">
-                                                    <label for="code" class="form-label">Captcha</label>
-                                                    <div class="img">
-                                                        <img id="codeimg"
-                                                            src="{{ asset('assets/images/capcha_code.png?time=' . time()) }}"
-                                                            alt="">
-                                                    </div>
-                                                    <div class="icon">
-                                                        <i class="fas fa-sync refresh_code"></i>
-                                                    </div>
-                                                </div>
+                                                <!--<div class="col-lg-6">-->
+                                                <!--    <label for="code" class="form-label">{{ $langg->lang408 }}</label>-->
+                                                <!--    <input name="code" class="form-control border-start-0 Password" type="text"-->
+                                                <!--        placeholder="{{ $langg->lang408 }}" id="code" autocomplete="off">-->
+                                                <!--</div>-->
+                                                <!--<div class="col-lg-6">-->
+                                                <!--    <label for="code" class="form-label">Captcha</label>-->
+                                                <!--    <div class="img">-->
+                                                <!--        <img id="codeimg"-->
+                                                <!--            src="{{ asset('assets/images/capcha_code.png?time=' . time()) }}"-->
+                                                <!--            alt="">-->
+                                                <!--    </div>-->
+                                                <!--    <div class="icon">-->
+                                                <!--        <i class="fas fa-sync refresh_code"></i>-->
+                                                <!--    </div>-->
+                                                <!--</div>-->
                                             </div>
                                         </div>
                                     </div>
@@ -126,6 +126,13 @@
                                         <div class="card-body">
 
                                             <div class="row">
+                                            <div class="col-lg-6">
+                                                    <label for="Street" class="form-label">Street</label>
+
+                                                    <input type="text" class="form-control border-start-0" id="Street"
+                                                        placeholder="Street Address" name="street" value="" />
+
+                                                </div>
                                                 <div class="col-lg-6">
                                                     <label for="Suburb" class="form-label">Suburb</label>
 
@@ -292,17 +299,22 @@
 @endsection
 
 @section('scripts')
+<script src="https://www.google.com/recaptcha/api.js?render=6LcrZYEbAAAAAArdCM0eiZFYecpHat8g817Qvv6j"></script>
+
+    <script src="https://js.stripe.com/v3/"></script>
     <script>
-        $('.refresh_code').on("click", function() {
-            $.get('{{ url('refresh_code') }}', function(data, status) {
-                $('#codeimg').attr("src", "{{ url('assets/images') }}/capcha_code.png?time=" + Math
-                    .random());
-            });
-        })
+        // $('.refresh_code').on("click", function() {
+        //     $.get('{{ url('refresh_code') }}', function(data, status) {
+        //         $('#codeimg').attr("src", "{{ url('assets/images') }}/capcha_code.png?time=" + Math
+        //             .random());
+        //     });
+        // })
         $(document).ready(function() {
             // Toolbar extra buttons
-            var btnFinish = $('<button id="finish-btn"></button>').text('Finish').addClass('btn btn-success').on('click', function(
+            var btnFinish = $('<button id="finish-btn"></button>').text('Finish').addClass('btn btn-success submit-btn').on('click', function(
                 e) {
+                   // e.preventDefault();
+                    
             });
             var btnCancel = $('<button></button>').text('Cancel').addClass('btn btn-danger').on('click',
                 function() {
@@ -310,7 +322,7 @@
                 });
 
             $("#smartwizard").on("showStep", function(e, anchorObject, stepNumber, stepDirection, stepPosition) {
-                console.log(stepNumber);
+                //console.log(stepNumber);
                 if(stepNumber==1){
                     validatestep1();
                 }
@@ -483,15 +495,15 @@
                 $("#password_confirmation").removeClass('bad'); 
                 $("#password_confirmation").addClass('good'); 
             }
-            var code = $("#code").val();
-            if(code.length == 0){
-                $('#smartwizard').smartWizard("goToStep", 0);
-                $("#code").addClass('bad'); 
-                return false;
-            }else{
-                $("#code").removeClass('bad'); 
-                $("#code").addClass('good'); 
-            }
+            // var code = $("#code").val();
+            // if(code.length == 0){
+            //     $('#smartwizard').smartWizard("goToStep", 0);
+            //     $("#code").addClass('bad'); 
+            //     return false;
+            // }else{
+            //     $("#code").removeClass('bad'); 
+            //     $("#code").addClass('good'); 
+            // }
         }
         function meThods(val) {
             if (val.value == "business") {
@@ -512,7 +524,6 @@
         .good{border:1px solid green;}
         .bad{border:1px solid red;}
     </style>
-    <script src="https://js.stripe.com/v3/"></script>
     <script>
         var stripe = Stripe('{{ env('STRIPE_KEY') }}');
         var elements = stripe.elements();
@@ -535,19 +546,23 @@
                     var errorElement = document.getElementById('card-errors');
                     errorElement.textContent = result.error.message;
                 } else {
-                    stripeTokenHandler(result.token);
+                    stripeTokenHandler(result.token, event);
                 }
             });
         });
 
-        function stripeTokenHandler(token) {
+        function stripeTokenHandler(token, event) {
             var form = document.getElementById('registerform');
             var hiddenInput = document.createElement('input');
             hiddenInput.setAttribute('type', 'hidden');
             hiddenInput.setAttribute('name', 'stripeToken');
             hiddenInput.setAttribute('value', token.id);
             form.appendChild(hiddenInput);
-            register(e)
+            grecaptcha.ready(function() {
+              grecaptcha.execute('6LcrZYEbAAAAAArdCM0eiZFYecpHat8g817Qvv6j', {action: 'submit'}).then(function(token) {
+                register(event)
+              });
+            });
         }
         function register(e) {
             e.preventDefault();
@@ -555,6 +570,7 @@
             $('#pills-signup .alert-info').show();
             $('#pills-signup .alert-info p').html($('#processdata').val());
             var form = $('form')[0];
+             $("#finish-btn").attr('disabled',true);
             $.ajax({
                 method: "POST",
                 url: $('#registerform').prop('action'),
@@ -564,15 +580,19 @@
                 cache: false,
                 processData: false,
                 success: function(data) {
-                    console.log(data);
                     if ((data.errors)) {
                         $('#pills-signup .alert-success').hide();
                         $('#pills-signup .alert-info').hide();
                         $('#pills-signup .alert-danger').show();
-                        $('#pills-signup .alert-danger ul').html('');
+                        $('#pills-signup .alert-danger ul').html(''); 
+                       
                         for (var error in data.errors) {
                             $('#pills-signup .alert-danger p').html(data.errors[error]);
+                            
+                            showpopup('danger','Please fix following Errors',data.errors[error]);
+                           
                         }
+                        
                         $('#pills-signup button.submit-btn').prop('disabled', false);
                     } else {
                         $('#pills-signup .alert-info').hide();
@@ -582,12 +602,25 @@
                         $('#pills-signup button.submit-btn').prop('disabled', false);
 
                         $('#registerform').trigger("reset");
+                        showpopup('sucess','Thank you for registering with us.',data);
                     }
                 }
             });
         }
+
+        function makeid() {
+        var text = "";
+        var possible = "0123456789";
+
+        for (var i = 0; i < 15; i++)
+            text += possible.charAt(Math.floor(Math.random() * possible.length));
+
+        //return text;
+        $("#username").val(text);
+        }
+
     </script>
-    <style>
+    <style> 
         .col-lg-6 {
             margin-top: 5px;
             margin-bottom: 5px;

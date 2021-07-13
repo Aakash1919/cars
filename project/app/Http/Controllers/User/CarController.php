@@ -201,16 +201,14 @@ class CarController extends Controller
           $notification->save();
         }
       }
-
-      $to = $user->email;
+        
+      $to = Auth::user()->email;
       $subject = 'CARSALVAGESALES : New Ad Publishing Email';
-      $msg = "Hi $user->first_name,<br>";
-      $msg .= 'There seems to be an issue with your listing (LISTING NUMBER), Your add has been sent for review and a member of our team will be in contact soon to fix the issue and get it active.';
-      $msg.='<br><br>From<br>CarSalvageSales.com';
-      $this->sendCustomEmail($to, $subject, $msg);
+      $msg = 'Your ad is published';
+      $this->sendDesignedEmail($to, $subject, $msg, 'Congratulations!!!', $car);
 
-      $msg = 'Car Added Successfully.';
-      return response()->json($msg);
+      $res_msg = 'Car Added Successfully.';
+      return response()->json($res_msg);
     }
 
     //*** GET Request

@@ -98,7 +98,7 @@
                                                 </select>
                                             </div>
                                             <div class="col-md-6">
-                                                <label for="mileage" class="form-label">{{ $langg->lang113 }} (kml or Unknown)
+                                                <label for="mileage" class="form-label">{{ $langg->lang113 }} (km or Unknown)
                                                     *</label>
                                                 <input type="bumber" class="form-control" id="mileage" name="mileage"
                                                     placeholder="1234">
@@ -110,35 +110,35 @@
                                                     placeholder="VIN/Chassis">
                                             </div>
                                             <div class="col-md-6">
-                                                <label for="year" class="form-label">{{ $langg->lang112 }} *</label>
+                                                <label for="year" class="form-label">{{ $langg->lang112 }}*</label>
                                                 <input type="number" class="form-control" id="year" name="year"
                                                     placeholder="e.g. 1999" min="1990">
                                             </div>
                                             <div class="col-md-6">
                                                 <label for="wovr_option" class="form-label">Is The Vehicle Listed On WOVR
-                                                    *</label>
+                                                    </label>
                                                 <select for="wovr_option" class="searchable-select form-control" name="wovr_option">
-                                                    <option value="0" disabled selected>No</option>
-                                                    <option value="1" disabled >Yes</option>
+                                                    <option value="0"  selected>No</option>
+                                                    <option value="1"  >Yes</option>
                                                 </select>
                                             </div>
                                             <div class="col-md-6">
                                                 <label for="statutory_option" class="form-label">Statutory Or Repairable
                                                     *</label>
                                                 <select for="statutory_option" class="searchable-select form-control" name="statutory_option">
-                                                    <option value="0" disabled selected>No</option>
-                                                    <option value="1" disabled >Yes</option>
+                                                    <option value="0"  selected>No</option>
+                                                    <option value="1"  >Yes</option>
                                                 </select>
                                             </div>
                                             <div class="col-md-6">
                                                 <label for="key" class="form-label">Key</label>
                                                 <select for="key" class="searchable-select form-control" name="car_key">
-                                                    <option value="0" disabled selected>No</option>
-                                                    <option value="1" disabled >Yes</option>
+                                                    <option value="0"  selected>No</option>
+                                                    <option value="1"  >Yes</option>
                                                 </select>
                                             </div>
                                             <div class="col-md-6">
-                                                <label for="cylender" class="form-label">Cylender</label>
+                                                <label for="cylender" class="form-label">Cylenders</label>
                                                 <input type="text" class="form-control" id="cylender" name="cylender"
                                                     placeholder="cylenders">
                                             </div>
@@ -208,12 +208,14 @@
                                                     placeholder="ABCD">
                                                 </select>
                                             </div>
+                                            <!--
                                             <div class="col-12">
                                                 <div class="d-grid">
                                                     <button type="submit"
                                                         class="btn btn-primary addProductSubmit-btn">{{ $langg->lang134 }}</button>
                                                 </div>
                                             </div>
+                                        -->
                                         </div>
 
 
@@ -271,6 +273,14 @@
                 </div>
             </div>
         </div>
+        <div class="row">
+            <div class="card">
+                <div class="card-body">
+                <div class="col-md-6"></div>
+                <div class="col-md-6"><button id="savebtn" class="btn btn-primary addProductSubmit-btn"> Save </button></div>
+                </div>
+            </div>
+        </div>
     </div>
     </div>
 @endsection
@@ -278,6 +288,9 @@
 @section('scripts')
     <!-- Old Data-->
     <script>
+        $(document).on('click',"#savebtn",function(){
+            $("#geniusform").submit();
+        });
         function getModels(brandid) {
             var url = '{{ url('/') }}' + '/car/' + brandid + '/models';
             // console.log(url);

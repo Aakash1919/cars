@@ -98,6 +98,7 @@ class RegisterController extends Controller
 
     public function registerNew(Request $request)
     {
+       // print_r($request->all());die;
         $rules = [
         'username'   => 'required|max:50|unique:users',
         'first_name'   => 'required|max:255',
@@ -106,15 +107,15 @@ class RegisterController extends Controller
         'password' => 'required|confirmed',
         'usertype'=> 'required',
         'plan'=>'required',
-        'code' => [
-           'required',
-            function ($attribute, $value, $fail) {
-                $capstr = session('captcha_string');
-                if ($value != $capstr) {
-                    return $fail("Code doesn't match!");
-                }
-            },
-        ],
+        // 'code' => [
+        //   'required',
+        //     function ($attribute, $value, $fail) {
+        //         $capstr = session('captcha_string');
+        //         if ($value != $capstr) {
+        //             return $fail("Code doesn't match!");
+        //         }
+        //     },
+        // ],
     ];
         $validator = Validator::make(Input::all(), $rules);
 

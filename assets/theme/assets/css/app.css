@@ -1861,7 +1861,7 @@ a {
 	background-color: #FFF;
 
 
-	min-height: 680px;
+	/* min-height: 680px; */
 
 
 	padding: 15px
@@ -1960,7 +1960,7 @@ a {
 .invoice main {
 
 
-	padding-bottom: 50px
+	padding-bottom: 0px
 
 
 }

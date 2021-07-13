@@ -237,12 +237,12 @@
                                                 </select>
                                             </div>
 
-                                            <div class="col-12">
+                                            {{-- <div class="col-12">
                                                 <div class="d-grid">
                                                     <button type="submit"
                                                         class="btn btn-primary addProductSubmit-btn">{{ $langg->lang134 }}</button>
                                                 </div>
-                                            </div>
+                                            </div> --}}
                                         </div>
                                     </div>
                                 </div>
@@ -311,6 +311,14 @@
                 </div>
             </div>
         </div>
+        <div class="row">
+            <div class="card">
+                <div class="card-body">
+                <div class="col-md-6"></div>
+                <div class="col-md-6"><button id="savebtn" class="btn btn-primary addProductSubmit-btn"> Save </button></div>
+                </div>
+            </div>
+        </div>
     </div>
     </div>
 @endsection
@@ -318,6 +326,9 @@
 @section('scripts')
     <!-- Old Data-->
     <script>
+        $(document).on('click',"#savebtn",function(){
+            $("#geniusform").submit();
+        });
         function getModels(brandid) {
             var url = '{{ url('/') }}' + '/car/' + brandid + '/models';
             // console.log(url);

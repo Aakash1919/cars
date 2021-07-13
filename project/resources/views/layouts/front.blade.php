@@ -217,7 +217,21 @@
             <i class="fas fa-chevron-right"></i>
         </div>
         <!-- Back to Top End -->
-
+        <div class="modal fade" id="ResponseModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+        <div class="modal-dialog" role="document">
+            <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title" id="responsetitle">Modal title</h5>
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                <span aria-hidden="true">&times;</span>
+                </button>
+            </div>
+            <div class="modal-body" id="responsebody">
+               
+            </div>
+            </div>
+        </div>
+        </div>
         <!-- jquery -->
         <script src="{{ asset('assets/front/js/jquery.js') }}"></script>
         <!-- bootstrap -->
@@ -236,6 +250,14 @@
         <script src="{{ asset('assets/front/js/custom.js') }}"></script>
         <script src="{{ asset('/assets/theme/assets/plugins/smart-wizard/js/jquery.smartWizard.min.js') }}"></script>
         @yield('scripts')
+        <script>
+        function showpopup(status,title,message){
+            $("#responsetitle").html(title);
+            var ResponseMessage = '<div class="alert alert-'+status+'" role="alert">'+ message +'</div>';
+            $("#responsebody").html(ResponseMessage);
+            $('#ResponseModal').modal('toggle');
+            }
+        </script>
     </body>
 
 </html>

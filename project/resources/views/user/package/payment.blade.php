@@ -23,10 +23,14 @@
       </nav>
   </div>
 </div>
+
 <div class="card">
   <div class="card-body">
     <div class="card-title">
       <h3 class="text-center text-uppercase mb-4" style="font-weight: 900;">{{ $langg->lang155 }}</h3>
+      <div class="alert alert-info" role="alert">
+      You are about to update or downgrade your plan. Please ensure you read the package permissions as well as terms and conditions and select Update Plan.
+      </div>
       </div>  
   <div class="content-area" id="contentArea">
     <div class="add-product-content py-5">
@@ -72,7 +76,7 @@
           {{ csrf_field() }}
           <input type="hidden" name="plan_id" value="{{ $plan->id }}">
           <div class="text-center">
-            <button type="submit" class="btn btn-primary" style="background-color:#1f224f;">Submit</div>
+            <button type="submit" class="btn btn-primary" style="background-color:#1f224f;">Update Plan</div>
           </div>
         </form>
       @endif
@@ -142,7 +146,7 @@
                     </div>
                   @endif
                   <div class="text-left" id="stripeSubmit">
-                    <button type="submit" class="btn btn-primary" style="background-color:#1f224f;">{{ $langg->lang165 }}</div>
+                    <button type="submit" class="btn btn-primary" style="background-color:#1f224f;">Update Plan</div>
                   </div>
               </form>
 

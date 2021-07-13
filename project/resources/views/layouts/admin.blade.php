@@ -29,6 +29,9 @@
         <link href="{{asset('assets/admin/css/style.css')}}" rel="stylesheet"/>
         <link href="{{asset('assets/admin/css/custom.css')}}" rel="stylesheet"/>
         <link href="{{asset('assets/admin/css/responsive.css')}}" rel="stylesheet" />
+        
+        <link href="{{asset('assets/theme/summernote/summernote.css')}}" rel="stylesheet">
+       
         @yield('styles')
 
     </head>
@@ -301,6 +304,7 @@
         <script src="{{asset('assets/admin/js/notify.js') }}"></script>
         <script src="{{asset('assets/admin/js/load.js')}}"></script>
         <script src="{{asset('assets/admin/js/select2.min.js')}}"></script>
+        <script src="{{asset('assets/theme/summernote/summernote.js')}}"></script>
         <!-- Custom Js-->
         <script src="{{asset('assets/admin/js/custom.js')}}"></script>
         <!-- AJAX Js-->

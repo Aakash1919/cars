@@ -75,13 +75,15 @@
 										<P id="countDownTimer"></P>
 									</li>
 									@auth
-										<li id="bidArea">
-											<p><input type ="number" name="bid_price" id="bid_price" placeholder="Bid Price"></input></p>
-											<P><button id = "bid" class="btn btn-sm btn-success">Bid</button></P>
-										</li>
-										<li>
-											<div id="response" style="width:100%"></div>
-										</li>
+									    @if(Auth::user()->current_plan != 11)
+									        <li id="bidArea">
+    											<p><input type ="number" name="bid_price" id="bid_price" placeholder="Bid Price"></input></p>
+    											<P><button id = "bid" class="btn btn-sm btn-success">Bid</button></P>
+    										</li>
+    										<li>
+    											<div id="response" style="width:100%"></div>
+    										</li>
+									    @endif
 									@endauth
 								</ul>
 							</div>
