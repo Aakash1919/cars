@@ -34,7 +34,7 @@
             <div class="card">
                 <div class="card-body" id="pills-signup">
                     @include('includes.admin.form-login')
-                    <form id="registerform" class="login-signup " action="{{ route('user.reg.submitNew') }}" method="post"
+                    <form id="registerform1" class="login-signup " action="{{ route('user.reg.submitNew') }}" method="post"
                         novalidate>
                         {{ csrf_field() }}
 
@@ -538,7 +538,7 @@
             style: style
         });
         card.mount('#card-element');
-        var form = document.getElementById('registerform');
+        var form = document.getElementById('registerform1');
         form.addEventListener('submit', function(event) {
             event.preventDefault();
             stripe.createToken(card).then(function(result) {
@@ -552,7 +552,7 @@
         });
 
         function stripeTokenHandler(token, event) {
-            var form = document.getElementById('registerform');
+            var form = document.getElementById('registerform1');
             var hiddenInput = document.createElement('input');
             hiddenInput.setAttribute('type', 'hidden');
             hiddenInput.setAttribute('name', 'stripeToken');
@@ -573,7 +573,7 @@
              $("#finish-btn").attr('disabled',true);
             $.ajax({
                 method: "POST",
-                url: $('#registerform').prop('action'),
+                url: $('#registerform1').prop('action'),
                 data: new FormData(form),
                 dataType: 'JSON',
                 contentType: false,
@@ -601,7 +601,7 @@
                         $('#pills-signup .alert-success p').html(data);
                         $('#pills-signup button.submit-btn').prop('disabled', false);
 
-                        $('#registerform').trigger("reset");
+                        $('#registerform1').trigger("reset");
                         showpopup('sucess','Thank you for registering with us.',data);
                     }
                 }
