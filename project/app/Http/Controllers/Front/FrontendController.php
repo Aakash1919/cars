@@ -41,8 +41,8 @@ class FrontendController extends Controller
         $data['brands'] = Brand::where('status', 1)->get();
         $data['conditions'] = Condtion::where('status', 1)->get();
         $data['pricings'] = Pricing::all();
-        $data['lcars'] = Car::query()->join('users', 'cars.user_id', '=', 'users.id')->where('admin_status', 1)->where('cars.status', 1)->orderBy('cars.id', 'DESC')->limit(6)->get();
-        $data['fcars'] = Car::query()->join('users', 'cars.user_id', '=', 'users.id')->where('admin_status', 1)->where('cars.status', 1)->where('featured', 1)->orderBy('cars.id', 'DESC')->limit(6)->get();
+        $data['lcars'] = Car::query()->select('cars.*', 'users.id as userid', 'users.suburb')->join('users', 'cars.user_id', '=', 'users.id')->where('admin_status', 1)->where('cars.status', 1)->orderBy('cars.id', 'DESC')->limit(6)->get();
+        $data['fcars'] = Car::query()->select('cars.*', 'users.id as userid', 'users.suburb')->join('users', 'cars.user_id', '=', 'users.id')->where('admin_status', 1)->where('cars.status', 1)->where('featured', 1)->orderBy('cars.id', 'DESC')->limit(6)->get();
         return view('front.home', $data);
     }
 
@@ -141,7 +141,7 @@ class FrontendController extends Controller
         $view = !empty($request->view) ? $request->view : 10;
         $type = !empty($request->type) ? $request->type : 'all';
         $plan = Auth::user()->current_plan ?? 0;
-        $data['cars'] = Car::query()->select('cars.*', 'users.id as userid', 'users.address')->join('users', 'cars.user_id', '=', 'users.id')
+        $data['cars'] = Car::query()->select('cars.*', 'users.id as userid', 'users.suburb')->join('users', 'cars.user_id', '=', 'users.id')
                                     ->when($brands, function ($query, $brands) {
                                         return is_array($brands) ? $query->whereIn('brand_id', $brands) : $query->where('brand_id', $brands);
                                     })

@@ -155,6 +155,7 @@
             </div>
         </div>
                 <div class="row">
+                
                     @foreach ($fcars as $key => $fcar)
                     <div class="col-lg-4 col-md-6">
                         <a class="car-info-box" href="{{ route('front.details', $fcar->id) }}">
@@ -170,7 +171,22 @@
                                         <i class="far fa-eye"></i> {{ $fcar->views }} {{ $langg->lang13 }}
                                     </li>
                                     <li>
-                                        <i class="far fa-clock"></i> 12:51:30
+                                        <i class="far fa-clock"></i> <span id="timer_f_{{ $fcar->id }}">1417539</span>{{date("M d, Y h:i:s", strtotime("+$fcar->auction_time days", strtotime($fcar->auction_date)))}}
+
+                                        <script type="text/javascript">
+                                        $(document).ready(function(){
+                                            $('#timer_f_{{ $fcar->id }}').backward_timer({
+                                                seconds: 1417539,
+                                                format: 'd%d h%:m%:s%',
+                                                on_tick: function(timer) {
+                                                var color = ((timer.seconds_left % 2) == 0)? "#F82828": "#009CFF";
+                                                timer.target.css('color', color);
+                                                }
+                                            });
+                                            $('#timer_f_{{ $fcar->id }}').backward_timer('start');
+                                            });
+                                        </script>
+
                                     </li>
                                 </ul>
                                 <ul class="short-info">
@@ -181,12 +197,12 @@
                                     </li>
                                     <li class="north-west" title="Engine Capacity">
                                         <!--<img src="{{asset('assets/front/images/road-icon.png')}}" alt="">-->
-                                        <small>Engine </small>
-                                        <p>1.6L</p>
+                                        <small>Cylinder </small>
+                                        <p>{{$fcar->cylender}}</p>
                                     </li>
                                 </ul>
                                 <div class="footer-area">
-                                    <i class="fas fa-map-marker-alt"></i> {{ $fcar->address }}
+                                    <i class="fas fa-map-marker-alt"></i> {{ $fcar->suburb }}
                                 </div>
                             </div>
                         </a>
@@ -235,7 +251,20 @@
                                 <i class="far fa-eye"></i> {{ $lcar->views }} {{ $langg->lang13 }}
                             </li>
                             <li>
-                                <i class="far fa-clock"></i> 12:51:30
+                                <i class="far fa-clock"></i> <span id="timer_l_{{ $lcar->id }}">1417539</span>
+                                <script type="text/javascript">
+                                        $(document).ready(function(){
+                                            $('#timer_l_{{ $lcar->id }}').backward_timer({
+                                                seconds: 1417539,
+                                                format: 'd%d h%:m%:s%',
+                                                on_tick: function(timer) {
+                                                var color = ((timer.seconds_left % 2) == 0)? "#F82828": "#009CFF";
+                                                timer.target.css('color', color);
+                                                }
+                                            });
+                                            $('#timer_l_{{ $lcar->id }}').backward_timer('start');
+                                            });
+                                </script>
                             </li>
                         </ul>
                         <ul class="short-info">
@@ -246,12 +275,12 @@
                             </li>
                             <li class="north-west" title="Engine Capacity">
                                 <!--<img src="{{asset('assets/front/images/road-icon.png')}}" alt="">-->
-                                <small>Engine </small>
-                                <p>1.6L</p>
+                                <small>Cylinders </small>
+                                <p>{{$lcar->cylender}}</p>
                             </li>
                         </ul>
                         <div class="footer-area">
-                            <i class="fas fa-map-marker-alt"></i> {{ $lcar->address }}
+                            <i class="fas fa-map-marker-alt"></i> {{ $lcar->suburb }}
                         </div>
                     </div>
                 </a>

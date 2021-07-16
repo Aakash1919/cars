@@ -181,7 +181,20 @@
                                                                 {{ $langg->lang66 }}
                                                             </li>
                                                             <li>
-                                                                <i class="far fa-clock"></i> 12:51:30
+                                                                <i class="far fa-clock"></i> <span id="timer_{{ $car->id }}">1417539</span>
+                                                                <script type="text/javascript">
+                                                                    $(document).ready(function(){
+                                                                        $('#timer_{{ $car->id }}').backward_timer({
+                                                                            seconds: 1417539,
+                                                                            format: 'd%d h%:m%:s%',
+                                                                            on_tick: function(timer) {
+                                                                            var color = ((timer.seconds_left % 2) == 0)? "#F82828": "#009CFF";
+                                                                            timer.target.css('color', color);
+                                                                            }
+                                                                        });
+                                                                        $('#timer_{{ $car->id }}').backward_timer('start');
+                                                                        });
+                                                                    </script>
                                                             </li>
                                                         </ul>
                                                         <ul class="short-info">
@@ -191,12 +204,12 @@
                                                                 </p>
                                                             </li>
                                                             <li class="north-west">
-                                                                <small>Engine </small>
-                                                                <p>1.6L</p>
+                                                                <small>Cylinder </small>
+                                                                <p>{{$car->cylender}}</p>
                                                             </li>
                                                         </ul>
                                                         <div class="footer-area">
-                                                            <i class="fas fa-map-marker-alt"></i> {{ $car->address }}
+                                                            <i class="fas fa-map-marker-alt"></i> {{ $car->suburb }}
                                                         </div>
                                                     </div>
                                                 </a>

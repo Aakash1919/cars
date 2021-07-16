@@ -97,51 +97,51 @@
 							<ul class="details-list">
 								@if (!empty($car->category_id))
 									<li>
-										<p>{{ $langg->lang47 }}:</p>
+										<p class="label">{{ $langg->lang47 }}:</p>
 										<P>{{ $car->category->name }}</P>
 									</li>
 								@endif
 								<li>
-									<p>{{ $langg->lang50 }}:</p>
+									<p class="label">{{ $langg->lang50 }}:</p>
 									<p>{{ $car->condtion->name }}</p>
 								</li>
 								<li>
-									<p>{{ $langg->lang52 }}:</p>
+									<p class="label">{{ $langg->lang52 }}:</p>
 									<p>{{ $car->year }}</p>
 								</li>
 								<li>
-									<p>Odometer:</p>
+									<p class="label">Odometer:</p>
 									<p>{{ $car->mileage }}</p>
 								</li>
 								<li>
-									<p>{{ $langg->lang54 }}:</p>
+									<p class="label">{{ $langg->lang54 }}:</p>
 									<p>{{ $car->brand->name }}</p>
 								</li>
 								<li>
-									<p>{{ $langg->lang55 }}:</p>
+									<p class="label">{{ $langg->lang55 }}:</p>
 									<p>{{ $car->brand_model->name }}</p>
 								</li>
 								@if(!empty($car->body_type_id))
 								<li>
-									<p>{{ $langg->lang56 }}:</p>
+									<p class="label">{{ $langg->lang56 }}:</p>
 									<p>{{ $car->body_type->name }}</p>
 								</li>
 								@endif
 								@if(!empty($car->fuel_type_id))
 								<li>
-									<p>{{ $langg->lang57 }}:</p>
+									<p class="label">{{ $langg->lang57 }}:</p>
 									<p>{{ $car->fuel_type->name }}</p>
 								</li>
 								@endif
 								@if(!empty($car->transmission_type_id))
 								<li>
-									<p>{{ $langg->lang58 }}:</p>
+									<p class="label">{{ $langg->lang58 }}:</p>
 									<p>{{ $car->transmission_type->name }}</p>
 								</li>
 								@endif
 								@if(!empty($car->cylender))
 								<li>
-									<p>Cylender:</p>
+									<p class="label">Cylender:</p>
 									<p>{{ $car->cylender }}</p>
 								</li>
 								@endif
@@ -153,7 +153,7 @@
 								@if(is_array($labels))
 									@for ($i=0; $i < count($labels); $i++)
 										<li>
-											<p>{{ $labels[$i] }}:</p>
+											<p class="label">{{ $labels[$i] }}:</p>
 											<p>{{ $values[$i] }}</p>
 										</li>
 									@endfor
@@ -161,6 +161,7 @@
 							</ul>
 						</div>
 					</div>
+					<style>p.label{text-transform:capitalize !important;}</style>
 					<div class="latest-cars">
 						<div class="heading">
 							<h4 class="title">
@@ -183,7 +184,7 @@
 											</h4>
 											</a>
 											<p class="views">
-												{{ $langg->lang66 }}: {{ $simCar->views }}
+												<span style="text-transform:Capitalize;">{{ $langg->lang66 }}</span>: {{ $simCar->views }}
 											</p>
 										</div>
 									</div>

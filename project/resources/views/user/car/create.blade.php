@@ -289,8 +289,37 @@
     <!-- Old Data-->
     <script>
         $(document).on('click',"#savebtn",function(){
-            $("#geniusform").submit();
+           // $("#geniusform").submit();
+           var title="Please Ensure All Details";
+           var message="Please ensure all the details are correct before you click save. Once you click `save` this vehicle will be live on carsalvagesales.com";
+            $("#carresponsetitle").html(title);
+            var ResponseMessage = '<div class="alert alert-warning" role="alert">'+ message +'</div>';
+            $("#carresponsebody").html(ResponseMessage);
+            $('#CarResponseModal').modal('toggle');
         });
+        $(document).on('click','#AlertSaveBtn',function(){
+            var datastring = $("#geniusform").serialize();
+            $.ajax({
+                type: "POST",
+                url: "{{ route('user.car.store') }}",
+                data: datastring,
+                dataType: "json",
+                success: function(r) {
+                    var message= "Error in form";
+                    // for (var data in r.errors) {
+                    //         message += r.errors[error];
+                    // }
+                    //$("#carresponsetitle").html("Please check ");
+                    var ResponseMessage = '<div class="alert alert-danger" role="alert">'+ message +'</div>';
+                    $("#carresponsebody").html(ResponseMessage);
+                }
+            });
+        });
+        $(document).on('click','#AlertCancelBtn',function(){
+            $("#CarResponseModal").modal('hide');
+        });
+        //AlertCancelBtn
+
         function getModels(brandid) {
             var url = '{{ url('/') }}' + '/car/' + brandid + '/models';
             // console.log(url);

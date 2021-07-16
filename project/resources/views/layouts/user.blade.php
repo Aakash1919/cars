@@ -191,7 +191,26 @@
             </div>
             </div>
         </div>
+     </div>
+	 <div class="modal fade" id="CarResponseModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+        <div class="modal-dialog" role="document">
+            <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title" id="carresponsetitle">Modal title</h5>
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                <span aria-hidden="true">&times;</span>
+                </button>
+            </div>
+            <div class="modal-body" id="carresponsebody">
+               
+            </div>
+			<div class="modal-header">
+				<button class="btn btn-primary" id="AlertSaveBtn">Save</button>
+				<button class="btn btn-danger close" id="AlertCancelBtn" data-dismiss="modal" aria-label="Close">Cancel</button>
+			</div>
+            </div>
         </div>
+     </div>
 	<!--end wrapper-->
 	
 	<!-- Bootstrap JS -->

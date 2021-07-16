@@ -28,6 +28,8 @@
     <link rel="stylesheet" href="{{ asset('assets/front/css/styles.php?color=' . str_replace('#', '', $gs->colors)) }}">
     <!-- responsive -->
     <link rel="stylesheet" href="{{ asset('assets/front/css/responsive.css') }}">
+    <script src="{{ asset('assets/front/js/jquery.js') }}"></script>
+    <script src="{{ asset('assets/front/js/jquery.countdownTimer.min.js') }}"></script>
     <script async src="https://www.googletagmanager.com/gtag/js?id={{ $seo->google_analytics }}"></script>
 
     <script>
@@ -233,7 +235,7 @@
         </div>
         </div>
         <!-- jquery -->
-        <script src="{{ asset('assets/front/js/jquery.js') }}"></script>
+       
         <!-- bootstrap -->
         <script src="{{ asset('assets/front/js/bootstrap.min.js') }}"></script>
         <!-- popper -->
@@ -248,6 +250,7 @@
         @include('includes.form-success')
         <!-- custom -->
         <script src="{{ asset('assets/front/js/custom.js') }}"></script>
+        
         <script src="{{ asset('/assets/theme/assets/plugins/smart-wizard/js/jquery.smartWizard.min.js') }}"></script>
         @yield('scripts')
         <script>
@@ -257,6 +260,24 @@
             $("#responsebody").html(ResponseMessage);
             $('#ResponseModal').modal('toggle');
             }
+         function showTimer(auctiondate,mydiv){
+             console.log('executed');
+            var expiredDays = auctiondate;
+            var countDownDate = new Date(expiredDays).getTime();
+            var x = setInterval(function() {
+                var now = new Date().getTime();
+                var distance = countDownDate - now;
+                var days = Math.floor(distance / (1000 * 60 * 60 * 24));
+                var hours = Math.floor((distance % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60));
+                var minutes = Math.floor((distance % (1000 * 60 * 60)) / (1000 * 60));
+                var seconds = Math.floor((distance % (1000 * 60)) / 1000);
+                $("#"+ mydiv).innerHTML = days + "d " + hours + "h "+ minutes + "m " + seconds + "s ";
+                if (distance < 0) {
+                    clearInterval(x);
+                    $("#"+ mydiv).innerHTML = "EXPIRED";
+                }
+            }, 1000);
+         }
         </script>
     </body>
 
