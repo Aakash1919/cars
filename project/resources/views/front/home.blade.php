@@ -171,12 +171,15 @@
                                         <i class="far fa-eye"></i> {{ $fcar->views }} {{ $langg->lang13 }}
                                     </li>
                                     <li>
-                                        <i class="far fa-clock"></i> <span id="timer_f_{{ $fcar->id }}">1417539</span>{{date("M d, Y h:i:s", strtotime("+$fcar->auction_time days", strtotime($fcar->auction_date)))}}
-
+                                        <i class="far fa-clock"></i> <span id="timer_f_{{ $fcar->id }}">1417539</span>
+                                        @php
+                                            $seconds = strtotime("+$fcar->auction_time days", strtotime($fcar->auction_date)) - strtotime(date('Y-m-d h:i:s', time()));
+                                            $seconds = $seconds > 0 ? $seconds : 0;
+                                        @endphp
                                         <script type="text/javascript">
                                         $(document).ready(function(){
                                             $('#timer_f_{{ $fcar->id }}').backward_timer({
-                                                seconds: 1417539,
+                                                seconds: {{ $seconds }},
                                                 format: 'd%d h%:m%:s%',
                                                 on_tick: function(timer) {
                                                 var color = ((timer.seconds_left % 2) == 0)? "#F82828": "#009CFF";
@@ -252,10 +255,14 @@
                             </li>
                             <li>
                                 <i class="far fa-clock"></i> <span id="timer_l_{{ $lcar->id }}">1417539</span>
+                                @php
+                                    $seconds = strtotime("+$lcar->auction_time days", strtotime($lcar->auction_date)) - strtotime(date('Y-m-d h:i:s', time()));
+                                    $seconds = $seconds > 0 ? $seconds : 0;
+                                @endphp
                                 <script type="text/javascript">
                                         $(document).ready(function(){
                                             $('#timer_l_{{ $lcar->id }}').backward_timer({
-                                                seconds: 1417539,
+                                                seconds: {{$seconds}},
                                                 format: 'd%d h%:m%:s%',
                                                 on_tick: function(timer) {
                                                 var color = ((timer.seconds_left % 2) == 0)? "#F82828": "#009CFF";

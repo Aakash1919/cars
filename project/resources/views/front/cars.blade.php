@@ -182,10 +182,14 @@
                                                             </li>
                                                             <li>
                                                                 <i class="far fa-clock"></i> <span id="timer_{{ $car->id }}">1417539</span>
+                                                                @php
+                                                                    $seconds = strtotime("+$car->auction_time days", strtotime($car->auction_date)) - strtotime(date('Y-m-d h:i:s', time()));
+                                                                    $seconds = $seconds > 0 ? $seconds : 0;
+                                                                @endphp
                                                                 <script type="text/javascript">
                                                                     $(document).ready(function(){
                                                                         $('#timer_{{ $car->id }}').backward_timer({
-                                                                            seconds: 1417539,
+                                                                            seconds: {{$seconds}},
                                                                             format: 'd%d h%:m%:s%',
                                                                             on_tick: function(timer) {
                                                                             var color = ((timer.seconds_left % 2) == 0)? "#F82828": "#009CFF";

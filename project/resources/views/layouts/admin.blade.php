@@ -21,6 +21,7 @@
         <link href="{{asset('assets/admin/plugins/fullside-menu/css/dark-side-style.css')}}" rel="stylesheet" />
         <link href="{{asset('assets/admin/plugins/fullside-menu/waves.min.css')}}" rel="stylesheet" />
 
+        <link href="{{asset('assets/theme/assets/css/icons.css')}}" rel="stylesheet" />
         <link href="{{asset('assets/admin/css/plugin.css')}}" rel="stylesheet" />
         <link href="{{asset('assets/admin/css/jquery.tagit.css')}}" rel="stylesheet" />
         <link rel="stylesheet" href="{{ asset('assets/admin/css/select2.min.css') }}">
