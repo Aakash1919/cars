@@ -43,9 +43,8 @@
                                                 value="{{ $car->title }}">
                                         </div>
                                         <div class="mb-3">
-                                            <label for="nicDesc" class="form-label">{{ $langg->lang126 }} *</label>
-                                            <textarea id="nicDesc" name="description" class="form-control nic-edit" rows="8"
-                                                cols="80">{{ $car->description }}</textarea>
+                                            <label for="summernote" class="form-label">{{ $langg->lang126 }} *</label>
+                                            <textarea id="summernote" name="description" class="">{{ $car->description }}</textarea>
                                         </div>
                                     </div>
                                     <hr />
@@ -290,7 +289,7 @@
                         <div class="imagesuploaded-images d-flex">
                             @foreach ($car->car_images as $key => $ci)
                             <div class="image" style="position:relative;">
-                               <img src="{{ asset('assets/front/images/cars/sliders/'.$ci->image) }}" alt="" width="100" height="100" style="object-fit: cover; margin:5px; max-height: 100px;max-width:100px;">
+                               <img src="{{ asset('assets/front/images/cars/featured/'.$ci->image) }}" alt="" width="100" height="100" style="object-fit: cover; margin:5px; max-height: 100px;max-width:100px;">
                                <div class="image-overlay">
                                  <i class="fas fa-times" style="position: absolute; right: 5px; top: 5px; z-index: 200; color: red;" data-val="{{ $ci->id }}" onclick="removeimg(event)"></i>
                                </div>
@@ -379,6 +378,8 @@
                         imgpath = "/assets/front/images/cars/featured/" + responseText.message;
                         $("img#myfeaturedcar").attr('src', imgpath);
                         $("input#myfeaturedcarimg").val(responseText.message);
+                        var html = '<input type="hidden" name="images[]" value="' + responseText.message + '">'
+                        $(".slider_images").append(html);
                     }
                 });
             }
@@ -401,6 +402,8 @@
             }
            
         });
-
+        $(document).ready(function() {
+        $('#summernote').summernote({ height: 150});
+        });
     </script>
 @endsection

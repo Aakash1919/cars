@@ -1,7 +1,15 @@
 @extends('layouts.user')
 @section('content')
-
-<div class="page-breadcrumb d-none d-sm-flex align-items-center mb-3">
+<style>
+    @media print
+{
+    .noprint {
+        display:none !important;
+        height:0px !important;
+    }
+}
+</style>
+<div class="page-breadcrumb d-none d-sm-flex align-items-center mb-3 noprint">
 				
     <div class="ps-3">
         <nav aria-label="breadcrumb">
@@ -13,26 +21,15 @@
         </nav>
     </div>
 </div>
-<div class="card">
+<div class="card noprint">
     <div class="card-body">
-        <button style="float: right; width:100px;" type="button" class="btn btn-dark" onClick="printDiv('invoice');"><i class="fa fa-print"></i> Print</button>
+        <button style="float: right; width:100px;" type="button" class="btn btn-dark" id="printbtn"><i class="fa fa-print"></i> Print</button>
     </div>
 </div>
-<style>
-    @media print {
 
-html, body {
-  height:100vh; 
-  margin: 0 !important; 
-  padding: 0 !important;
-  overflow: hidden;
-}
-
-}
-</style>
-<div class="card" id="pdfexport">
-    <div class="card-body">
-        <div id="invoice">
+<div class="card .noprint" id="pdfexport">
+    <div class="card-body" >
+        <div id="invoice" style="margin-top:0px;">
             <div class="invoice overflow-auto">
                 <div style="min-width: 600px">
                     <header>
@@ -48,6 +45,7 @@ html, body {
                                         Car Salvage Sales
                                     </a>
                                 </h2>
+                                <p>ABN: 50 110 219 460<p>
                             </div>
                         </div>
                     </header>
@@ -86,19 +84,30 @@ html, body {
                                     <td class="text-left">
                                         <h3>{{ isset($paymentInfo[0]->car_id) ? 'Car Listing Price' : 'Membership Price'}}</td>
                                     <td class="">{{ date('d M Y', strtotime($paymentInfo[0]->created_at ?? ''))}}</td>
-                                    <td class="total">{{ '$'.$paymentInfo[0]->amount ?? ''}}</td>
+                                    <?php 
+                                    $p = $paymentInfo[0]->amount;
+                                    $x = $p/10; 
+                                    $iprice = $p - $x;
+                                    ?>
+                                    <td class="total">{{ '$'.number_format(round($iprice),2) }}</td>
                                 </tr>
                             </tbody>
                             <tfoot>
-                                <tr>
+                                <!-- <tr>
                                     <td colspan="2"></td>
                                     <td colspan="2">SUBTOTAL</td>
-                                    <td>{{ '$'.$paymentInfo[0]->amount ?? ''}}</td>
+                                    <td>{{ '$'.number_format($p,2)}}</td>
+                                </tr> -->
+                                <tr>
+                                    <td colspan="2"></td>
+                                    <td colspan="2">GST 10%</td>
+                                    <td>$ {{number_format(round($x),2)}}</td>
                                 </tr>
+
                                 <tr>
                                     <td colspan="2"></td>
                                     <td colspan="2">GRAND TOTAL</td>
-                                    <td>{{ '$'.$paymentInfo[0]->amount ?? ''}}</td>
+                                    <td>{{ '$'.number_format(round($p),2)}}</td>
                                 </tr>
                             </tfoot>
                         </table>
@@ -109,13 +118,29 @@ html, body {
         </div>
     </div>
 </div>
+
 @endSection
 @section('scripts')
 <script type="text/javascript">
+$('#printbtn').click(function() {
+    var printContents = document.getElementById('invoice').innerHTML;
+       var originalContents = document.body.innerHTML;
+       var css = '<style>html, body {border: 1px solid white;height: 99%;page-break-after: avoid;page-break-before: avoid;}</style>';
+       document.body.innerHTML = jQuery.trim("<html><head>"+css+"</head><body>" + printContents + "</body>");
+       window.print();
+       document.body.innerHTML = originalContents;
+//   var options = {
+//   };
+//   var pdf = new jsPDF('l');
+//   pdf.addHTML($("#invoice1"), 1, 1, options, function() {
+//     pdf.save('invoice.pdf');
+//   });
+});
+
  function printDiv(divId) {
        var printContents = document.getElementById(divId).innerHTML;
        var originalContents = document.body.innerHTML;
-       document.body.innerHTML = "<html><head><title></title></head><body style='padding:0px;margin:0px;'>" + printContents + "</body>";
+       document.body.innerHTML = jQuery.trim("<html><body style='padding:0px;margin:0px;height:80%;'>" + printContents + "</body>");
        window.print();
        document.body.innerHTML = originalContents;
    }

@@ -289,7 +289,7 @@
                                         <div class="card-footer">
                                         <div class="form-check">
                                             <input type="checkbox" class="form-check-input" id="terms" name="terms" required>
-                                            <label class="form-check-label" for="terms">I agree with <a href="/termsandconditions">terms and conditions</a></label>
+                                            <label class="form-check-label" for="terms">I agree with <a target="_blank" href="/termsandconditions">terms and conditions</a></label>
                                             </div>
                                         </div>
                                         </div>
@@ -337,6 +337,9 @@
                 if(stepNumber==2){
                     validatestep2();
                 }
+                if(stepNumber==4){
+                    validatestep2();
+                }
                 $("#prev-btn").removeClass('disabled');
                 $("#next-btn").removeClass('disabled');
                 $("#finish-btn").attr('disabled',true);
@@ -371,6 +374,16 @@
             var element = document.getElementById('usertype');
             meThods(element)
         });
+        function validatesetp4(){
+            if($('input[name="terms"]').is(':checked'))
+            {
+             return true
+            }else
+            {
+                showpopup('danger','Please fix following Errors','Please check Agree terms and conditions');
+                return false;
+            }
+        }
         function validatestep2(){
             var Suburb = $("#Suburb").val();
             if(Suburb.length == 0){
@@ -504,6 +517,8 @@
                 $("#password_confirmation").removeClass('bad'); 
                 $("#password_confirmation").addClass('good'); 
             }
+
+            
             // var code = $("#code").val();
             // if(code.length == 0){
             //     $('#smartwizard').smartWizard("goToStep", 0);
@@ -563,6 +578,7 @@
         });
 
         function stripeTokenHandler(token, event) {
+            showpopup('info','Please Wait',"Your request is processing please wait.",'show');
             var form = document.getElementById('registerform1');
             var hiddenInput = document.createElement('input');
             hiddenInput.setAttribute('type', 'hidden');
@@ -577,9 +593,11 @@
         }
         function register(e) {
             e.preventDefault();
+            $('#preloader').fadeOut(1000);
+            //showpopup('info','Please Wait',"Your request is processing please wait.",'show');
             $('#pills-signup button.submit-btn').prop('disabled', true);
-            $('#pills-signup .alert-info').show();
-            $('#pills-signup .alert-info p').html($('#processdata').val());
+           // $('#pills-signup .alert-info').show();
+           // $('#pills-signup .alert-info p').html($('#processdata').val());
             var form = $('form')[0];
              $("#finish-btn").attr('disabled',true);
             $.ajax({
@@ -591,6 +609,7 @@
                 cache: false,
                 processData: false,
                 success: function(data) {
+                    //showpopup('info','Please Wait',"Your request is processing please wait.",'hide');
                     if ((data.errors)) {
                         // $('#pills-signup .alert-success').hide();
                         // $('#pills-signup .alert-info').hide();
@@ -600,7 +619,7 @@
                         for (var error in data.errors) {
                             $('#pills-signup .alert-danger p').html(data.errors[error]);
                             
-                            showpopup('danger','Please fix following Errors',data.errors[error]);
+                            showpopup('danger','Please fix following Errors',data.errors[error],'show');
                            
                         }
                         
@@ -613,7 +632,7 @@
                         $('#pills-signup button.submit-btn').prop('disabled', false);
 
                         $('#registerform1').trigger("reset");
-                        showpopup('success','Thank you for registering with us.',data);
+                        showpopup('success','Thank you for registering with us.',data,'show');
                     }
                 }
             });

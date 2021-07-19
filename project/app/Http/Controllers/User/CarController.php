@@ -143,7 +143,7 @@ class CarController extends Controller
       $validator = Validator::make($request->all(), $rules, $messages);
 
       if ($validator->fails()) {
-        return response()->json(array('errors' => $validator->getMessageBag()->toArray()));
+        return response()->json(array('status'=> 0,'message' => $validator->getMessageBag()->toArray()));
       }
       //--- Validation Section Ends
      
@@ -208,7 +208,7 @@ class CarController extends Controller
       $this->sendDesignedEmail($to, $subject, $msg, 'Congratulations!!!', $car);
 
       $res_msg = 'Car Added Successfully.';
-      return response()->json($res_msg);
+      return response()->json(array('status'=> 1,'message'=>$res_msg));
     }
 
     //*** GET Request
@@ -303,7 +303,7 @@ class CarController extends Controller
         // then check whether a filename is missing in imgsdb if it is missing remove it from database and unlink it
           foreach($carimgs as $carimg) {
             if(!in_array($carimg->image, $request->imagesdb)) {
-                @unlink('assets/front/images/cars/sliders/'.$carimg->image);
+                @unlink('assets/front/images/cars/featured/'.$carimg->image);
                 $carimg->delete();
             }
           }
@@ -334,7 +334,7 @@ class CarController extends Controller
 
         @unlink('assets/front/images/cars/featured/'.$ci->featured_image);
         foreach ($data->car_images as $key => $ci) {
-          @unlink('assets/front/images/cars/sliders/'.$ci->image);
+          @unlink('assets/front/images/cars/featured/'.$ci->image);
           $ci->delete();
         }
 
@@ -462,9 +462,12 @@ class CarController extends Controller
           return response()->json(array('errors' => $validator->getMessageBag()->toArray()));
         }
         $path = 'assets/front/images/cars/featured/';
+        $path1 = 'assets/front/images/cars/featured/';
         $tmp_name = $_FILES["image"]["tmp_name"];
         $name = time().basename($_FILES["image"]["name"]);
         move_uploaded_file($tmp_name, "$path/$name");
+        //copy("$path/$name", "$path1/$name");
+        //move_uploaded_file($tmp_name, "$path1/$name");
         return response()->json(['status'=>true,'message'=>$name]);
 
     }
@@ -475,7 +478,8 @@ class CarController extends Controller
         if ($validator->fails()) {
           return response()->json(array('errors' => $validator->getMessageBag()->toArray()));
         }
-        $path = 'assets/front/images/cars/sliders/';
+        //$path = 'assets/front/images/cars/sliders/';
+        $path = 'assets/front/images/cars/featured/';
         $tmp_name = $_FILES["image"]["tmp_name"];
         $name = basename($_FILES["image"]["name"]);
         move_uploaded_file($tmp_name, "$path/$name");

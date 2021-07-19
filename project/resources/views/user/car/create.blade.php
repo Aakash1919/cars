@@ -38,8 +38,8 @@
                                                 placeholder="{{ $langg->lang101 }} {{ $langg->lang102 }}" value="">
                                         </div>
                                         <div class="mb-3">
-                                            <label for="nicDesc" class="form-label">{{ $langg->lang126 }} *</label>
-                                            <textarea id="nicDesc" name="description" class="form-control nic-edit" rows="8"
+                                            <label for="summernote" class="form-label">{{ $langg->lang126 }} *</label>
+                                            <textarea id="summernote" name="description" class="form-control" rows="20"
                                                 cols="80">Please detail any issues with vehicle and any damaged or parts removed here</textarea>
                                         </div>
                                     </div>
@@ -240,7 +240,7 @@
             <div class="col-md-6">
                 <div class="card">
                     <div class="card-body">
-                        <h5 class="card-title">Featured Image</h5>
+                        <h5 class="card-title">Featured Image (This will show only Main page)</h5>
                         <hr>
                         <form id="featuredimg" action="{{ route('user.car.uploadFeatured') }}" class="dropzone"
                             method="post" enctype="multipart/form-data">
@@ -258,7 +258,7 @@
             <div class="col-md-6">
                 <div class="card">
                     <div class="card-body">
-                        <h5 class="card-title">Gallery Images </h5>
+                        <h5 class="card-title">Gallery Images (These Image will show as gallery slideshow.)</h5>
                         <hr>
                         <form id="galleryimg" action="{{ route('user.car.uploadgallery') }}" class="dropzone"
                             method="post" enctype="multipart/form-data">
@@ -305,12 +305,17 @@
                 data: datastring,
                 dataType: "json",
                 success: function(r) {
-                    var message= "Error in form";
-                    // for (var data in r.errors) {
-                    //         message += r.errors[error];
-                    // }
-                    //$("#carresponsetitle").html("Please check ");
-                    var ResponseMessage = '<div class="alert alert-danger" role="alert">'+ message +'</div>';
+                    
+                    if(r.status==1){
+                   
+                    var ResponseMessage = '<div class="alert alert-success" role="alert">'+ r.message +'</div>';  
+                    }else{
+                        var messages= "";
+                        $.each( r.message, function( key, value ) {
+                        messages += value +"<br/>";
+                    });
+                    var ResponseMessage = '<div class="alert alert-danger" role="alert">'+ messages +'</div>';  
+                    }
                     $("#carresponsebody").html(ResponseMessage);
                 }
             });
@@ -370,6 +375,8 @@
                     if (responseText.status == true) {
                         imgpath = "/assets/front/images/cars/featured/" + responseText.message;
                         $("input#myfeaturedcarimg").val(responseText.message);
+                        var html = '<input type="hidden" name="images[]" value="' + responseText.message + '">'
+                        $(".slider_images").append(html);
                     }
                 });
             }
@@ -390,6 +397,9 @@
                     }
                 });
             },
+        });
+        $(document).ready(function() {
+        $('#summernote').summernote({ height: 150});
         });
     </script>
 @endsection

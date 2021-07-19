@@ -254,11 +254,11 @@
         <script src="{{ asset('/assets/theme/assets/plugins/smart-wizard/js/jquery.smartWizard.min.js') }}"></script>
         @yield('scripts')
         <script>
-        function showpopup(status,title,message){
+        function showpopup(status,title,message,action){
             $("#responsetitle").html(title);
             var ResponseMessage = '<div class="alert alert-' + status + '" role="alert">'+ message +'</div>';
             $("#responsebody").html(ResponseMessage);
-            $('#ResponseModal').modal('toggle');
+            $('#ResponseModal').modal(action);
             }
          function showTimer(auctiondate,mydiv){
              console.log('executed');

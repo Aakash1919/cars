@@ -36,12 +36,12 @@
 					<div class="model-gallery-image">
 						<div class="one-item-slider">
 							@foreach ($car->car_images as $key => $ci)
-								<div class="item"><img src="{{ asset('assets/front/images/cars/sliders/'.$ci->image) }}" alt=""></div>
+								<div class="item"><img src="{{ asset('assets/front/images/cars/featured/'.$ci->image) }}" alt=""></div>
 							@endforeach
 						</div>
 						<ul class="all-item-slider">
 							@foreach ($car->car_images as $key => $ci)
-								<li><img src="{{ asset('assets/front/images/cars/sliders/'.$ci->image) }}" alt=""></li>
+								<li><img src="{{ asset('assets/front/images/cars/featured/'.$ci->image) }}" alt=""></li>
 							@endforeach
 						</ul>
 					</div>
@@ -110,7 +110,7 @@
 									<p>{{ $car->year }}</p>
 								</li>
 								<li>
-									<p class="label">Odometer:</p>
+									<p class="label">ODOMETER:</p>
 									<p>{{ $car->mileage }}</p>
 								</li>
 								<li>
@@ -141,7 +141,7 @@
 								@endif
 								@if(!empty($car->cylender))
 								<li>
-									<p class="label">Cylender:</p>
+									<p class="label">CYLENDERS:</p>
 									<p>{{ $car->cylender }}</p>
 								</li>
 								@endif
@@ -153,7 +153,7 @@
 								@if(is_array($labels))
 									@for ($i=0; $i < count($labels); $i++)
 										<li>
-											<p class="label">{{ $labels[$i] }}:</p>
+											<p class="label" style="text-transform:Uppercase!important;">{{ $labels[$i] }}:</p>
 											<p>{{ $values[$i] }}</p>
 										</li>
 									@endfor

@@ -249,7 +249,7 @@ Route::prefix('admin')->group(function() {
   Route::get('/testimonial/delete/{id}', 'Admin\TestimonialController@destroy')->name('admin-tstm-delete');
   Route::get('/testimonial/status/{id1}/{id2}', 'Admin\TestimonialController@status')->name('admin-tstm-status');
 
-  //------------ ADMIN TESTIMONIAL SECTION ENDS------------
+  //------------ ADMIN TESTIMONIAL SECTION ENDS------------d
 
   //------------ ADMIN PAGE SETTINGS SECTION ------------
 
@@ -468,7 +468,7 @@ Route::get('/privacy', 'Front\FrontendController@policies')->name('front.privacy
 Route::get('/prices/{id}', 'Front\FrontendController@prices')->name('front.prices');
 Route::get('/cars', 'Front\FrontendController@cars')->name('front.cars');
 Route::get('/filter','Front\FrontendController@filter')->name('filter');
-Route::get('/details/{car}', 'Front\FrontendController@details')->middleware('IsPaid')->name('front.details');
+Route::get('/details/{car}', 'Front\FrontendController@details')->name('front.details');
 Route::post('/model/sendmail', 'Front\FrontendController@modelsendmail')->name('front.model.sendmail');
 Route::get('/contact', 'Front\FrontendController@contact')->name('front.contact');
 Route::post('/sendmail', 'Front\FrontendController@sendmail')->name('front.sendmail');

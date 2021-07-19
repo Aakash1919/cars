@@ -42,12 +42,14 @@
         <link href="{{asset('assets/theme/assets/css/app.css')}}" rel="stylesheet" />
         <link href="{{asset('assets/theme/assets/css/icons.css')}}" rel="stylesheet" />
         <link href="{{asset('assets/theme/assets/css/dark-theme.css')}}" rel="stylesheet" />
-        
+        <link href="{{asset('assets/theme/summernote/summernote.css')}}" rel="stylesheet">
         <link href="{{asset('assets/theme/assets/css/header-colors.css')}}" rel="stylesheet" />
 		<link href="{{asset('assets/theme/dropzone/dropzone.css')}}" rel="stylesheet" />
 		<link href="{{asset('assets/theme/dropzone/basic.css')}}" rel="stylesheet" />
 		<script src="{{asset('assets/theme/assets/js/bootstrap.bundle.min.js')}}"></script>
 		<script src="{{asset('assets/theme/assets/js/jquery.min.js')}}"></script>
+		<script src="https://cdnjs.cloudflare.com/ajax/libs/html2canvas/0.4.1/html2canvas.min.js" integrity="sha512-s/XK4vYVXTGeUSv4bRPOuxSDmDlTedEpMEcAQk0t/FMd9V6ft8iXdwSBxV0eD60c6w/tjotSlKu9J2AAW1ckTA==" crossorigin="anonymous" referrerpolicy="no-referrer"></script>
+		<script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf/2.3.1/jspdf.umd.min.js"></script>
         @yield('styles')
 
     </head>
@@ -114,18 +116,14 @@
 										</div>
 									</a>
 									<div class="header-notifications-list">
+										<ul style="list-style:none;">
 										@foreach (get_notifications(Auth::user()->id) as $item)
-										<a class="dropdown-item" href="javascript:;">
-											<div class="d-flex align-items-center">
-												<div class="notify bg-light-primary text-primary"><i class="bx bx-group"></i>
-												</div>
-												<div class="flex-grow-1">
-													{{-- <h6 class="msg-name"><span class="msg-time float-end">{{date('H:i', strtotime($item->created_at))}}</span></h6> --}}
-													<p class="msg-info">{!! ($item->status==0) ? "<strong>".substr($item->message,0,30)."</strong>": substr($item->message,0,30)!!} </p>
-												</div>
-											</div>
-										</a>
+											<li>
+
+													<a style="color:black;" href="{{route('user-notifications')}}" class="msg-info">{!! ($item->status==0) ? "<i class='bx bx-bell'></i> ".$item->message." ": substr($item->message,0,30)!!} </a>
+											</li>
 										@endforeach
+										</ul>
 									</div>
 									<a href="{{route('user-notifications')}}">
 										<div class="text-center msg-footer">View All Notifications</div>
@@ -197,16 +195,14 @@
             <div class="modal-content">
             <div class="modal-header">
                 <h5 class="modal-title" id="carresponsetitle">Modal title</h5>
-                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-                <span aria-hidden="true">&times;</span>
-                </button>
+                
             </div>
             <div class="modal-body" id="carresponsebody">
                
             </div>
 			<div class="modal-header">
 				<button class="btn btn-primary" id="AlertSaveBtn">Save</button>
-				<button class="btn btn-danger close" id="AlertCancelBtn" data-dismiss="modal" aria-label="Close">Cancel</button>
+				<button class="btn btn-danger close" id="AlertCancelBtn" data-dismiss="modal" aria-label="Close">Close</button>
 			</div>
             </div>
         </div>
@@ -251,6 +247,7 @@
 		<script src="{{asset('assets/theme/tableexport/jspdf/libs/sprintf.js')}}"></script>
 		<script src="{{asset('assets/theme/tableexport/jspdf/jspdf.js')}}"></script>
 		<script src="{{asset('assets/theme/tableexport/jspdf/libs/base64.js')}}"></script> --}}
+		<script src="{{asset('assets/theme/summernote/summernote.js')}}"></script>
 		<script src="{{asset('assets/theme/assets/js/app.js')}}"></script>
 		<script src="{{asset('assets/admin/js/custom.js')}}"></script>
 			<!-- AJAX Js-->
@@ -279,11 +276,11 @@
 		
 	</script>
 		        <script>
-        function showpopup(status,title,message){
+        function showpopup(status,title,message,action){
             $("#responsetitle").html(title);
             var ResponseMessage = '<div class="alert alert-' + status + '" role="alert">'+ message +'</div>';
             $("#responsebody").html(ResponseMessage);
-            $('#ResponseModal').modal('toggle');
+            $('#ResponseModal').modal(action);
             }
         </script>	
     </body>
