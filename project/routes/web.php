@@ -210,6 +210,7 @@ Route::prefix('admin')->group(function() {
 
   //------------ ADMIN TRANSACTION LOG ------------
 
+  Route::get('/admin-payment-invoice/{id}/{userId}', 'Admin\TransactionController@invoice')->name('admin-payments-invoice');
   Route::get('/payment/datatables', 'Admin\TransactionController@datatables')->name('admin-payment-datatables'); //JSON REQUEST
   Route::get('/payment', 'Admin\TransactionController@index')->name('admin-payment-index');
 
