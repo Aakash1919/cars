@@ -138,9 +138,9 @@
                                                 </select>
                                             </div>
                                             <div class="col-md-6">
-                                                <label for="cylender" class="form-label">Cylenders</label>
+                                                <label for="cylender" class="form-label">Cylinders</label>
                                                 <input type="text" class="form-control" id="cylender" name="cylender"
-                                                    placeholder="cylenders">
+                                                    placeholder="Cylinders">
                                             </div>
                                             <div class="col-md-6">
                                                 <label for="body_type_id" class="form-label">{{ $langg->lang118 }}

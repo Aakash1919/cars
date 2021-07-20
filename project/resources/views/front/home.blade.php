@@ -200,7 +200,7 @@
                                     </li>
                                     <li class="north-west" title="Engine Capacity">
                                         <!--<img src="{{asset('assets/front/images/road-icon.png')}}" alt="">-->
-                                        <small>Cylinder </small>
+                                        <small>Cylinders </small>
                                         <p>{{$fcar->cylender}}</p>
                                     </li>
                                 </ul>

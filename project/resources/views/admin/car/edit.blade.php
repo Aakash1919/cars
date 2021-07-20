@@ -214,7 +214,7 @@
                        @foreach ($car->car_images as $key => $ci)
                          <div class="image">
                             <input type="hidden" name="imagesdb[]" value="{{ $ci->image }}">
-                            <img src="{{ asset('assets/front/images/cars/sliders/'.$ci->image) }}" alt="" width="200">
+                            <img src="{{ asset('assets/front/images/cars/featured/'.$ci->image) }}" alt="" width="200">
                             <div class="image-overlay">
                               <i class="fas fa-times" onclick="removeimg(event)"></i>
                             </div>

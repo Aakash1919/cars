@@ -141,7 +141,7 @@
 								@endif
 								@if(!empty($car->cylender))
 								<li>
-									<p class="label">CYLENDERS:</p>
+									<p class="label">CYLINDERS:</p>
 									<p>{{ $car->cylender }}</p>
 								</li>
 								@endif

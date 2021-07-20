@@ -208,7 +208,7 @@
                                                                 </p>
                                                             </li>
                                                             <li class="north-west">
-                                                                <small>Cylinder </small>
+                                                                <small>Cylinders </small>
                                                                 <p>{{$car->cylender}}</p>
                                                             </li>
                                                         </ul>

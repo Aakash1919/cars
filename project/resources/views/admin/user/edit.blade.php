@@ -28,6 +28,14 @@
                                 </div>
                             </div>
                             <div class="col-12">
+                                <label for="email" class="form-label">Customer ID</label>
+                                <div class="input-group"> <span class="input-group-text bg-transparent"><i
+                                            class='bx bxs-message'></i></span>
+                                    <input type="text" class="form-control border-start-0" id="username" name="username"
+                                        placeholder="Customer ID" value="{{ $data->username }}" readonly />
+                                </div>
+                            </div>
+                            <div class="col-12">
                                 <label for="email" class="form-label">Email Address</label>
                                 <div class="input-group"> <span class="input-group-text bg-transparent"><i
                                             class='bx bxs-message'></i></span>
