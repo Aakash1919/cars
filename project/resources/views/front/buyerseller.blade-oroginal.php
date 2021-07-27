@@ -46,9 +46,9 @@
                             <li><i class="fa fa-check"></i> 
                                 <span>It is your responsibility and we highly recommend you do your own REVS check on any vehicle you are purchasing prior to exchanging money.</span></li>
                             <li><i class="fa fa-check"></i> 
-                                <span>•	It is also your responsibility to organise transport for any vehicle you are purchasing at your own expense. </span></li>
+                                <span>It is also your responsibility to organise transport for any vehicle you are purchasing at your own expense. </span></li>
                             <li><i class="fa fa-check"></i> 
-                                <span>•	You can cancel your membership at Anytime without additional charges.</span></li>
+                                <span>You can cancel your membership at Anytime without additional charges.</span></li>
                             <li><i class="fa fa-check"></i> 
                                 <span>Cancel Anytime</span></li>
                         </ul>
@@ -81,7 +81,7 @@
                         </div>
                         <div class="media-body ml-5">
                             <h5 class="mt-0">Bid For Cars</h5>
-                            Lorem ipsum dolor sit amet, consectetuer adipiscing elit. Aenean commodo ligula eget dolor. Aenean massa. 
+                            As a member you can place your silent bid on any or all vehicles currently listed Australia wide
                         </div>
                     </div>
                 </div>
@@ -97,7 +97,7 @@
                         </div>
                         <div class="media-body ml-5">
                             <h5 class="mt-0">No Commission</h5>
-                            Lorem ipsum dolor sit amet, consectetuer adipiscing elit. Aenean commodo ligula eget dolor. Aenean massa. 
+                            What you bid is what you pay, No additional buyer fees or commissions.
                         </div>
                     </div>
                 </div>
@@ -113,7 +113,7 @@
                         </div>                   
                         <div class="media-body ml-5">
                             <h5 class="mt-0">Private Bids</h5>
-                            Lorem ipsum dolor sit amet, consectetuer adipiscing elit. Aenean commodo ligula eget dolor. Aenean massa.
+                            Only the seller can see the bid you have placed on their vehicle.
                         </div>
                     </div>
                 </div>
@@ -129,7 +129,7 @@
                         </div>
                         <div class="media-body ml-5">
                             <h5 class="mt-0">Discounted Listing</h5>
-                            Lorem ipsum dolor sit amet, consectetuer adipiscing elit. Aenean commodo ligula eget dolor. Aenean massa. 
+                           Standard members can list vehicles for $4.95 inc GST and Premium Members can list unlimited vehicles for free.
                         </div>
                     </div>
                 </div>

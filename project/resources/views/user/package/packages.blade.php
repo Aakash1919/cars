@@ -30,10 +30,7 @@
       </div>
       
   </div>
-
-
-    <div class="card">
-        
+  <div class="card">    
         <div class="card-body">
         <div class="pricing-table">
             <div class="row">
@@ -55,8 +52,9 @@
                             </div>
                             <div class="d-grid">
                             @if ($plan->id == Auth::user()->current_plan)
-                                <a href="{{ route('user-select-payment', $plan->id) }}" class="btn btn-white my-2 radius-30">{{$langg->lang149}}</a>
-                            @else
+                                <a href="{{ route('user-select-payment', $plan->id) }}" class="btn btn-white my-2 radius-30 disabled" disabled="disabled">{{$langg->lang149}}</a>
+                                <div class="alert alert-warning">This Plan is already Active on your account.</div>
+                                @else
                                 <a href="{{ route('user-select-payment', $plan->id) }}" class="btn btn-white my-2 radius-30">{{$langg->lang148}}</a>
                             @endif
                             </div>

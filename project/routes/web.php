@@ -213,9 +213,11 @@ Route::prefix('admin')->group(function() {
   Route::get('/admin-payment-invoice/{id}/{userId}', 'Admin\TransactionController@invoice')->name('admin-payments-invoice');
   Route::get('/payment/datatables', 'Admin\TransactionController@datatables')->name('admin-payment-datatables'); //JSON REQUEST
   Route::get('/payment', 'Admin\TransactionController@index')->name('admin-payment-index');
-
   //------------ ADMIN TRANSACTION LOG------------
-
+  //------------ ADMIN Coupon Codes ------------
+  Route::get('/coupon', 'Admin\CouponController@index')->name('admin-coupon-index');
+  Route::get('/coupon/datatables', 'Admin\CouponController@datatables')->name('admin-coupon-datatables');
+    //------------ ADMIN Coupon Codes ------------
 
   //------------ ADMIN GENERAL SETTINGS SECTION ------------
 
@@ -502,8 +504,8 @@ Route::post('/subscribe','Front\FrontendController@subscribe')->name('front.subs
 Route::get('/seller', function(){
     return view('front.seller');
 });
-Route::get('/buyer-seller', function(){
-    return view('front.buyerseller');
+Route::get('/become-a-member', function(){
+    return view('front.becomeamember');
 });
 Route::get('/wholesaler', function(){
     return view('front.wholesaler');

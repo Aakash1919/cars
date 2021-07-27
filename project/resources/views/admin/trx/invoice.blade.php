@@ -1,37 +1,35 @@
 @extends('layouts.admin')
 @section('content')
-<style>
-    @media print
-{
-    .noprint {
-        display:none !important;
-        height:0px !important;
-    }
-}
-</style>
-<div class="page-breadcrumb d-none d-sm-flex align-items-center mb-3 noprint">
-				
-    <div class="ps-3">
-        <nav aria-label="breadcrumb">
-            <ol class="breadcrumb mb-0 p-0">
-                <li class="breadcrumb-item"><a href="javascript:;"><i class="bx bx-home-alt"></i></a></li>
-        <li class="breadcrumb-item"><a href="{{ route('admin.dashboard') }}">{{$langg->lang8}} </a></li>
-        <li class="breadcrumb-item active"  aria-current="page"><a href="#">Invoice</a></li>
-            </ol>
-        </nav>
-    </div>
-</div>
+<div class="content-area">
+        <div class="mr-breadcrumb">
+            <div class="row">
+                <div class="col-lg-12">
+                    <h4 class="heading">Transactions</h4>
+                    <ul class="links">
+                        <li>
+                            <a href="{{ route('admin.dashboard') }}">Dashboard </a>
+                        </li>
+                        <li>
+                            <a href="{{ route('admin-payment-index') }}">Transaction Log</a>
+                        </li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+
+
+
 <div class="card noprint">
     <div class="card-body">
         <button style="float: right; width:100px;" type="button" class="btn btn-dark" id="printbtn"><i class="fa fa-print"></i> Print</button>
     </div>
 </div>
 
-<div class="card .noprint" id="pdfexport">
+<div class="card noprint" id="pdfexport">
     <div class="card-body" >
         <div id="invoice" style="margin-top:0px;">
-            <div class="invoice overflow-auto">
-                <div style="min-width: 600px">
+            <div class="invoice">
+                <div>
                     <header>
                         <div class="row">
                             <div class="col">
@@ -39,34 +37,39 @@
                                     <img src="{{asset('/assets/front/images/loader.gif')}}" width="80" alt="" />
                                 </a>
                             </div>
+                            <div class="col"></div>
                             <div class="col company-details">
-                                <h2 class="name">
+                                <h4 class="name">
                                     <a target="_blank" href="/">
                                         Car Salvage Sales
                                     </a>
-                                </h2>
+                                </h4>
                                 <p>ABN: 50 110 219 460<p>
                             </div>
                         </div>
                     </header>
                     <main>
-                        <div class="row contacts">
-                        
+                        <div class="contacts">
+                        <div class="row">
                             <div class="col invoice-to">
                                 <div class="text-gray-light">INVOICE TO:</div>
-                                <h2 class="to">{{$userInfo->first_name.' '.$userInfo->last_name}}</h2>
+                                <h4 class="to">{{$userInfo->first_name.' '.$userInfo->last_name}}</h4>
                                 <div class="address">{{$userInfo->address}}</div>
                                 <div class="email"><a href="{{"mailto:".$userInfo->email}}">{{$userInfo->email}}</a>
                                 </div>
                             </div>
-                            
+                            <div class="col"></div>
                             <div class="col invoice-details">
-                                <h1 class="invoice-id">INVOICE {{ '#'.$paymentInfo[0]->id ?? ''}}</h1>
+                                <h4 class="invoice-id">INVOICE {{ '#'.$paymentInfo[0]->id ?? ''}}</h4>
                                 <div class="date">Date of Invoice: {{ '#'.date('d M Y', strtotime($paymentInfo[0]->updated_at ?? ''))}}</div>
                             </div>
+                            </div>
                         </div>
-                        <table class="">
-                            <thead>
+                        <div class="row">
+                        <div class="col">
+                        <div class="table-responsive">    
+                        <table class="table">
+                           
                                 <tr>
                                     <th>#</th>
                                     <th></th>
@@ -75,42 +78,44 @@
                                     <th class="text-right">Date</th>
                                     <th class="text-right">Total</th>
                                 </tr>
-                            </thead>
-                            <tbody>
+
+
                               
                                 <tr>
                                     <td class="no">01</td>
                                     <td class="no"></td>
                                     <td class="text-left">
                                         <h3>{{ isset($paymentInfo[0]->car_id) ? 'Car Listing Price' : 'Membership Price'}}</td>
-                                    <td class="">{{ date('d M Y', strtotime($paymentInfo[0]->created_at ?? ''))}}</td>
+                                    <td class="text-right">{{ date('d M Y', strtotime($paymentInfo[0]->created_at ?? ''))}}</td>
                                     <?php 
                                     $p = $paymentInfo[0]->amount;
-                                    $x = $p/10; 
+                                    $x = $p/11; 
                                     $iprice = $p - $x;
                                     ?>
-                                    <td class="total">{{ '$'.number_format(round($iprice),2) }}</td>
+                                    <td class="total text-right">{{ '$'.number_format($iprice,2) }}</td>
                                 </tr>
-                            </tbody>
-                            <tfoot>
+
                                 <!-- <tr>
                                     <td colspan="2"></td>
                                     <td colspan="2">SUBTOTAL</td>
                                     <td>{{ '$'.number_format($p,2)}}</td>
                                 </tr> -->
                                 <tr>
-                                    <td colspan="2"></td>
-                                    <td colspan="2">GST 10%</td>
-                                    <td>$ {{number_format(round($x),2)}}</td>
+                                    <td class="text-right"  colspan="2"></td>
+                                    <td class="text-right" colspan="2">GST 10%</td>
+                                    <td class="text-right">$ {{number_format($x,2)}}</td>
                                 </tr>
 
                                 <tr>
-                                    <td colspan="2"></td>
-                                    <td colspan="2">GRAND TOTAL</td>
-                                    <td>{{ '$'.number_format(round($p),2)}}</td>
+                                    <td class="text-right" colspan="2"></td>
+                                    <td class="text-right" colspan="2">GRAND TOTAL</td>
+                                    <td class="text-right">{{ '$'.number_format($p,2)}}</td>
                                 </tr>
-                            </tfoot>
+
                         </table>
+</div>
+</div>
+</div>
                         <div class="thanks">Thank you!</div>
                     </main>
                 </div>
@@ -118,7 +123,7 @@
         </div>
     </div>
 </div>
-
+</div>
 @endSection
 @section('scripts')
 <script type="text/javascript">

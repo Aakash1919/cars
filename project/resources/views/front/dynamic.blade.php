@@ -35,7 +35,7 @@
 					<div class="col-lg-12">
 						<h3 class="title">{{$menu->title}}</h3>
 						<p>
-							{{$menu->details}}
+							{!! $menu->details !!}
 						</p>
 					</div>
 				</div>

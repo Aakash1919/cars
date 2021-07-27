@@ -126,8 +126,9 @@
                                                 <label for="statutory_option" class="form-label">Statutory Or Repairable
                                                     *</label>
                                                 <select for="statutory_option" class="searchable-select form-control" name="statutory_option">
-                                                    <option value="0"  selected>No</option>
-                                                    <option value="1"  >Yes</option>
+                                                    <option value="0"  selected>N/A</option>
+                                                    <option value="1"  >Statutory</option>
+                                                    <option value="2"  >Repairable</option>
                                                 </select>
                                             </div>
                                             <div class="col-md-6">

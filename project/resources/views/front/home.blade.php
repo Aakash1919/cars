@@ -11,7 +11,7 @@
                     <div class="heading-area">
                         <h1 class="title">
                             {{-- {{ $ps->header_btxt }}--}}
-                            Australia’s salvage vehicle experts, connecting sellers with the best buyers
+                            Australia's salvage vehicle experts, connecting sellers with the best buyers
                         </h1>
                         <!--<p class="sub-title">-->
                         {{--{{ $ps->header_stxt }}--}}
@@ -28,13 +28,13 @@
                                 <li>
                                     <div class="car-make">
                                         <select class="form-control" id="brand_id" name="brand_id"
-                                            onchange="getModels(this.value)">
+                                                onchange="getModels(this.value)">
                                             <option value=" {{ $langg->lang115 }}" disabled selected>
                                                 {{ $langg->lang115 }}
                                             </option>
                                             @foreach ($brands as $key => $brand)
-                                                <option value="{{ $brand->id }}">
-                                                    {{ $brand->name }}</option>
+                                            <option value="{{ $brand->id }}">
+                                                {{ $brand->name }}</option>
                                             @endforeach
                                         </select>
                                     </div>
@@ -73,7 +73,9 @@
 
 <div class="how-it-works">
     <div class="container">
-        <h2>HOW DO I GET MORE FOR MY CAR?</h2>
+        <div class="section-heading">
+            <h2 class="title">How Do I Get More For My Car?</h2>
+        </div>
         <div class="row">
             <div class="col-xl-3 col-lg-6 col-md-6">
                 <div class="step">
@@ -85,8 +87,8 @@
                             </div>
                         </figure>
                     </div>
-                    <h3>SIGN UP</h3>
-                    <p>Enter your details to create and account and start selling straight away, have you vehicle seen by hundreds of industry buyers locally and nationally.</p>
+                    <h3>Signup</h3>
+                    <p>Enter your details to create an account and start selling straight away, have your vehicle seen by hundreds of industry buyers locally and nationally.</p>
                 </div>
             </div>
             <div class="col-xl-3 col-lg-6 col-md-6">
@@ -99,8 +101,8 @@
                             </div>
                         </figure>
                     </div>
-                    <h3>LIST MY CAR</h3>
-                    <p>Enter your vehicle details, upload photos and your almost there</p>
+                    <h3>List My Car</h3>
+                    <p>Enter your vehicle details, upload photos and you are almost there. Don't think that your vehicle has no value left in it and accept a fraction of its true value.</p>
                 </div>
             </div>
             <div class="col-xl-3 col-lg-6 col-md-6">
@@ -113,8 +115,8 @@
                             </div>
                         </figure>
                     </div>
-                    <h3>PREVIEW YOUR ADD</h3>
-                    <p>Preview your add and make select the duration your car will be advertised for, We have 3 options, Urgent sale 24hr, Quick sell 72hr or Standard 7 days listings</p>
+                    <h3>Preview Your Ad</h3>
+                    <p>Preview your ad and select the duration your car will be advertised for. We have 3 options, Urgent sale 24hr, Quick sell 72hr or Standard 7 days listings.</p>
                 </div>
             </div>
             <div class="col-xl-3 col-lg-6 col-md-6">
@@ -127,8 +129,8 @@
                             </div>
                         </figure>
                     </div>
-                    <h3>TIME TO SELL</h3>
-                    <p>You'll start receiving offers by email or view offers by logging onto CarSalvageSales.com, we recommend you let your add run the full duration but if you get an offer you can't refuse you can accept it, contact the successful buyer and end your item at any time </p>
+                    <h3>Time To Sell</h3>
+                    <p>you will receive offers via email or log into CSS to view offers and buyer contact details, don't sell too quick cause you never know what the next offer could be</p>
                 </div>
             </div>
         </div>
@@ -154,64 +156,64 @@
                 </div>
             </div>
         </div>
-                <div class="row">
-                
-                    @foreach ($fcars as $key => $fcar)
-                    <div class="col-lg-4 col-md-6">
-                        <a class="car-info-box" href="{{ route('front.details', $fcar->id) }}">
-                            <div class="img-area">
-                                <img style="min-height: 230px; object-fit: cover;" class="light-zoom" src="{{asset('assets/front/images/cars//featured/'.$fcar->featured_image)}}" alt="{{$fcar->featured_image}}">
-                            </div>
-                            <div class="content">
-                                <h4 class="title">
-                                    {{ $fcar->title }}
-                                </h4>
-                                <ul class="top-meta">
-                                    <li>
-                                        <i class="far fa-eye"></i> {{ $fcar->views }} {{ $langg->lang13 }}
-                                    </li>
-                                    <li>
-                                        <i class="far fa-clock"></i> <span id="timer_f_{{ $fcar->id }}">1417539</span>
-                                        @php
-                                            $seconds = strtotime("+$fcar->auction_time days", strtotime($fcar->auction_date)) - strtotime(date('Y-m-d h:i:s', time()));
-                                            $seconds = $seconds > 0 ? $seconds : 0;
-                                        @endphp
-                                        <script type="text/javascript">
-                                        $(document).ready(function(){
-                                            $('#timer_f_{{ $fcar->id }}').backward_timer({
-                                                seconds: {{ $seconds }},
-                                                format: 'd%d h%:m%:s%',
-                                                on_tick: function(timer) {
-                                                var color = ((timer.seconds_left % 2) == 0)? "#F82828": "#009CFF";
-                                                timer.target.css('color', color);
-                                                }
-                                            });
-                                            $('#timer_f_{{ $fcar->id }}').backward_timer('start');
-                                            });
-                                        </script>
+        <div class="row">
 
-                                    </li>
-                                </ul>
-                                <ul class="short-info">
-                                    <li class="north-west" title="Transmission">
-                                        <!--<img src="{{asset('assets/front/images/calender-icon.png')}}" alt="">-->
-                                        <small>Transmission</small>
-                                        <p>{{ get_transmission_by_id($fcar->transmission_type_id) }}</p>
-                                    </li>
-                                    <li class="north-west" title="Engine Capacity">
-                                        <!--<img src="{{asset('assets/front/images/road-icon.png')}}" alt="">-->
-                                        <small>Cylinders </small>
-                                        <p>{{$fcar->cylender}}</p>
-                                    </li>
-                                </ul>
-                                <div class="footer-area">
-                                    <i class="fas fa-map-marker-alt"></i> {{ $fcar->suburb }}
-                                </div>
-                            </div>
-                        </a>
+            @foreach ($fcars as $key => $fcar)
+            <div class="col-lg-4 col-md-6">
+                <a class="car-info-box" href="{{ route('front.details', $fcar->id) }}">
+                    <div class="img-area">
+                        <img style="min-height: 230px; object-fit: cover;" class="light-zoom" src="{{asset('assets/front/images/cars//featured/'.$fcar->featured_image)}}" alt="{{$fcar->featured_image}}">
                     </div>
-                    @endforeach
-                </div>
+                    <div class="content">
+                        <h4 class="title">
+                            {{ $fcar->title }}
+                        </h4>
+                        <ul class="top-meta">
+                            <li>
+                                <i class="far fa-eye"></i> {{ $fcar->views }} {{ $langg->lang13 }}
+                            </li>
+                            <li>
+                                <i class="far fa-clock"></i> <span id="timer_f_{{ $fcar->id }}">1417539</span>
+                                @php
+                                $seconds = strtotime("+$fcar->auction_time days", strtotime($fcar->auction_date)) - strtotime(date('Y-m-d h:i:s', time()));
+                                $seconds = $seconds > 0 ? $seconds : 0;
+                                @endphp
+                                <script type="text/javascript">
+                                    $(document).ready(function(){
+                                    $('#timer_f_{{ $fcar->id }}').backward_timer({
+                                    seconds: {{ $seconds }},
+                                            format: 'd%d h%:m%:s%',
+                                            on_tick: function(timer) {
+                                            var color = ((timer.seconds_left % 2) == 0)? "#F82828": "#009CFF";
+                                            timer.target.css('color', color);
+                                            }
+                                    });
+                                    $('#timer_f_{{ $fcar->id }}').backward_timer('start');
+                                    });
+                                </script>
+
+                            </li>
+                        </ul>
+                        <ul class="short-info">
+                            <li class="north-west" title="Transmission">
+                                <!--<img src="{{asset('assets/front/images/calender-icon.png')}}" alt="">-->
+                                <small>Transmission</small>
+                                <p>{{ get_transmission_by_id($fcar->transmission_type_id) }}</p>
+                            </li>
+                            <li class="north-west" title="Engine Capacity">
+                                <!--<img src="{{asset('assets/front/images/road-icon.png')}}" alt="">-->
+                                <small>Cylinders </small>
+                                <p>{{$fcar->cylender}}</p>
+                            </li>
+                        </ul>
+                        <div class="footer-area">
+                            <i class="fas fa-map-marker-alt"></i> {{ $fcar->suburb }}
+                        </div>
+                    </div>
+                </a>
+            </div>
+            @endforeach
+        </div>
         <div class="row justify-content-center mt-3">
             @if (count($fcars) == 6)
             <a href="{{ route('front.cars') . '?type=featured' }}" class="mybtn1">
@@ -239,8 +241,8 @@
             </div>
         </div>
         <div class="row">
-                    @foreach ($lcars as $key => $lcar)
-                   <div class="col-lg-4 col-md-6">
+            @foreach ($lcars as $key => $lcar)
+            <div class="col-lg-4 col-md-6">
                 <a class="car-info-box" href="{{ route('front.details', $lcar->id) }}">
                     <div class="img-area">
                         <img style="min-height: 230px; object-fit: cover;" class="light-zoom" src="{{asset('assets/front/images/cars//featured/'.$lcar->featured_image)}}" alt="{{$lcar->featured_image}}">
@@ -256,21 +258,21 @@
                             <li>
                                 <i class="far fa-clock"></i> <span id="timer_l_{{ $lcar->id }}">1417539</span>
                                 @php
-                                    $seconds = strtotime("+$lcar->auction_time days", strtotime($lcar->auction_date)) - strtotime(date('Y-m-d h:i:s', time()));
-                                    $seconds = $seconds > 0 ? $seconds : 0;
+                                $seconds = strtotime("+$lcar->auction_time days", strtotime($lcar->auction_date)) - strtotime(date('Y-m-d h:i:s', time()));
+                                $seconds = $seconds > 0 ? $seconds : 0;
                                 @endphp
                                 <script type="text/javascript">
-                                        $(document).ready(function(){
-                                            $('#timer_l_{{ $lcar->id }}').backward_timer({
-                                                seconds: {{$seconds}},
-                                                format: 'd%d h%:m%:s%',
-                                                on_tick: function(timer) {
-                                                var color = ((timer.seconds_left % 2) == 0)? "#F82828": "#009CFF";
-                                                timer.target.css('color', color);
-                                                }
-                                            });
-                                            $('#timer_l_{{ $lcar->id }}').backward_timer('start');
-                                            });
+                                    $(document).ready(function(){
+                                    $('#timer_l_{{ $lcar->id }}').backward_timer({
+                                    seconds: {{$seconds}},
+                                            format: 'd%d h%:m%:s%',
+                                            on_tick: function(timer) {
+                                            var color = ((timer.seconds_left % 2) == 0)? "#F82828": "#009CFF";
+                                            timer.target.css('color', color);
+                                            }
+                                    });
+                                    $('#timer_l_{{ $lcar->id }}').backward_timer('start');
+                                    });
                                 </script>
                             </li>
                         </ul>
@@ -292,9 +294,9 @@
                     </div>
                 </a>
             </div>
-                    @endforeach
+            @endforeach
         </div>
-        
+
         <div class="row justify-content-center mt-3">
             @if (count($lcars) == 6)
             <a href="{{ route('front.cars') }}" class="mybtn1">
@@ -316,9 +318,9 @@
                     </div>
                     <div class="col-xl-9">
                         <article>
-                            <h3>SELLER</h3>
-                            <p>As a seller you can list your vehicle for $9.90inc GST and receive offers from any and all active registered buyers. </p>
-                            <a href="#" class="btn btn-outline">Become a Seller</a>
+                            <h3>Seller</h3>
+                            <p>As a seller you can list your vehicle for $9.90inc GST and receive offers from any and all registered buyers. </p>
+                            <a href="/seller" class="btn btn-outline">Become a Seller</a>
                         </article>
                     </div>
                 </div>
@@ -330,9 +332,9 @@
                     </div>
                     <div class="col-xl-9">
                         <article>
-                            <h3>BUYER MEMBERSHIP</h3>
-                            <p>You’ll also be able to list vehicles for $4.95</p>
-                            <a href="#" class="btn btn-outline">Become a Buyer/Seller</a>
+                            <h3>Buyer Membership</h3>
+                            <p>Our buyer membership allows you to bid on all vehicles listed and you can list vehicles for the discounted price of $4.95 inc. GST.</p>
+                            <a href="/become-a-member" class="btn btn-outline">Become a Member</a>
                         </article>
                     </div>
                 </div>
@@ -345,9 +347,9 @@
                     </div>
                     <div class="col-xl-9">
                         <article>
-                            <h3>PREMIUM BUYER MEMBERSHIP</h3>
-                            <p>SAs a premium buyer you will be able to bid on all and any vehicle listed nationwide and be able to list as many vehicles as you want with no charge at all</p>
-                            <a href="#" class="btn btn-outline">Become a Wholesaler</a>
+                            <h3>Premium membership</h3>
+                            <p>As a premium member you will be able to bid on all vehicles listed and you can list unlimited vehicles for no additional cost.</p>
+                            <a href="/become-a-member" class="btn btn-outline">Become a Wholesaler</a>
                         </article>
                     </div>
                 </div>
@@ -361,28 +363,27 @@
 @section('scripts')
 <script>
     function getModels(brandid) {
-            var url = '{{ url('/') }}' + '/front/' + brandid + '/models';
-            // console.log(url);
-            $.get(url, function(data) {
-                // console.log(data);
-                var opts = `<option value="Select a model" disabled="" selected="">Select a model</option>`;
-                for (var i = 0; i < data.length; i++) {
-                    opts += `<option value="${data[i].id}">${data[i].name}</option>`;
-                }
-                $("#selectModels").html(opts);
-            })
-        }
+    var url = '{{ url('/') }}'+'/front/'+brandid+'/models';
+    $.get(url, function(data) {
+    // console.log(data);
+    var opts = `<option value="Select a model" disabled="" selected="">Select a model</option>`;
+    for (var i = 0; i < data.length; i++) {
+    opts += `<option value="${data[i].id}">${data[i].name}</option>`;
+    }
+    $("#selectModels").html(opts);
+    })
+    }
     $(".sel-price").on('change', function () {
-        let url = '{{ url(' / ') }}/prices/' + $(this).val();
-        // console.log(url);
-        $.get(
-                url,
-                function (data) {
-                    console.log(data);
-                    $("input[name='minprice']").val(data.minimum);
-                    $("input[name='maxprice']").val(data.maximum);
-                }
-        )
+    let url = '{{ url(' / ') }}/prices/' + $(this).val();
+    // console.log(url);
+    $.get(
+            url,
+            function (data) {
+            console.log(data);
+            $("input[name='minprice']").val(data.minimum);
+            $("input[name='maxprice']").val(data.maximum);
+            }
+    )
     });
 </script>
 @endsection

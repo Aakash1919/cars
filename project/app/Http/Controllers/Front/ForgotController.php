@@ -12,9 +12,11 @@ use Validator;
 
 class ForgotController extends Controller
 {
+    protected $geniusMail;
     public function __construct()
     {
         $this->middleware('guest');
+        $this->geniusMail = new GeniusMailer();
     }
 
     public function showForgotForm()
@@ -34,22 +36,7 @@ class ForgotController extends Controller
       $admin->update($input);
       $subject = "Reset Password Request";
       $msg = "Your New Password is : ".$autopass;
-      if($gs->is_smtp == 1)
-      {
-          $data = [
-                  'to' => $request->email,
-                  'subject' => $subject,
-                  'body' => $msg,
-          ];
-
-          $mailer = new GeniusMailer();
-          $mailer->sendCustomMail($data);
-      }
-      else
-      {
-          $headers = "From: ".$gs->from_name."<".$gs->from_email.">";
-          mail($request->email,$subject,$msg,$headers);
-      }
+      $this->sendDesignedEmail($request->email, $subject, $msg, 'Reset Your Password',null);
       return response()->json('Your Password Reseted Successfully. Please Check your email for new Password.');
       }
       else{
@@ -57,5 +44,29 @@ class ForgotController extends Controller
       return response()->json(array('errors' => [ 0 => 'No Account Found With This Email.' ]));
       }
     }
+      public function sendDesignedEmail($to=null, $subject=null, $msg=null, $tagLine = null, $car =null) {
+     
+        if(isset($to)) {
+         $gs = Generalsetting::findOrFail(1);
+         if ($gs->is_smtp == 1) {
+             $data = array(
+                 'to' => $to,
+                 'subject' => $subject,
+                 'body' => $msg,
+                 'tagLine' => $tagLine,
+                 'car' => $car,
+                 'type' => 'new_user'
+             );
+             $this->geniusMail->sendDesignedMail($data);
+         } else {
+             $headers = "From: $gs->title <$gs->from_email> \r\n";
+             $headers .= "Reply-To: $gs->title <$gs->from_email> \r\n";
+             $headers .= "MIME-Version: 1.0\r\n";
+             $headers .= "Content-Type: text/html; charset=ISO-8859-1\r\n";
+             mail($to, $subject, $msg, $headers);
+           
+         }
+        }
+     }
 
 }

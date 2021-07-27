@@ -275,6 +275,9 @@
                             <li>
                                 <a href="{{ route('admin-payment-index') }}" class="wave-effect active"><i class="fas fa-money-check-alt"></i>Payment History</a>
                             </li>
+                            <li>
+                                <a href="{{ route('admin-coupon-index') }}" class="wave-effect active"><i class="fas fa-money-check-alt"></i>Coupon Code</a>
+                            </li>
                         </ul>
                     </nav>
                     <!-- Main Content Area Start -->
