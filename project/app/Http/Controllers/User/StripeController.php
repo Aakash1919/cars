@@ -69,6 +69,13 @@ class StripeController extends Controller {
         }
     }
 
+    public function getAllCoupons() {
+        $coupons = $this->stripe->coupons()->all();
+        foreach ($coupons['data'] as $coupon) {
+            var_dump($coupon['id']);
+        }
+    }
+
     public function createSubscription(Request $request) {
         $plan = Plan::find($request->plan_id);
         try {

@@ -4,12 +4,19 @@ namespace App\Http\Controllers\Admin;
 
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
+use App\Http\Controllers\User\StripeController;
 use App\Models\Payment;
 use App\Models\User;
 use Datatables;
 
 class CouponController extends Controller
 {
+    protected $stripeController;
+
+    public function __construct() {
+      $this->stripeController = new StripeController();
+    }
+
     //*** JSON Request
     public function datatables()
     {
@@ -38,6 +45,8 @@ class CouponController extends Controller
     //*** GET Request
     public function index()
     {
+        $coupons = $this->stripeController->getAllCoupons();
+        print_r($coupons);
         return view('admin.coupon.index');
     }
 }
