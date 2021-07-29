@@ -340,22 +340,6 @@ class CarController extends Controller
     //*** GET Request Delete
     public function destroy($id)
     {
-        $data = Car::findOrFail($id);
-
-        @unlink('assets/front/images/cars/featured/'.$ci->featured_image);
-        foreach ($data->car_images as $key => $ci) {
-          @unlink('assets/front/images/cars/featured/'.$ci->image);
-          $ci->delete();
-        }
-
-        $data->delete();
-        //--- Redirect Section
-        $msg = 'Data Deleted Successfully.';
-        return response()->json($msg);
-        //--- Redirect Section Ends
-    }
-
-    public function deleteCar(Request $request) {
       if($request->has('car_id')) {
         $car = Car::findOrFail($request->car_id);
         if($car->user_id==Auth::user()->id) {
@@ -365,6 +349,26 @@ class CarController extends Controller
           return response()->json($msg);
         }
       }
+       
+    }
+
+    public function deleteCar(Request $request) {
+      if ($request->has('car_id')) {
+        $data = Car::findOrFail($request->car_id);
+
+        @unlink('assets/front/images/cars/featured/'.$data->featured_image);
+        foreach ($data->car_images as $key => $ci) {
+          @unlink('assets/front/images/cars/featured/'.$ci->image);
+          $ci->delete();
+        }
+
+        $data->delete();
+        //--- Redirect Section
+        $msg = 'Data Deleted Successfully.';
+        return response()->json($msg);
+      }
+      
+        //--- Redirect Section Ends
     }
 
     //*** GET Request Status
