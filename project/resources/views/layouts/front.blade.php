@@ -79,6 +79,9 @@ gtag('config', '{{ $seo->google_analytics }}');
                                     <li class="nav-item">
                                         <a class="nav-link" href="/become-a-member">Become a Member</a>
                                     </li>
+                                    <li class="nav-item">
+                                        <a class="nav-link" href="https://www.revschecker.com.au/" target="_blank">Revs Checker</a>
+                                    </li>
                                 </ul>
                                 @auth
                                 <a href="{{ route('user.login-signup') }}"
@@ -123,11 +126,10 @@ gtag('config', '{{ $seo->google_analytics }}');
                                 Navigation
                             </h4>
                             <ul class="foot-list">
-                                <li><a href="#"><i class="fas fa-angle-right"></i> How It Works</a></li>
-                                <li><a href="#"><i class="fas fa-angle-right"></i> Rev Checks</a></li>
+                                <li><a href="https://www.revschecker.com.au/" target="_blank"><i class="fas fa-angle-right"></i> Rev Checker</a></li>
                                 <li><a href="/login"><i class="fas fa-angle-right"></i> Sign In </a></li>
                                 <li><a href="/register1"><i class="fas fa-angle-right"></i> Register</a></li>
-                                <li><a href="#"><i class="fas fa-angle-right"></i> Support</a></li>
+                                <li><a href="/support"><i class="fas fa-angle-right"></i> Support</a></li>
                                 <li><a href="/termsu/pages"><i class="fas fa-angle-right"></i> Terms & Conditions</a></li>
                                 <li><a href="/privacy/pages"><i class="fas fa-angle-right"></i> Privacy Policy</a></li>
                             </ul>
@@ -139,7 +141,7 @@ gtag('config', '{{ $seo->google_analytics }}');
                                 Support
                             </h4>
                             <ul class="foot-list">
-                                <li><a href="#"><i class="fas fa-envelope"></i> support@carsalvagesales.com</a></li>
+                                <li><a href="mailto:support@carsalvagesales.com.au"><i class="fas fa-envelope"></i> support@carsalvagesales.com.au</a></li>
                             </ul>
 
                             <div class="social-links">
@@ -280,7 +282,18 @@ function showTimer(auctiondate, mydiv) {
         </script>
         <!--Start of Tawk.to Script-->
         <script type="text/javascript">
+            @if (empty(Auth::user()->current_plan))
             var Tawk_API = Tawk_API || {}, Tawk_LoadStart = new Date();
+			@else
+			var Tawk_API=Tawk_API||{};
+                Tawk_API.visitor = {
+                name : '{{Auth::user()->username}}',
+                email : '{{Auth::user()->email}}'
+                };
+
+                var Tawk_LoadStart=new Date();
+			@endif
+            //var Tawk_API = Tawk_API || {}, Tawk_LoadStart = new Date();
             (function () {
                 var s1 = document.createElement("script"), s0 = document.getElementsByTagName("script")[0];
                 s1.async = true;

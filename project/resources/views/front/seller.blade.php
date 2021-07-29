@@ -173,7 +173,7 @@
                         </div>
                         <div class="media-body ml-5">
                             <h5 class="mt-0">End Anytime</h5>
-                            Whether you choose for your vehicle to be listed for 24hrs, 72hrs or 7days you a free to end your ad at any time. Again we recommend you allow your ad to run as long as possible cause you never know the next offer could be the best offer
+                            Whether you choose for your vehicle to be listed for 24hrs, 72hrs or 7days you are free to end your ad at any time. Again we recommend you allow your ad to run as long as possible cause you never know the next offer could be the best offer
                         </div>
                     </div>
                 </div>

@@ -26,6 +26,10 @@
         <link href="{{asset('assets/theme/assets/plugins/vectormap/jquery-jvectormap-2.0.2.css')}}" rel="stylesheet" />
         <link href="{{asset('assets/theme/assets/plugins/metismenu/css/metisMenu.min.css')}}" rel="stylesheet" />
 		<link href="{{asset('assets/theme/assets/plugins/Drag-And-Drop/dist/imageuploadify.min.css')}}" rel="stylesheet" />
+		<link rel="stylesheet" href="{{asset('assets/theme/assets/plugins/bootstrap-material-datetimepicker/css/bootstrap-material-datetimepicker.min.css')}}">
+		<link href="{{asset('assets/theme/assets/plugins/datetimepicker/css/classic.time.css')}}" rel="stylesheet" />
+		<link href="{{asset('assets/theme/assets/plugins/datetimepicker/css/classic.date.css')}}" rel="stylesheet" />
+		<link rel="stylesheet" href="https://ajax.googleapis.com/ajax/libs/jqueryui/1.12.1/themes/smoothness/jquery-ui.css">
         <!-- Sidemenu Css 
         <link href="{{asset('assets/admin/plugins/fullside-menu/css/dark-side-style.css')}}" rel="stylesheet" />
         <link href="{{asset('assets/admin/plugins/fullside-menu/waves.min.css')}}" rel="stylesheet" />
@@ -230,7 +234,8 @@
         <!-- Fullside-menu Js-->
         <script src="{{asset('assets/admin/plugins/fullside-menu/jquery.slimscroll.min.js')}}"></script>
         <script src="{{asset('assets/admin/plugins/fullside-menu/waves.min.js')}}"></script>
-
+		<script src="{{asset('assets/theme/assets/plugins/bootstrap-material-datetimepicker/js/moment.min.js')}}"></script>
+		<script src="{{asset('assets/theme/assets/plugins/bootstrap-material-datetimepicker/js/bootstrap-material-datetimepicker.min.js')}}"></script>
         <script src="{{asset('assets/admin/js/plugin.js')}}"></script>
         <script src="{{asset('assets/admin/js/Chart.min.js')}}"></script>
         <script src="{{asset('assets/admin/js/tag-it.js')}}"></script>

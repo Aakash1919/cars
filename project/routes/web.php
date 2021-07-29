@@ -216,7 +216,9 @@ Route::prefix('admin')->group(function() {
   //------------ ADMIN TRANSACTION LOG------------
   //------------ ADMIN Coupon Codes ------------
   Route::get('/coupon', 'Admin\CouponController@index')->name('admin-coupon-index');
-  Route::get('/coupon/datatables', 'Admin\CouponController@datatables')->name('admin-coupon-datatables');
+  Route::post('/coupon/create', 'Admin\CouponController@createCoupon')->name('admin.coupon.create');
+  Route::get('/coupon/delete', 'Admin\CouponController@deleteCoupon')->name('admin.coupon.delete');
+   Route::get('/coupon/retrieve', 'Admin\CouponController@retrieveCoupon')->name('admin.coupon.retrieve');
     //------------ ADMIN Coupon Codes ------------
 
   //------------ ADMIN GENERAL SETTINGS SECTION ------------
@@ -509,4 +511,7 @@ Route::get('/become-a-member', function(){
 });
 Route::get('/wholesaler', function(){
     return view('front.wholesaler');
+});
+Route::get('/support', function(){
+    return view('front.support');
 });

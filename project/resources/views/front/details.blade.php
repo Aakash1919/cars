@@ -10,18 +10,6 @@
                 <h1 class="pagetitle">
                     {{ $car->title }}
                 </h1>
-<!--                <ul class="pages">
-                    <li>
-                        <a href="{{ route('front.index') }}">
-                            {{ $langg->lang1 }}
-                        </a>
-                    </li>
-                    <li class="active">
-                        <a href="#">
-                            {{ $car->title }}
-                        </a>
-                    </li>
-                </ul>-->
             </div>
         </div>
     </div>
@@ -52,15 +40,43 @@
                             </div>
                             <div class="single-car-info">
                                 <div class="row">
-                                    <div class="col-md-3">
+                                    <div class="col-lg-3 col-6">
                                         <div class="media">
-                                            <img class="align-self-center mr-3" src="..." alt="Generic placeholder image">
+                                            <img class="align-self-center mr-3" src="{{ asset('assets/front/images/car-condition.png') }}" alt="Generic placeholder image">
                                             <div class="media-body">
-                                                <h5 class="mt-0">80,205 km</h5>
+                                                <h5 class="mt-0">{{ $car->condtion->name }}</h5>
+                                                <p class="mb-0">Condition</p>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="col-lg-3 col-6">
+                                        <div class="media">
+                                            <img class="align-self-center mr-3" src="{{ asset('assets/front/images/odometer.png') }}" alt="Generic placeholder image">
+                                            <div class="media-body">
+                                                <h5 class="mt-0">{{ $car->mileage }} km</h5>
                                                 <p class="mb-0">Odemeter</p>
                                             </div>
                                         </div>
                                     </div>
+                                    <div class="col-lg-3 col-6">
+                                        <div class="media">
+                                            <img class="align-self-center mr-3" src="{{ asset('assets/front/images/body-type.png') }}" alt="Generic placeholder image">
+                                            <div class="media-body">
+                                                <h5 class="mt-0">{{ $car->body_type->name }}</h5>
+                                                <p class="mb-0">Body Type</p>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="col-lg-3 col-6">
+                                        <div class="media">
+                                            <img class="align-self-center mr-3" src="{{ asset('assets/front/images/transmission.png') }}" alt="Generic placeholder image">
+                                            <div class="media-body">
+                                                <h5 class="mt-0">{{ $car->transmission_type->name }}</h5>
+                                                <p class="mb-0">Transmission</p>
+                                            </div>
+                                        </div>
+                                    </div>
+                                   
                                 </div>
                             </div>
                             <div class="single-car-details">
@@ -83,15 +99,11 @@
                                     @auth
                                     @if(Auth::user()->current_plan != 11)
                                     <div class="input-group mb-3">
-                                        <input type ="number" name="bid_price" id="bid_price" placeholder="Bid Price" class="form-control">
+                                        <input type ="number" name="bid_price" id="bid_price" placeholder="Bid Price" class="form-control" min="1">
                                         <div class="input-group-append">
                                             <button id = "bid" class="btn btn-custom" type="button">Bid</button>
                                         </div>
                                     </div>
-                                    <!--                                    <li id="bidArea">
-                                                                            <p><input type ="number" name="bid_price" id="bid_price" placeholder="Bid Price" class="form-control"></input></p>
-                                                                            <P><button id = "bid" class="btn btn-md btn-custom">Bid</button></P>
-                                                                        </li>-->
                                     <li>
                                         <div id="response" style="width:100%"></div>
                                     </li>
@@ -113,31 +125,51 @@
                                 <ul class="details-list">
                                     @if (!empty($car->category_id))
                                     <li>
-                                        <p class="label">{{ $langg->lang47 }}:</p>
+                                        <p class="label">Category:</p>
                                         <P>{{ $car->category->name }}</P>
                                     </li>
                                     @endif
-                                    <li>
-                                        <p class="label">{{ $langg->lang50 }}:</p>
+                                   <li>
+                                        <p class="label">Condition:</p>
                                         <p>{{ $car->condtion->name }}</p>
                                     </li>
                                     <li>
-                                        <p class="label">{{ $langg->lang52 }}:</p>
+                                        <p class="label">Year:</p>
                                         <p>{{ $car->year }}</p>
                                     </li>
-                                    <li>
-                                        <p class="label">ODOMETER:</p>
+                                   <li>
+                                        <p class="label">Odometer:</p>
                                         <p>{{ $car->mileage }}</p>
                                     </li>
                                     <li>
-                                        <p class="label">{{ $langg->lang54 }}:</p>
+                                        <p class="label">Engine Number:</p>
+                                        <p>{{ $car->enginenumber }}</p>
+                                    </li>
+                                    <li>
+                                        <p class="label">VIN Number:</p>
+                                        <p>{{ $car->chassis }}</p>
+                                    </li>
+                                    <li>
+                                        <p class="label">Car Key:</p>
+                                        <?php
+                                          $key = $car->car_key;
+                                          if($key==0){
+                                              $key_status = "No";
+                                          }else{
+                                            $key_status = "Yes";
+                                          }
+                                        ?>
+                                        <p>{{ $key_status  }}</p>
+                                    </li>
+                                    <li>
+                                        <p class="label">Brand Name:</p>
                                         <p>{{ $car->brand->name }}</p>
                                     </li>
                                     <li>
-                                        <p class="label">{{ $langg->lang55 }}:</p>
+                                        <p class="label">Model:</p>
                                         <p>{{ $car->brand_model->name }}</p>
                                     </li>
-                                    @if(!empty($car->body_type_id))
+                                   @if(!empty($car->body_type_id))
                                     <li>
                                         <p class="label">{{ $langg->lang56 }}:</p>
                                         <p>{{ $car->body_type->name }}</p>
@@ -149,15 +181,15 @@
                                         <p>{{ $car->fuel_type->name }}</p>
                                     </li>
                                     @endif
-                                    @if(!empty($car->transmission_type_id))
+                                   @if(!empty($car->transmission_type_id))
                                     <li>
-                                        <p class="label">{{ $langg->lang58 }}:</p>
+                                        <p class="label">Transmission:</p>
                                         <p>{{ $car->transmission_type->name }}</p>
                                     </li>
                                     @endif
                                     @if(!empty($car->cylender))
                                     <li>
-                                        <p class="label">CYLINDERS:</p>
+                                        <p class="label">Cylinders:</p>
                                         <p>{{ $car->cylender }}</p>
                                     </li>
                                     @endif 
@@ -169,7 +201,7 @@
                                     @if(is_array($labels))
                                     @for ($i=0; $i < count($labels); $i++)
                                     <li>
-                                        <p class="label" style="text-transform:Uppercase!important;">{{ $labels[$i] }}:</p>
+                                        <p class="label" style="text-transform:Capitalize!important;">{{ $labels[$i] }}:</p>
                                         <p>{{ $values[$i] }}</p>
                                     </li>
                                     @endfor
@@ -242,6 +274,10 @@
 
 		$('#bid').on('click', function() {
 			var price =$('#bid_price').val();
+            if(price=='0'){
+                alert("Please bid more then 0 ");
+                return false;
+            }
 			var csrf = '{{csrf_token()}}'
 			var car= {{$car->id}}
 			if(price && car) {
@@ -260,12 +296,5 @@
 		})
 	</script>	
 @endif
-<script type="text/javascript">
-	var lat = {{ $car->user->latitude }};
-	var long = {{ $car->user->longitude }};
-	var address = "{{ $car->user->address }}";
-	var mapicon = "{{ asset('assets/front/images/map-marker.png') }}";
-</script>
-<script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyC7eALQrRUekFNQX71IBNkxUXcz-ALS-MY&sensor=false"></script>
-<script src="{{ asset('assets/front/js/map.js') }}"></script>
+
 @endsection

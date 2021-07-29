@@ -26,7 +26,8 @@
                      <thead>
                         <tr>
                            <th>Car</th>
-                           <th>User</th>
+                           <th>Email</th>
+                           <th>Phone</th>
                            <th>Price</th>
                            <th>Created</th>
                            <th>Updated</th>
@@ -108,6 +109,10 @@
           {
               data: 'user',
               name: 'user'
+          },
+          {
+              data: 'phone',
+              name: 'phone'
           },
           {
               data: 'price',

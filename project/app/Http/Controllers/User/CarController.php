@@ -132,8 +132,8 @@ class CarController extends Controller
         'brand_model_id' => 'required',
         'condtion_id' => 'required',
         'description' => 'required',
-        'year' => 'required|integer',
-        'mileage' => 'required|numeric',
+        'year' => 'required',
+        //'mileage' => 'required|numeric',
         'label.*' => 'required',
         'auction_time' => 'required',
         'value.*' => 'required',
@@ -249,9 +249,9 @@ class CarController extends Controller
         'brand_model_id' => 'required',
         'condtion_id' => 'required',
         'description' => 'required',
-        'year' => 'required|integer',
+        'year' => 'required',
         'auction_time' => 'required',
-        'mileage' => 'required|numeric',
+        //'mileage' => 'required|numeric',
         'label.*' => 'required',
         'value.*' => 'required',
       ];
@@ -375,8 +375,11 @@ class CarController extends Controller
                             return '<strong>'.$title.'</strong>';
                         })
                         ->editColumn('user', function(Bid $data) {
-                            return $data->status==1 ? '<span>'.$data->user->email.'</span>' : '****.com';
+                            return $data->status==1 ? '<span>'.$data->user->email.'</span>' : '<span>'.$data->user->email.'</span>';
                         })
+                        ->editColumn('phone', function(Bid $data) {
+                          return $data->user->phone;
+                      })
                         ->editColumn('price', function(Bid $data) {
                           return '<span>$'.$data->bid_price.'</span>';
                         })

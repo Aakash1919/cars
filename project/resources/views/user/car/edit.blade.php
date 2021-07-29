@@ -125,10 +125,15 @@
                                             <input type="text" class="form-control" id="chassis" name="chassis"
                                                    placeholder="VIN/Chassis" value="{{ $car->chassis }}">
                                         </div>
+                                        <div class="col-md-12">
+                                                <label for="enginenumber" class="form-label">Engine Number</label>
+                                                <input type="text" class="form-control" id="enginenumber" name="enginenumber"
+                                                    placeholder="Engine Number" value="{{ $car->enginenumber }}">
+                                            </div>
                                         <div class="col-md-6">
                                             <label for="year" class="form-label">{{ $langg->lang112 }} *</label>
-                                            <input type="number" class="form-control" id="year" name="year"
-                                                   placeholder="e.g. 1999" min="1990" value="{{ $car->year }}">
+                                            <input type="text" class="form-control" id="year" name="year"
+                                                   placeholder="mm-yyyy"  value="{{ $car->year }}">
                                         </div>
                                         <div class="col-md-6">
                                             <label for="wovr_option" class="form-label">Is The Vehicle Listed On WOVR
@@ -224,7 +229,7 @@
                                             <label for="auction_time" class="form-label">{{ $langg->lang183 }}
                                             </label>
                                             <select class="form-control" name="auction_time" id="auction_time">
-                                                <option value="" selected>{{ $langg->lang184 }}</option>
+                                                
                                                 <option value="{{ \Crypt::encrypt(1) }}"
                                                         {{ $car->auction_time == 1 ? 'selected' : '' }}>
                                                     {{ $langg->lang185 }}</option>
@@ -398,5 +403,17 @@
     $(document).ready(function () {
         $('#summernote').summernote({height: 150});
     });
+    $(function() {
+        $('#year').datepicker( {
+            changeMonth: true,
+            changeYear: true,
+            yearRange: "-70:+0",
+            showButtonPanel: true,
+            dateFormat: 'mm - yy',
+            onClose: function(dateText, inst) { 
+                $(this).datepicker('setDate', new Date(inst.selectedYear, inst.selectedMonth, 1));
+            }
+        });
+});
 </script>
 @endsection

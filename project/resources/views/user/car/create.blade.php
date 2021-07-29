@@ -98,8 +98,7 @@
                                                 </select>
                                             </div>
                                             <div class="col-md-6">
-                                                <label for="mileage" class="form-label">{{ $langg->lang113 }} (km or Unknown)
-                                                    *</label>
+                                                <label for="mileage" class="form-label">{{ $langg->lang113 }} (km or Unknown)</label>
                                                 <input type="bumber" class="form-control" id="mileage" name="mileage"
                                                     placeholder="1234">
                                             </div>
@@ -109,10 +108,15 @@
                                                 <input type="text" class="form-control" id="chassis" name="chassis"
                                                     placeholder="VIN/Chassis">
                                             </div>
+                                            <div class="col-md-12">
+                                                <label for="enginenumber" class="form-label">Engine Number</label>
+                                                <input type="text" class="form-control" id="enginenumber" name="enginenumber"
+                                                    placeholder="Engine Number">
+                                            </div>
                                             <div class="col-md-6">
                                                 <label for="year" class="form-label">{{ $langg->lang112 }}*</label>
-                                                <input type="number" class="form-control" id="year" name="year"
-                                                    placeholder="e.g. 1999" min="1990">
+                                                <input type="text" class="form-control" id="year" name="year"
+                                                    placeholder="mm-yyyy" >
                                             </div>
                                             <div class="col-md-6">
                                                 <label for="wovr_option" class="form-label">Is The Vehicle Listed On WOVR
@@ -310,6 +314,7 @@
                     if(r.status==1){
                    
                     var ResponseMessage = '<div class="alert alert-success" role="alert">'+ r.message +'</div>';  
+                    window.location.replace("{{ route('user.car.index')}}");
                     }else{
                         var messages= "";
                         $.each( r.message, function( key, value ) {
@@ -402,5 +407,22 @@
         $(document).ready(function() {
         $('#summernote').summernote({ height: 150});
         });
-    </script>
+        $(function() {
+        $('#year').datepicker( {
+            changeMonth: true,
+            changeYear: true,
+            yearRange: "-70:+0",
+            showButtonPanel: true,
+            dateFormat: 'mm - yy',
+            onClose: function(dateText, inst) { 
+                $(this).datepicker('setDate', new Date(inst.selectedYear, inst.selectedMonth, 1));
+            }
+        });
+});
+	</script>
+<style>
+    .ui-datepicker-calendar {
+    display: none;
+    }
+</style>
 @endsection

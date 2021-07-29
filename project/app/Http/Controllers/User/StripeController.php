@@ -70,10 +70,43 @@ class StripeController extends Controller {
     }
 
     public function getAllCoupons() {
-        $coupons = $this->stripe->coupons()->all();
-        foreach ($coupons['data'] as $coupon) {
-            var_dump($coupon['id']);
+        return $this->stripe->coupons()->all();
+    }
+    
+    public function createCoupons($request) {
+        if($request->has('name') && $request->has('duration') && $request->has('percentage')) {
+             $coupon = $this->stripe->coupons()->create([
+                'name'          => $request->name,
+                'duration'    => $request->duration,
+                'percent_off' => $request->percentage,
+            ]);
+             return response()->json(array('status' => 200, 'success' => 'Coupon Created Successfully'));
         }
+        return response()->json(array('status' => 400, 'success' => 'Error came while creating coupon'));
+    }
+
+    public function updateCoupons($request) {
+        //  if($request->has('code') && $request->has('duration') && $request->has('percentage')) {
+        //      $coupon = $this->stripe->coupons()->update($request->code, [
+        //         'duration'    => $request->duration,
+        //         'percent_off' => $request->percentage,
+        //     ]);
+        //      return response()->json(array('status' => 200, 'success' => 'Coupon Updated Successfully'));
+        // }
+        // return response()->json(array('status' => 400, 'success' => 'Error came while updating coupon'));
+    }
+    
+    public function deleteCoupon($request) {
+        if($request->has('coupon')){
+           return $this->stripe->coupons()->delete($request->coupon);
+        }
+    }
+
+    public function retrieveCoupon($request) {
+         if($request->has('coupon')){
+           $data = $this->stripe->coupons()->find($request->coupon);
+           return response()->json(array('status' => 200, 'data'=> $data)); 
+         }
     }
 
     public function createSubscription(Request $request) {

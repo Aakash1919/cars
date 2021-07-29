@@ -4419,18 +4419,41 @@ h2.custom-title{
     padding: 70px 0;
 }
 .img-area{
-    height: 230px;
+    height: 220px;
     overflow: hidden; 
     background: #f6f6f6;
 }
 .img-area img{
     max-width: 100%;
-    width: auto!Important;
     height: 100%;
     margin: 0 auto;
     object-fit: cover;
 }
 .latest-post .car-info-box{
     margin-bottom: 30px;
+}
+.sw-theme-dots>.nav::before {
+    height: 1px!important;
+    background-color: #ddd!important;
+}
+.single-car-info{
+    margin-top: 30px;
+    border-bottom: 1px solid #ddd;
+    padding-bottom: 30px;
+}
+.single-car-info h5{
+    font-size: 16px;
+    font-weight: 600;
+    margin: 0;
+}
+.container {
+    max-width: 1200px;
+}
+.custom-card-register label a{
+    color: #01ae4f;
+}
+.custom-card-register iframe{
+    padding-top: 15px!important;
+    height: 45px!important;
 }
 /*SWE added css end*/
