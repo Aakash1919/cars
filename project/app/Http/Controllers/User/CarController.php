@@ -443,9 +443,9 @@ class CarController extends Controller
         }
         $senderEmail = User::where('id', $car->user_id)->first()->email;
         // $simCars = Car::where('category_id', $car->category_id)->where('status', 1)->where('admin_status', 1)->limit(1)->get();
-        $senderSubject = 'CarSalvageSales : Send an Offer';
+        $senderSubject = 'CarSalvageSales : Recieved an Offer';
         // $senderMsg = "CONGRATULATIONS!!!<br><br>";
-        $senderMsg = 'Your offer of $ '.$request->price.' for '.$car->title.' has been successfully sent, here are some more vehicles we have found you may be interested in.';
+        $senderMsg = 'You\'ve received an offer of $ '.$request->price.' for '.$car->title.', You can view all offers and buyers details on your dashboard by logging into your CarSalvageSales.com account. ';
         // foreach($simCars as $simCar => $simValue) {
         //  $senderMsg.=" <a href='".env('APP_URL')."/details/".$simValue->id."'><img src=".env('APP_URL').'/assets/front/images/cars/featured/'.$simValue->featured_image." alt=''></a>";
         // }
@@ -453,9 +453,9 @@ class CarController extends Controller
         $this->sendDesignedEmail($senderEmail, $senderSubject, $senderMsg, 'Congratulations!!!', $car);
 
         $receiverEmail = User::where('id', $isExisting->user_id)->first()->email;
-        $receiverSubject = 'CarSalvageSales : Recieved an Offer';
+        $receiverSubject = 'CarSalvageSales : Send an Offer';
         // $receiverMsg = "CONGRATULATIONS!!!<br><br>";
-        $receiverMsg = 'You\'ve received an offer of $ '.$request->price.' for '.$car->title.', You can view all offers and buyers details on your dashboard by logging into your CarSalvageSales.com account. ';
+        $receiverMsg = 'Your offer of $ '.$request->price.' for '.$car->title.' has been successfully sent, here are some more vehicles we have found you may be interested in.';
         // $receiverMsg.='<br><br>From<br>CarSalvageSales.com';
         $this->sendDesignedEmail($receiverEmail, $receiverSubject, $receiverMsg, 'Congratulations!!!', $car);
 
