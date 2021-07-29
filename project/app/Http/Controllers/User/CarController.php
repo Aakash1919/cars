@@ -44,9 +44,9 @@ class CarController extends Controller
     public function datatables(Request $request)
     {
          if ($request->type == 'featured') {
-           $datas = Car::where('user_id', Auth::user()->id)->where('featured', 1)->orderBy('id','desc')->get();
+           $datas = Car::where('user_id', Auth::user()->id)->where('featured', 1)->where('admin_status','!=', 0)->orderBy('id','desc')->get();
          } else {
-           $datas = Car::where('user_id', Auth::user()->id)->orderBy('id','desc')->get();
+           $datas = Car::where('user_id', Auth::user()->id)->where('admin_status','!=', 0)->orderBy('id','desc')->get();
          }
 
          $data = DB::table('languages')->where('is_default','=',1)->first();
@@ -86,7 +86,7 @@ class CarController extends Controller
                           ->addColumn('action', function(Car $data) use ($langgg) {
                               $view = isset($data->is_auction) && $data->is_auction==1 ? '<a href="' . route('user.car.bids',$data->id) . '" class="edit btn btn-info btn-sm px-2" title="View Bids"><i class="fas fa-eye"></i>Bids</a>' : '';
                                
-                              return '<div class="action-list"><a href="' . route('user.car.edit',$data->id) . '" class="edit btn btn-primary btn-sm px-2"> <i class="fas fa-edit"></i>Edit</a>&nbsp;'.$view.'&nbsp;<a href="javascript:;" data-href="' . route('user.car.delete',$data->id) . '" data-toggle="modal" data-target="#confirm-delete" class="delete btn btn-primary px-5btn btn-danger btn-sm px-2"><i class="fas fa-trash-alt"></i>Delete</a></div>';
+                              return '<div class="action-list"><a href="' . route('user.car.edit',$data->id) . '" class="edit btn btn-primary btn-sm px-2"> <i class="fas fa-edit"></i>Edit</a>&nbsp;'.$view.'&nbsp;<a href="javascript:;" data-val="'.$data->id . '" data-toggle="modal" data-target="#confirm-delete" class="deleteCar btn btn-primary px-5btn btn-danger btn-sm px-2"><i class="fas fa-trash-alt"></i>Delete</a></div>';
                           })
                           ->rawColumns(['title', 'brand', 'model', 'featured', 'status','action'])
                           ->toJson(); //--- Returning Json Data To Client Side
@@ -189,11 +189,21 @@ class CarController extends Controller
         if(isset($response) && $response->status==400) {
               return response()->json($response->errors. ' Please complete your profile to proceed further <a href="'.route('user.profile').'" target="_blank">Click Here</a>');
         }else {
-          $payment->plan_id = $boughtPlan->id;
-          $payment->user_id = Auth::user()->id;
-          $payment->car_id = $car->id;
-          $payment->amount = $boughtPlan->listing_price;
-          $payment->save();
+          $userCarCount = Car::where('user_id', Auth::user()->id)->count();
+          if($userCarCount==0 && $request->promotion_code=='NEW001') {
+            $payment->plan_id = $boughtPlan->id;
+            $payment->user_id = Auth::user()->id;
+            $payment->car_id = $car->id;
+            $payment->amount = 0;
+            $payment->save();
+          }else {
+            $payment->plan_id = $boughtPlan->id;
+            $payment->user_id = Auth::user()->id;
+            $payment->car_id = $car->id;
+            $payment->amount = $boughtPlan->listing_price;
+            $payment->save();
+          }
+         
 
           $notification->user_id =  Auth::user()->id;
           $notification->message =  $request->title.' listed and You are charged '.$boughtPlan->listing_price;
@@ -345,6 +355,18 @@ class CarController extends Controller
         //--- Redirect Section Ends
     }
 
+    public function deleteCar(Request $request) {
+      if($request->has('car_id')) {
+        $car = Car::findOrFail($request->car_id);
+        if($car->user_id==Auth::user()->id) {
+          $car->admin_status = 0;
+          $car->update();
+          $msg = 'Car Deleted Successfully.';
+          return response()->json($msg);
+        }
+      }
+    }
+
     //*** GET Request Status
     public function status($id1,$id2)
     { 
@@ -423,7 +445,7 @@ class CarController extends Controller
         // $simCars = Car::where('category_id', $car->category_id)->where('status', 1)->where('admin_status', 1)->limit(1)->get();
         $senderSubject = 'CarSalvageSales : Send an Offer';
         // $senderMsg = "CONGRATULATIONS!!!<br><br>";
-        $senderMsg = 'Your offer of $'.$request->price.' for '.$car->title.' has been successfully sent, here are some more vehicles we have found you may be interested in.';
+        $senderMsg = 'Your offer of $ '.$request->price.' for '.$car->title.' has been successfully sent, here are some more vehicles we have found you may be interested in.';
         // foreach($simCars as $simCar => $simValue) {
         //  $senderMsg.=" <a href='".env('APP_URL')."/details/".$simValue->id."'><img src=".env('APP_URL').'/assets/front/images/cars/featured/'.$simValue->featured_image." alt=''></a>";
         // }
@@ -433,7 +455,7 @@ class CarController extends Controller
         $receiverEmail = User::where('id', $isExisting->user_id)->first()->email;
         $receiverSubject = 'CarSalvageSales : Recieved an Offer';
         // $receiverMsg = "CONGRATULATIONS!!!<br><br>";
-        $receiverMsg = 'You\'ve received an offer of $'.$request->price.' for '.$car->title.', You can view all offers and buyers details on your dashboard by logging into your CarSalvageSales.com account. ';
+        $receiverMsg = 'You\'ve received an offer of $ '.$request->price.' for '.$car->title.', You can view all offers and buyers details on your dashboard by logging into your CarSalvageSales.com account. ';
         // $receiverMsg.='<br><br>From<br>CarSalvageSales.com';
         $this->sendDesignedEmail($receiverEmail, $receiverSubject, $receiverMsg, 'Congratulations!!!', $car);
 

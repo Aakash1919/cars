@@ -95,8 +95,8 @@ class GeniusMailer
         if(isset($mailData['car'])) {
             $centralContent = preg_replace("/{carImage}/",env('APP_URL') . '/assets/front/images/cars/featured/' . $mailData['car']->featured_image ,$centralContent);
             $centralContent = preg_replace("/{carTitle}/",$mailData['car']->title ,$centralContent);
-            $centralContent = preg_replace("/{carMileage}/",$mailData['car']->mileage ,$centralContent);
-            $centralContent = preg_replace("/{carYear}/",$mailData['car']->year ,$centralContent);
+            $centralContent = preg_replace("/{carMileage}/",$mailData['car']->mileage ?? 'N/A' ,$centralContent);
+            $centralContent = preg_replace("/{carYear}/",$mailData['car']->year ?? 'N/A' ,$centralContent);
         }
        
         $centralContent = preg_replace("/{footer}/",$footerBody ,$centralContent);
@@ -104,7 +104,6 @@ class GeniusMailer
         $data = [
             'email_body' => $centralContent
         ];
-
         $objDemo = new \stdClass();
         $objDemo->to = $mailData['to'];
         $objDemo->from = $setup->from_email;

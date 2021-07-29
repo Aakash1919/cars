@@ -176,9 +176,9 @@ class StripeController extends Controller {
         return $card['id'] ?? null;
     }
 
-    public function createStripeSubscription($customerId = null, $planId = null) {
+    public function createStripeSubscription($customerId = null, $planId = null, $coupon = null) {
         if(isset($customerId) && isset($planId)) {
-            $subscription = $this->stripe->subscriptions()->create($customerId, ['items' => [['price' => $planId]]]);
+            $subscription = $this->stripe->subscriptions()->create($customerId, ['items' => [['price' => $planId]], 'coupon' => $coupon]);
             if(Auth::user()) {
                 $user = Auth::user();
                 $user->stripe_subscription_id = $subscription['id'] ?? null;

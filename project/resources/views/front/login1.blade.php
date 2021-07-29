@@ -186,6 +186,11 @@
                                                         <option value="dealer">Dealer</option>
                                                     </select>
                                                 </div>
+                                                <div class="col-lg-6">
+                                                    <label for="coupon" class="form-label">Promotion Code</label>
+                                                    <input type="text" class="form-control border-start-0" id="coupon"
+                                                           name="coupon" placeholder="Coupon Code" value="" />
+                                                </div>
                                                 <div class="show-business col-lg-12" style="display:none">
                                                     <div class="row">
                                                         <div class="col-lg-4">

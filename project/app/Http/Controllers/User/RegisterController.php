@@ -141,7 +141,7 @@ class RegisterController extends Controller
                 $temporaryUser->stripe_customer_id = $customerId;
                 if ($request->plan!=="11") {
                     $plan = Plan::find($request->plan);
-                    $subscriptionId = $this->stripeController->createStripeSubscription($customerId, $plan->stripe_plan_id);
+                    $subscriptionId = $this->stripeController->createStripeSubscription($customerId, $plan->stripe_plan_id, $request->coupon);
                     $temporaryUser->stripe_subscription_id = $subscriptionId['id'];
                     
                     $notification = new Notifications;
