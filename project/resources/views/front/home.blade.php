@@ -48,7 +48,7 @@
                                 </li>
                                 <li>
                                     <div class="car-make">
-                                        <input type="number" class="form-control" value="" placeholder="Enter Year" min="2015" name="year_from">
+                                        <input type="number" class="form-control" value="" placeholder="Enter Year" min="1950" name="year_from">
                                     </div>
                                 </li>
                                 <li>
